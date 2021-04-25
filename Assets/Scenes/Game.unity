@@ -130,6 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1296629577744321635, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296629577744321635, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367282223715270173, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367282223715270173, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
       propertyPath: m_Name
       value: Tower
@@ -1559,6 +1575,18 @@ PrefabInstance:
     - target: {fileID: 3086778585194508903, guid: 248fea68d72a50b45b6dada67647eeff, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117772839769718040, guid: 248fea68d72a50b45b6dada67647eeff, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086833146023303260, guid: 248fea68d72a50b45b6dada67647eeff, type: 3}
+      propertyPath: Speed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086833146023303260, guid: 248fea68d72a50b45b6dada67647eeff, type: 3}
+      propertyPath: Health
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248fea68d72a50b45b6dada67647eeff, type: 3}

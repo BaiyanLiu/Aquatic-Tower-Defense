@@ -7,9 +7,15 @@ namespace Assets.Scripts.Tower
     {
         public GameObject Projectile;
 
+        private Base _base;
+
         private readonly List<GameObject> _enemies = new List<GameObject>();
         private float _attackTimer;
 
+        private void Start()
+        {
+            _base = GetComponent<Base>();
+        }
 
         private void FixedUpdate()
         {
@@ -17,7 +23,7 @@ namespace Assets.Scripts.Tower
             if (_attackTimer < 0)
             {
                 AttackEnemy();
-                _attackTimer = GetComponent<Base>().AttackSpeed;
+                _attackTimer = _base.AttackSpeed;
             }
         }
 
@@ -27,7 +33,8 @@ namespace Assets.Scripts.Tower
             {
                 var projectile = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Projectile>();
                 projectile.Target = _enemies[0];
-                projectile.Speed = GetComponent<Base>().ProjectileSpeed;
+                projectile.Damage = _base.Damage;
+                projectile.Speed = _base.ProjectileSpeed;
             }
         }
 

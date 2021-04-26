@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1296629577744321635}
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Tower_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 3770581399031461661}
   - component: {fileID: 3770581399031461662}
   - component: {fileID: 1367282223715270173}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Tower_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3770581399121130390}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}

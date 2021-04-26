@@ -35,7 +35,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Towers
   - Walls
   m_SortingLayers:
   - name: Default

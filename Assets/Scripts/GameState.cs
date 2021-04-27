@@ -14,11 +14,25 @@ namespace Assets.Scripts
         public GameObject StartPosition;
         public GameObject EndPosition;
 
-        public Stack<Vector2> Path;
+        public GameObject Enemy;
+
+        public Stack<Vector2> Path { get; private set; }
+
+        private float _createEnemyTimer;
 
         private void Start()
         {
             Path = ShortestPath(StartPosition.transform.position, EndPosition.transform.position);
+        }
+
+        private void Update()
+        {
+            _createEnemyTimer -= Time.deltaTime;
+            if (_createEnemyTimer <= 0f)
+            {
+                Instantiate(Enemy, CreatePosition.transform.position, Quaternion.identity);
+                _createEnemyTimer = 1f;
+            }
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -26,7 +40,7 @@ namespace Assets.Scripts
             return gameObject.scene.GetRootGameObjects().First(o => o.name == "Main Camera").GetComponent<GameState>();
         }
 
-        protected Stack<Vector2> ShortestPath(Vector2 from, Vector2 to)
+        private Stack<Vector2> ShortestPath(Vector2 from, Vector2 to)
         {
             var dist = new Dictionary<Vector2, int>();
             var score = new Dictionary<Vector2, float>();

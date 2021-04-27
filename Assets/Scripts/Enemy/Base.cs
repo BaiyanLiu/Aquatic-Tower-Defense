@@ -5,6 +5,8 @@ namespace Assets.Scripts.Enemy
 {
     public class Base : MonoBehaviour
     {
+        public event EventHandler<GameObject> OnDie;
+
         public float MaxHealth { get; private set; } = 100f;
         public float Health { get; private set; } = 100f;
         public float Speed { get; private set; } = 0.05f;
@@ -26,6 +28,7 @@ namespace Assets.Scripts.Enemy
             if (Health <= 0)
             {
                 _animator.SetBool("Dead", true);
+                OnDie?.Invoke(this, gameObject);
             }
         }
     }

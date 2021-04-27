@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -29,10 +31,11 @@ namespace Assets.Scripts.Tower
 
         private void AttackEnemy()
         {
-            if (_enemies.Count > 0)
+            var enemy = _enemies.FirstOrDefault();
+            if (enemy != null)
             {
                 var projectile = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Projectile>();
-                projectile.Target = _enemies[0];
+                projectile.Target = enemy;
                 projectile.Damage = _base.Damage;
                 projectile.Speed = _base.ProjectileSpeed;
             }
@@ -40,15 +43,19 @@ namespace Assets.Scripts.Tower
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.name == "Enemy")
+            if (collision.name.StartsWith("Enemy"))
             {
                 _enemies.Add(collision.gameObject);
+                collision.gameObject.GetComponent<Enemy.Base>().OnDie += (sender, args) =>
+                {
+                    _enemies.Remove(args);
+                };
             }
         }
-
+        
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.name == "Enemy")
+            if (collision.name.StartsWith("Enemy"))
             {
                 _enemies.Remove(collision.gameObject);
             }

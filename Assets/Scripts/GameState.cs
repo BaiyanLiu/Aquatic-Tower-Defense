@@ -16,7 +16,7 @@ namespace Assets.Scripts
 
         public GameObject Enemy;
 
-        public Stack<Vector2> Path { get; private set; }
+        public List<Vector2> Path { get; private set; }
 
         private float _createEnemyTimer;
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts
             return gameObject.scene.GetRootGameObjects().First(o => o.name == "Main Camera").GetComponent<GameState>();
         }
 
-        private Stack<Vector2> ShortestPath(Vector2 from, Vector2 to)
+        private List<Vector2> ShortestPath(Vector2 from, Vector2 to)
         {
             var dist = new Dictionary<Vector2, int>();
             var score = new Dictionary<Vector2, float>();
@@ -70,7 +70,7 @@ namespace Assets.Scripts
                         path.Push(curr);
                         if (from == cameFrom[curr])
                         {
-                            return path;
+                            return CollapsePath(path);
                         }
                         curr = cameFrom[curr];
                     }
@@ -95,12 +95,44 @@ namespace Assets.Scripts
                 }
             }
 
-            return new Stack<Vector2>(new[] {Vector2.zero});
+            return new List<Vector2> {Vector2.zero};
         }
 
         private int Dist(Vector2 from, Vector2 to)
         {
             return Math.Abs((int) (from.x - to.x)) + Math.Abs((int) (from.y - to.y));
+        }
+
+        private List<Vector2> CollapsePath(Stack<Vector2> path)
+        {
+            var newPath = new List<Vector2>();
+
+            var collapsedItem = path.Pop();
+            var dir = collapsedItem - (Vector2) transform.position;
+            var collapseX = Math.Abs(dir.y) > 0.1f;
+            var collapseY = Math.Abs(dir.x) > 0.1f;
+
+            foreach (var item in path)
+            {
+                if (Math.Abs(item.x - collapsedItem.x) < 0.1f && collapseX)
+                {
+                    collapsedItem.y = item.y;
+                }
+                else if (Math.Abs(item.y - collapsedItem.y) < 0.1f && collapseY)
+                {
+                    collapsedItem.x = item.x;
+                }
+                else
+                {
+                    newPath.Add(collapsedItem);
+                    collapsedItem = item;
+                    collapseX = !collapseX;
+                    collapseY = !collapseY;
+                }
+            }
+            newPath.Add(collapsedItem);
+
+            return newPath;
         }
 
         private bool IsValid(Vector2 pos, Vector2 dir)

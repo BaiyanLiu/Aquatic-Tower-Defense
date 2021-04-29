@@ -108,7 +108,7 @@ namespace Assets.Scripts
             var newPath = new List<Vector2>();
 
             var collapsedItem = path.Pop();
-            var dir = collapsedItem - (Vector2) transform.position;
+            var dir = collapsedItem - (Vector2) StartPosition.transform.position;
             var collapseX = Math.Abs(dir.y) > 0.1f;
             var collapseY = Math.Abs(dir.x) > 0.1f;
 

@@ -7,7 +7,7 @@ namespace Assets.Scripts
 {
     public class GameState : MonoBehaviour
     {
-        private static readonly Vector2Int LevelSize = new Vector2Int(14, 8);
+        public static readonly Vector2Int LevelSize = new Vector2Int(14, 8);
 
         public GameObject CreatePosition;
         public GameObject DestroyPosition;

@@ -29,7 +29,7 @@ namespace Assets.Scripts.Tower
             }
 
             _attackTimer -= Time.deltaTime;
-            if (_attackTimer < 0)
+            if (_attackTimer < 0 && _target != null)
             {
                 AttackEnemy();
                 _attackTimer = _base.AttackSpeed;
@@ -38,13 +38,10 @@ namespace Assets.Scripts.Tower
 
         private void AttackEnemy()
         {
-            if (_target != null)
-            {
-                var projectile = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Projectile>();
-                projectile.Target = _target;
-                projectile.Damage = _base.Damage;
-                projectile.Speed = _base.ProjectileSpeed;
-            }
+            var projectile = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Projectile>();
+            projectile.Target = _target;
+            projectile.Damage = _base.Damage;
+            projectile.Speed = _base.ProjectileSpeed;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

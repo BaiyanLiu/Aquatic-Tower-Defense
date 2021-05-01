@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace Assets.Scripts
         public static readonly Vector2Int LevelSize = new Vector2Int(14, 8);
 
         public GameObject WavesParent;
+        public GameObject EnemiesParent;
 
         public GameObject CreatePosition;
         public GameObject DestroyPosition;
@@ -17,33 +17,14 @@ namespace Assets.Scripts
         public GameObject EndPosition;
 
         public List<Vector2> Path { get; private set; }
-        public bool IsStarted { get; set; }
+        public bool IsWaveActive => _waves[_currWave].IsActive || EnemiesParent.transform.childCount > 0;
 
         private Wave[] _waves;
-        private int _currEnemy;
-        private float _createEnemyTimer;
+        private int _currWave;
 
         private void Start()
         {
             _waves = WavesParent.GetComponentsInChildren<Wave>();
-        }
-
-        private void Update()
-        {
-            if (!IsStarted)
-            {
-                return;
-            }
-            _createEnemyTimer -= Time.deltaTime;
-            if (_createEnemyTimer <= 0f)
-            {
-                Instantiate(_waves[0].Enemies[_currEnemy++], CreatePosition.transform.position, Quaternion.identity);
-                if (_currEnemy == _waves[0].Enemies.Length)
-                {
-                    IsStarted = false;
-                }
-                _createEnemyTimer = 1f;
-            }
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -53,135 +34,17 @@ namespace Assets.Scripts
 
         public void StartWave()
         {
-            if (!IsStarted)
+            if (!IsWaveActive)
             {
-                Path = ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
-                _currEnemy = 0;
-                IsStarted = true;
+                Path = PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
+                _currWave = (_currWave + 1) % _waves.Length;
+                _waves[_currWave].StartWave();
             }
         }
 
         public bool HasPath(Vector2 exclude)
         {
-            return ShortestPath(StartPosition.transform.position, EndPosition.transform.position, exclude).Count > 0;
-        }
-
-        private List<Vector2> ShortestPath(Vector2 from, Vector2 to, Vector2 exclude)
-        {
-            exclude = Vector2Int.RoundToInt(exclude);
-            var nodes = new List<Vector2> {Vector2Int.RoundToInt(to)};
-            for (var x = -LevelSize.x; x <= LevelSize.x; x++)
-            {
-                for (var y = -LevelSize.y; y <= LevelSize.y; y++)
-                {
-                    var key = new Vector2Int(x, y);
-                    if (key != exclude)
-                    {
-                        nodes.Add(key);
-                    }
-                }
-            }
-
-            var dist = new Dictionary<Vector2, int>();
-            var score = new Dictionary<Vector2, float>();
-            foreach (var node in nodes)
-            {
-                dist[node] = int.MaxValue;
-                score[node] = float.MaxValue;
-            }
-
-            var pos = Vector2Int.RoundToInt(from);
-            dist[pos] = 0;
-            score[pos] = Vector2.Distance(from, to);
-
-            var openNodes = new Dictionary<Vector2, float>(score);
-            var cameFrom = new Dictionary<Vector2, Vector2>();
-
-            while (openNodes.Count > 0)
-            {
-                var curr = openNodes.OrderBy(x => x.Value).First().Key;
-                if (dist[curr] == int.MaxValue)
-                {
-                    break;
-                }
-
-                if (curr == to)
-                {
-                    var path = new Stack<Vector2>();
-                    while (cameFrom.ContainsKey(curr))
-                    {
-                        path.Push(curr);
-                        if (from == cameFrom[curr])
-                        {
-                            return CollapsePath(path);
-                        }
-                        curr = cameFrom[curr];
-                    }
-                }
-
-                openNodes.Remove(curr);
-                var neighbors = (
-                    from dir in new[] { Vector2Int.right, Vector2Int.up, Vector2Int.left, Vector2Int.down }
-                    let key = Vector2Int.RoundToInt(curr + dir)
-                    where IsValid(curr, dir) && dist.ContainsKey(key)
-                    select key).ToList();
-
-                foreach (var neighbor in neighbors)
-                {
-                    var altDist = dist[curr] + Dist(curr, neighbor);
-                    if (altDist < dist[neighbor])
-                    {
-                        dist[neighbor] = altDist;
-                        openNodes[neighbor] = score[neighbor] = altDist + Vector2.Distance(neighbor, to);
-                        cameFrom[neighbor] = curr;
-                    }
-                }
-            }
-
-            return new List<Vector2>();
-        }
-
-        private int Dist(Vector2 from, Vector2 to)
-        {
-            return Math.Abs((int) (from.x - to.x)) + Math.Abs((int) (from.y - to.y));
-        }
-
-        private List<Vector2> CollapsePath(Stack<Vector2> path)
-        {
-            var newPath = new List<Vector2>();
-
-            var collapsedItem = path.Pop();
-            var dir = collapsedItem - (Vector2) StartPosition.transform.position;
-            var collapseX = Math.Abs(dir.y) > 0.1f;
-            var collapseY = Math.Abs(dir.x) > 0.1f;
-
-            foreach (var item in path)
-            {
-                if (Math.Abs(item.x - collapsedItem.x) < 0.1f && collapseX)
-                {
-                    collapsedItem.y = item.y;
-                }
-                else if (Math.Abs(item.y - collapsedItem.y) < 0.1f && collapseY)
-                {
-                    collapsedItem.x = item.x;
-                }
-                else
-                {
-                    newPath.Add(collapsedItem);
-                    collapsedItem = item;
-                    collapseX = !collapseX;
-                    collapseY = !collapseY;
-                }
-            }
-            newPath.Add(collapsedItem);
-
-            return newPath;
-        }
-
-        private bool IsValid(Vector2 pos, Vector2 dir)
-        {
-            var hit = Physics2D.CircleCast(pos, 0.45f, dir, 1f, (1 << 31) + (1 << 30));
-            return hit.collider == null;
+            return PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, exclude).Count > 0;
         }
     }
 }

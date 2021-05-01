@@ -63,7 +63,7 @@ namespace Assets.Scripts
 
         private bool IsValid()
         {
-            if (_gameState.IsStarted ||
+            if (_gameState.IsWaveActive ||
                 _current.transform.position.x > GameState.LevelSize.x ||
                 _current.transform.position.x < -GameState.LevelSize.x ||
                 _current.transform.position.y > GameState.LevelSize.y ||

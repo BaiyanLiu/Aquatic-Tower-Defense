@@ -9,28 +9,39 @@ namespace Assets.Scripts
     {
         public static readonly Vector2Int LevelSize = new Vector2Int(14, 8);
 
+        public GameObject WavesParent;
+
         public GameObject CreatePosition;
         public GameObject DestroyPosition;
         public GameObject StartPosition;
         public GameObject EndPosition;
 
-        public GameObject Enemy;
-
         public List<Vector2> Path { get; private set; }
+        public bool IsStarted { get; set; }
 
+        private Wave[] _waves;
+        private int _currEnemy;
         private float _createEnemyTimer;
 
         private void Start()
         {
-            Path = ShortestPath(StartPosition.transform.position, EndPosition.transform.position);
+            _waves = WavesParent.GetComponentsInChildren<Wave>();
         }
 
         private void Update()
         {
+            if (!IsStarted)
+            {
+                return;
+            }
             _createEnemyTimer -= Time.deltaTime;
             if (_createEnemyTimer <= 0f)
             {
-                Instantiate(Enemy, CreatePosition.transform.position, Quaternion.identity);
+                Instantiate(_waves[0].Enemies[_currEnemy++], CreatePosition.transform.position, Quaternion.identity);
+                if (_currEnemy == _waves[0].Enemies.Length)
+                {
+                    IsStarted = false;
+                }
                 _createEnemyTimer = 1f;
             }
         }
@@ -40,28 +51,60 @@ namespace Assets.Scripts
             return gameObject.scene.GetRootGameObjects().First(o => o.name == "Main Camera").GetComponent<GameState>();
         }
 
-        private List<Vector2> ShortestPath(Vector2 from, Vector2 to)
+        public void StartWave()
         {
-            var dist = new Dictionary<Vector2, int>();
-            var score = new Dictionary<Vector2, float>();
+            if (!IsStarted)
+            {
+                Path = ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
+                _currEnemy = 0;
+                IsStarted = true;
+            }
+        }
+
+        public bool HasPath(Vector2 exclude)
+        {
+            return ShortestPath(StartPosition.transform.position, EndPosition.transform.position, exclude).Count > 0;
+        }
+
+        private List<Vector2> ShortestPath(Vector2 from, Vector2 to, Vector2 exclude)
+        {
+            exclude = Vector2Int.RoundToInt(exclude);
+            var nodes = new List<Vector2> {Vector2Int.RoundToInt(to)};
             for (var x = -LevelSize.x; x <= LevelSize.x; x++)
             {
                 for (var y = -LevelSize.y; y <= LevelSize.y; y++)
                 {
                     var key = new Vector2Int(x, y);
-                    dist[key] = int.MaxValue;
-                    score[key] = float.MaxValue;
+                    if (key != exclude)
+                    {
+                        nodes.Add(key);
+                    }
                 }
             }
+
+            var dist = new Dictionary<Vector2, int>();
+            var score = new Dictionary<Vector2, float>();
+            foreach (var node in nodes)
+            {
+                dist[node] = int.MaxValue;
+                score[node] = float.MaxValue;
+            }
+
             var pos = Vector2Int.RoundToInt(from);
             dist[pos] = 0;
             score[pos] = Vector2.Distance(from, to);
+
             var openNodes = new Dictionary<Vector2, float>(score);
             var cameFrom = new Dictionary<Vector2, Vector2>();
 
             while (openNodes.Count > 0)
             {
                 var curr = openNodes.OrderBy(x => x.Value).First().Key;
+                if (dist[curr] == int.MaxValue)
+                {
+                    break;
+                }
+
                 if (curr == to)
                 {
                     var path = new Stack<Vector2>();
@@ -75,8 +118,8 @@ namespace Assets.Scripts
                         curr = cameFrom[curr];
                     }
                 }
-                openNodes.Remove(curr);
 
+                openNodes.Remove(curr);
                 var neighbors = (
                     from dir in new[] { Vector2Int.right, Vector2Int.up, Vector2Int.left, Vector2Int.down }
                     let key = Vector2Int.RoundToInt(curr + dir)
@@ -95,7 +138,7 @@ namespace Assets.Scripts
                 }
             }
 
-            return new List<Vector2> {Vector2.zero};
+            return new List<Vector2>();
         }
 
         private int Dist(Vector2 from, Vector2 to)

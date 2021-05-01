@@ -3,15 +3,22 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class BuildMenu : MonoBehaviour
+    public class Build : MonoBehaviour
     {
-        public GameObject Tower;
+        public GameObject Temp;
 
         public Color ValidColor;
         public Color InvalidColor;
 
+        private GameState _gameState;
+
         private GameObject _current;
         private SpriteRenderer[] _spriteRenderers;
+
+        private void Start()
+        {
+            _gameState = GameState.GetGameState(gameObject);
+        }
 
         private void Update()
         {
@@ -19,7 +26,7 @@ namespace Assets.Scripts
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    _current = Instantiate(Tower, GetMousePosition(), Quaternion.identity);
+                    _current = Instantiate(Temp, GetMousePosition(), Quaternion.identity);
                     _spriteRenderers = _current.GetComponentsInChildren<SpriteRenderer>();
                 }
             } 
@@ -31,9 +38,9 @@ namespace Assets.Scripts
                 } 
                 else if (Input.GetMouseButtonDown(0))
                 {
-                    if (IsValid())
+                    if (IsValid() && _gameState.HasPath(_current.transform.position))
                     {
-                        Instantiate(Tower.GetComponent<Build>().Tower, _current.transform.position, Quaternion.identity);
+                        Instantiate(Temp.GetComponent<Temp>().Tower, _current.transform.position, Quaternion.identity);
                         Destroy(_current);
                     }
                 }
@@ -56,7 +63,8 @@ namespace Assets.Scripts
 
         private bool IsValid()
         {
-            if (_current.transform.position.x > GameState.LevelSize.x ||
+            if (_gameState.IsStarted ||
+                _current.transform.position.x > GameState.LevelSize.x ||
                 _current.transform.position.x < -GameState.LevelSize.x ||
                 _current.transform.position.y > GameState.LevelSize.y ||
                 _current.transform.position.y < -GameState.LevelSize.y)

@@ -17,10 +17,10 @@ namespace Assets.Scripts
         public GameObject EndPosition;
 
         public List<Vector2> Path { get; private set; }
-        public bool IsWaveActive => _waves[_currWave].IsActive || EnemiesParent.transform.childCount > 0;
+        public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave].IsActive || EnemiesParent.transform.childCount > 0);
 
         private Wave[] _waves;
-        private int _currWave;
+        private int _currWave = -1;
 
         private void Start()
         {

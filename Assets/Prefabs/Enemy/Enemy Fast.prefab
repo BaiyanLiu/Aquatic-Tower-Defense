@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 8430441423056619187}
   - component: {fileID: 8430441423056619186}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy Fast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: fd106049b32bab94fb5bada326c907f9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -338,7 +338,7 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
@@ -355,6 +355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deea513d835986f4981bd8f961692512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFast: 1
+  IsArmored: 0
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

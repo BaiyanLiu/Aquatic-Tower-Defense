@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49baaf0e9bf77b741869640ff9ef0809, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a5fa9d75c1e53174598cb62b9dddd29f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -247,7 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3770581399121130390}
   m_Layer: 30
-  m_Name: Tower
+  m_Name: Tower Ranged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

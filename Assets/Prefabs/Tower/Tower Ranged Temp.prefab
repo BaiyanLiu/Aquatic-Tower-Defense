@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6198f5edb0eba164cba05818ac63d51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tower: {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+  Tower: {fileID: 3770581399121130389, guid: 6b5cdc12dc780594cb9fffc31b839e0f, type: 3}
 --- !u!1001 &5332067804305465475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20,9 +20,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3770581398949360470, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a5fa9d75c1e53174598cb62b9dddd29f, type: 3}
+    - target: {fileID: 3770581398949360470, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399031461662, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
       propertyPath: m_Name
-      value: Tower Build
+      value: Tower Ranged Temp
       objectReference: {fileID: 0}
     - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
       propertyPath: m_RootOrder

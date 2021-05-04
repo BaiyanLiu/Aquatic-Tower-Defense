@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Tower;
 using UnityEngine;
 
@@ -5,32 +7,42 @@ namespace Assets.Scripts
 {
     public class Build : MonoBehaviour
     {
-        public GameObject Temp;
+        public GameObject[] Temps;
 
         public Color ValidColor;
         public Color InvalidColor;
 
         private GameState _gameState;
 
+        private Dictionary<KeyCode, GameObject> _temps;
         private GameObject _current;
         private SpriteRenderer[] _spriteRenderers;
 
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
+
+            _temps = new Dictionary<KeyCode, GameObject>();
+            for (var i = 0; i < Temps.Length; i++)
+            {
+                _temps[KeyCode.Alpha1 + i] = Temps[i];
+            }
         }
 
         private void Update()
         {
-            if (_current == null)
+            foreach (var keyCode in _temps.Keys.Where(Input.GetKeyDown))
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (_current != null)
                 {
-                    _current = Instantiate(Temp, GetMousePosition(), Quaternion.identity);
-                    _spriteRenderers = _current.GetComponentsInChildren<SpriteRenderer>();
+                    Destroy(_current);
                 }
-            } 
-            else if (_current != null)
+                _current = Instantiate(_temps[keyCode], GetMousePosition(), Quaternion.identity);
+                _spriteRenderers = _current.GetComponentsInChildren<SpriteRenderer>();
+                break;
+            }
+
+            if (_current != null)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -40,14 +52,11 @@ namespace Assets.Scripts
                 {
                     if (IsValid() && _gameState.HasPath(_current.transform.position))
                     {
-                        Instantiate(Temp.GetComponent<Temp>().Tower, _current.transform.position, Quaternion.identity);
+                        Instantiate(_current.GetComponent<Temp>().Tower, _current.transform.position, Quaternion.identity);
                         Destroy(_current);
                     }
                 }
-            }
 
-            if (_current != null)
-            {
                 _current.transform.position = GetMousePosition();
                 foreach (var spriteRenderer in _spriteRenderers)
                 {

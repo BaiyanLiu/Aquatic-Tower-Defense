@@ -114,6 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 30
+  Range: 1.5
+  AttackSpeed: 1
+  ProjectileSpeed: 1
+  Splash: 1.5
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

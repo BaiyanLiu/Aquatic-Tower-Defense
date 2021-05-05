@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -8,6 +8,7 @@ namespace Assets.Scripts.Tower
         public GameObject Target { private get; set; }
         public float Damage { private get; set; }
         public float Speed { private get; set; }
+        public float Splash { private get; set; }
 
         private Rigidbody2D _rigidbody;
 
@@ -32,7 +33,20 @@ namespace Assets.Scripts.Tower
         {
             if (collision.gameObject == Target)
             {
-                Target.GetComponent<Enemy.Base>().UpdateHealth(-Damage);
+                var enemies = new HashSet<Enemy.Base> {Target.GetComponent<Enemy.Base>()};
+                if (Splash > 0f)
+                {
+                    var hits = Physics2D.OverlapCircleAll(transform.position, Splash, 1 << 29);
+                    foreach (var hit in hits)
+                    {
+                        enemies.Add(hit.gameObject.GetComponent<Enemy.Base>());
+                    }
+                }
+
+                foreach (var enemy in enemies)
+                {
+                    enemy.UpdateHealth(-Damage);
+                }
                 Destroy(gameObject);
             }
         }

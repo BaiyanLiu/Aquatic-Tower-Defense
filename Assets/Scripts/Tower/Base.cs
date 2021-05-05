@@ -4,10 +4,11 @@ namespace Assets.Scripts.Tower
 {
     public class Base : MonoBehaviour
     {
-        public float Damage { get; private set; } = 20f;
-        public float Range { get; private set; } = 5f;
-        public float AttackSpeed { get; private set; } = 1f;
-        public float ProjectileSpeed { get; private set; } = 0.5f;
+        public float Damage;
+        public float Range;
+        public float AttackSpeed;
+        public float ProjectileSpeed;
+        public float Splash;
 
         private void Start()
         {

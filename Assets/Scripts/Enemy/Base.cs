@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Enemy
 
         public bool IsFast;
         public bool IsArmored;
+        public ArmorType ArmorType;
 
         public float Health { get; private set; }
         public float Speed { get; private set; } = 0.05f;
@@ -40,15 +42,44 @@ namespace Assets.Scripts.Enemy
             Health = _maxHealth;
         }
 
-        public void UpdateHealth(float delta)
+        public void UpdateHealth(float delta, DamageType damageType)
         {
-            Health += delta * DamageReduction;
+            Health += delta * DamageReduction * DamageTypeReduction(damageType);
             _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
             if (Health <= 0)
             {
                 _animator.SetBool("Dead", true);
                 OnDie?.Invoke(this, gameObject);
             }
+        }
+
+        private float DamageTypeReduction(DamageType damageType)
+        {
+            return ArmorType switch
+            {
+                ArmorType.Light => damageType switch
+                {
+                    DamageType.Light => 1f,
+                    DamageType.Normal => 1.1f,
+                    DamageType.Heavy => 1.2f,
+                    _ => 1f
+                },
+                ArmorType.Normal => damageType switch
+                {
+                    DamageType.Light => 0.8f,
+                    DamageType.Normal => 1f,
+                    DamageType.Heavy => 1.1f,
+                    _ => 1f
+                },
+                ArmorType.Heavy => damageType switch
+                {
+                    DamageType.Light => 0.6f,
+                    DamageType.Normal => 0.8f,
+                    DamageType.Heavy => 1f,
+                    _ => 1f
+                },
+                _ => 1f
+            };
         }
     }
 }

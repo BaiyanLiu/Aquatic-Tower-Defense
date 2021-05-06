@@ -9,6 +9,7 @@ namespace Assets.Scripts.Tower
         public float AttackSpeed;
         public float ProjectileSpeed;
         public float Splash;
+        public DamageType DamageType;
 
         private void Start()
         {

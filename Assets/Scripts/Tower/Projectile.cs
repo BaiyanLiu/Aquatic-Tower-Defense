@@ -9,6 +9,7 @@ namespace Assets.Scripts.Tower
         public float Damage { private get; set; }
         public float Speed { private get; set; }
         public float Splash { private get; set; }
+        public DamageType DamageType { private get; set; }
 
         private Rigidbody2D _rigidbody;
 
@@ -42,10 +43,9 @@ namespace Assets.Scripts.Tower
                         enemies.Add(hit.gameObject.GetComponent<Enemy.Base>());
                     }
                 }
-
                 foreach (var enemy in enemies)
                 {
-                    enemy.UpdateHealth(-Damage);
+                    enemy.UpdateHealth(-Damage, DamageType);
                 }
                 Destroy(gameObject);
             }

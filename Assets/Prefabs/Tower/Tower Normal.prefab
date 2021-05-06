@@ -118,6 +118,8 @@ MonoBehaviour:
   Range: 3
   AttackSpeed: 1
   ProjectileSpeed: 0.5
+  Splash: 0
+  DamageType: 1
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

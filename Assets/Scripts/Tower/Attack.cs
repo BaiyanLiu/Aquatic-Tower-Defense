@@ -43,6 +43,7 @@ namespace Assets.Scripts.Tower
             projectile.Damage = _base.Damage;
             projectile.Speed = _base.ProjectileSpeed;
             projectile.Splash = _base.Splash;
+            projectile.DamageType = _base.DamageType;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

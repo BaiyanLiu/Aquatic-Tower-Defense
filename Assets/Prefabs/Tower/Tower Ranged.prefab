@@ -119,6 +119,11 @@ MonoBehaviour:
   AttackSpeed: 2
   ProjectileSpeed: 1
   Splash: 0
+  DamageGain: 10
+  RangeGain: 0.5
+  AttackSpeedGain: 0.2
+  ProjectileSpeedGain: 0.1
+  SplashGain: 0
   DamageType: 1
 --- !u!114 &4473937607893684439
 MonoBehaviour:

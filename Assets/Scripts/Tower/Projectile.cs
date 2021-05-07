@@ -5,11 +5,8 @@ namespace Assets.Scripts.Tower
 {
     public class Projectile : MonoBehaviour
     {
+        public Base Tower { private get; set; }
         public GameObject Target { private get; set; }
-        public float Damage { private get; set; }
-        public float Speed { private get; set; }
-        public float Splash { private get; set; }
-        public DamageType DamageType { private get; set; }
 
         private Rigidbody2D _rigidbody;
 
@@ -26,7 +23,7 @@ namespace Assets.Scripts.Tower
                 return;
             }
 
-            var p = Vector2.MoveTowards(transform.position, Target.transform.position, Speed);
+            var p = Vector2.MoveTowards(transform.position, Target.transform.position, Tower.ProjectileSpeed);
             _rigidbody.MovePosition(p);
         }
 
@@ -35,9 +32,9 @@ namespace Assets.Scripts.Tower
             if (collision.gameObject == Target)
             {
                 var enemies = new HashSet<Enemy.Base> {Target.GetComponent<Enemy.Base>()};
-                if (Splash > 0f)
+                if (Tower.Splash > 0f)
                 {
-                    var hits = Physics2D.OverlapCircleAll(transform.position, Splash, 1 << 29);
+                    var hits = Physics2D.OverlapCircleAll(transform.position, Tower.Splash, 1 << 29);
                     foreach (var hit in hits)
                     {
                         enemies.Add(hit.gameObject.GetComponent<Enemy.Base>());
@@ -45,7 +42,10 @@ namespace Assets.Scripts.Tower
                 }
                 foreach (var enemy in enemies)
                 {
-                    enemy.UpdateHealth(-Damage, DamageType);
+                    if (enemy.UpdateHealth(-Tower.Damage, Tower.DamageType))
+                    {
+                        Tower.UpdateExperience(enemy.Experience);
+                    }
                 }
                 Destroy(gameObject);
             }

@@ -11,9 +11,9 @@ namespace Assets.Scripts
         {
             exclude = Vector2Int.RoundToInt(exclude);
             var nodes = new List<Vector2> {Vector2Int.RoundToInt(to)};
-            for (var x = -GameState.LevelSize.x; x <= GameState.LevelSize.x; x++)
+            for (var x = -GameState.MapSize.x; x <= GameState.MapSize.x; x++)
             {
-                for (var y = -GameState.LevelSize.y; y <= GameState.LevelSize.y; y++)
+                for (var y = -GameState.MapSize.y; y <= GameState.MapSize.y; y++)
                 {
                     var key = new Vector2Int(x, y);
                     if (key != exclude)

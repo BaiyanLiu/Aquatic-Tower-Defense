@@ -357,6 +357,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsFast: 1
   IsArmored: 0
+  ArmorType: 0
+  Experience: 8
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -358,6 +358,7 @@ MonoBehaviour:
   IsFast: 0
   IsArmored: 0
   ArmorType: 1
+  Experience: 10
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

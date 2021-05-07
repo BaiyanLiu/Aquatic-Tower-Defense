@@ -9,11 +9,44 @@ namespace Assets.Scripts.Tower
         public float AttackSpeed;
         public float ProjectileSpeed;
         public float Splash;
+
+        public float DamageGain;
+        public float RangeGain;
+        public float AttackSpeedGain;
+        public float ProjectileSpeedGain;
+        public float SplashGain;
+
         public DamageType DamageType;
+
+        public int Level { get; set; } = 1;
+        public int Experience { get; set; } = 0;
+        public int ExperienceRequired { get; set; } = 100;
+
+        private CircleCollider2D _collider;
 
         private void Start()
         {
-            GetComponent<CircleCollider2D>().radius = Range;
+            _collider = GetComponent<CircleCollider2D>();
+            _collider.radius = Range;
+        }
+
+        public void UpdateExperience(int delta)
+        {
+            Experience += delta;
+            if (Experience >= ExperienceRequired)
+            {
+                Level++;
+                Experience -= ExperienceRequired;
+                ExperienceRequired += 100;
+
+                Damage += DamageGain;
+                Range += RangeGain;
+                AttackSpeed += AttackSpeedGain;
+                ProjectileSpeed += ProjectileSpeedGain;
+                Splash += SplashGain;
+
+                _collider.radius = Range;
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Assets.Scripts.Enemy
         public bool IsFast;
         public bool IsArmored;
         public ArmorType ArmorType;
+        public int Experience;
 
         public float Health { get; private set; }
         public float Speed { get; private set; } = 0.05f;
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Enemy
             Health = _maxHealth;
         }
 
-        public void UpdateHealth(float delta, DamageType damageType)
+        public bool UpdateHealth(float delta, DamageType damageType)
         {
             Health += delta * DamageReduction * DamageTypeReduction(damageType);
             _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
@@ -50,7 +51,9 @@ namespace Assets.Scripts.Enemy
             {
                 _animator.SetBool("Dead", true);
                 OnDie?.Invoke(this, gameObject);
+                return true;
             }
+            return false;
         }
 
         private float DamageTypeReduction(DamageType damageType)

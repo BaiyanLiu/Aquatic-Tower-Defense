@@ -73,10 +73,10 @@ namespace Assets.Scripts
         private bool IsValid()
         {
             if (_gameState.IsWaveActive ||
-                _current.transform.position.x > GameState.LevelSize.x ||
-                _current.transform.position.x < -GameState.LevelSize.x ||
-                _current.transform.position.y > GameState.LevelSize.y ||
-                _current.transform.position.y < -GameState.LevelSize.y)
+                _current.transform.position.x > GameState.MapSize.x ||
+                _current.transform.position.x < -GameState.MapSize.x ||
+                _current.transform.position.y > GameState.MapSize.y ||
+                _current.transform.position.y < -GameState.MapSize.y)
             {
                 return false;
             }

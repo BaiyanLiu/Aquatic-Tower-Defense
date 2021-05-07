@@ -39,11 +39,8 @@ namespace Assets.Scripts.Tower
         private void AttackEnemy()
         {
             var projectile = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Projectile>();
+            projectile.Tower = _base;
             projectile.Target = _target;
-            projectile.Damage = _base.Damage;
-            projectile.Speed = _base.ProjectileSpeed;
-            projectile.Splash = _base.Splash;
-            projectile.DamageType = _base.DamageType;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

@@ -37,8 +37,8 @@ namespace Assets.Scripts
             if (!IsWaveActive)
             {
                 Path = PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
-                _currWave = (_currWave + 1) % _waves.Length;
-                _waves[_currWave].StartWave();
+                _currWave++;
+                _waves[_currWave % _waves.Length].StartWave(_currWave);
             }
         }
 

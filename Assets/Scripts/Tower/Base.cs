@@ -19,7 +19,7 @@ namespace Assets.Scripts.Tower
         public DamageType DamageType;
 
         public int Level { get; set; } = 1;
-        public int Experience { get; set; } = 0;
+        public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
 
         private CircleCollider2D _collider;

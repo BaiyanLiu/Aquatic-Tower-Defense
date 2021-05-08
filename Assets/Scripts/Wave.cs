@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -10,6 +11,7 @@ namespace Assets.Scripts
 
         private GameState _gameState;
 
+        private int _level;
         private float _createEnemyTimer;
         private int _currEnemy;
 
@@ -27,7 +29,8 @@ namespace Assets.Scripts
             _createEnemyTimer -= Time.deltaTime;
             if (_createEnemyTimer <= 0f)
             {
-                Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.transform.position, Quaternion.identity, _gameState.EnemiesParent.transform);
+                var enemy = Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.transform.position, Quaternion.identity, _gameState.EnemiesParent.transform).GetComponent<Base>();
+                enemy.Level = _level;
                 if (++_currEnemy == Enemies.Length)
                 {
                     IsActive = false;
@@ -37,9 +40,10 @@ namespace Assets.Scripts
             }
         }
 
-        public void StartWave()
+        public void StartWave(int level)
         {
             IsActive = true;
+            _level = level;
         }
     }
 }

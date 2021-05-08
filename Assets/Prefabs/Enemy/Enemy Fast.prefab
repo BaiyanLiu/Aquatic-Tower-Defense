@@ -355,10 +355,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deea513d835986f4981bd8f961692512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsFast: 1
-  IsArmored: 0
+  MaxHealthBase: 80
+  ArmorBase: 0
+  MaxHealthGain: 10
+  ArmorGain: 0.1
+  Speed: 0.1
   ArmorType: 0
   Experience: 8
+  Level: 0
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

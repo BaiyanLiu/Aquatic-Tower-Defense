@@ -8,39 +8,39 @@ namespace Assets.Scripts.Enemy
     {
         public event EventHandler<GameObject> OnDie;
 
-        public bool IsFast;
-        public bool IsArmored;
+        public float MaxHealthBase;
+        public float ArmorBase;
+
+        public float MaxHealthGain;
+        public float ArmorGain;
+
+        public float Speed;
         public ArmorType ArmorType;
         public int Experience;
-
+        
         public float Health { get; private set; }
-        public float Speed { get; private set; } = 0.05f;
+        public int Level
+        {
+            set
+            {
+                _maxHealth = MaxHealthBase + MaxHealthGain * value;
+                _armor = ArmorBase + ArmorGain * value;
+                Health = _maxHealth;
+            }
+        }
 
         private float DamageReduction => (100f - _armor) / 100f;
 
         private Animator _animator;
         private Transform _healthBar;
 
-        private float _maxHealth = 100f;
-        private float _armor = 1f;
+        private float _maxHealth;
+        private float _armor;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
             _healthBar = transform.Find("Health Bar").Find("Fill");
-
-            if (IsFast)
-            {
-                Speed *= 2f;
-                _maxHealth /= 1.5f;
-            }
-            if (IsArmored)
-            {
-                Speed /= 1.5f;
-                _maxHealth *= 2f;
-                _armor *= 2f;
-            }
-            Health = _maxHealth;
         }
 
         public bool UpdateHealth(float delta, DamageType damageType)

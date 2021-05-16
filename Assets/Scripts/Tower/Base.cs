@@ -9,12 +9,16 @@ namespace Assets.Scripts.Tower
         public float AttackSpeed;
         public float ProjectileSpeed;
         public float Splash;
+        public float ChainDamage;
+        public float ChainRange;
 
         public float DamageGain;
         public float RangeGain;
         public float AttackSpeedGain;
         public float ProjectileSpeedGain;
         public float SplashGain;
+        public float ChainDamageGain;
+        public float ChainRangeGain;
 
         public DamageType DamageType;
 
@@ -44,6 +48,8 @@ namespace Assets.Scripts.Tower
                 AttackSpeed += AttackSpeedGain;
                 ProjectileSpeed += ProjectileSpeedGain;
                 Splash += SplashGain;
+                ChainDamage += ChainDamageGain;
+                ChainRange += ChainRangeGain;
 
                 _collider.radius = Range;
             }

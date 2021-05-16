@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using Assets.Scripts.Effect;
 using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public class Base : MonoBehaviour
+    public class EnemyBase : MonoBehaviour
     {
         public event EventHandler<GameObject> OnDie;
 
@@ -19,6 +21,8 @@ namespace Assets.Scripts.Enemy
         public int Experience;
         
         public float Health { get; private set; }
+        public List<EffectBase> Effects { get; } = new List<EffectBase>();
+
         public int Level
         {
             set
@@ -43,10 +47,16 @@ namespace Assets.Scripts.Enemy
             _healthBar = transform.Find("Health Bar").Find("Fill");
         }
 
-        public bool UpdateHealth(float delta, DamageType damageType)
+        private void Update()
         {
-            Health += delta * DamageReduction * DamageTypeReduction(damageType);
+            Effects.RemoveAll(effect => (effect.Duration -= Time.deltaTime) <= 0f);
+        }
+
+        public bool OnAttacked(float healthDelta, DamageType damageType, List<EffectBase> effects)
+        {
+            Health += healthDelta * DamageReduction * DamageTypeReduction(damageType);
             _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
+            Effects.AddRange(effects);
             if (Health <= 0)
             {
                 _animator.SetBool("Dead", true);

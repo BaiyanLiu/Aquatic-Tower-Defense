@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+using Assets.Scripts.Effect;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public class Base : MonoBehaviour
+    public class TowerBase : MonoBehaviour
     {
         public float Damage;
         public float Range;
@@ -26,12 +28,16 @@ namespace Assets.Scripts.Tower
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
 
+        public List<EffectBase> Effects { get; } = new List<EffectBase>();
+
         private CircleCollider2D _collider;
 
         private void Start()
         {
             _collider = GetComponent<CircleCollider2D>();
             _collider.radius = Range;
+
+            Effects.AddRange(GetComponents<EffectBase>());
         }
 
         public void UpdateExperience(int delta)
@@ -50,6 +56,11 @@ namespace Assets.Scripts.Tower
                 Splash += SplashGain;
                 ChainDamage += ChainDamageGain;
                 ChainRange += ChainRangeGain;
+
+                foreach (var effect in Effects)
+                {
+                    effect.LevelUp();
+                }
 
                 _collider.radius = Range;
             }

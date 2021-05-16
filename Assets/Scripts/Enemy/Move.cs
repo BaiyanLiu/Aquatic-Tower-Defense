@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Effect;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Enemy
     {
         private Rigidbody2D _rigidbody;
         private Animator _animator;
-        private Base _base;
+        private EnemyBase _base;
         private GameState _gameState;
 
         private List<Vector2> _waypoints;
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Enemy
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _base = GetComponent<Base>();
+            _base = GetComponent<EnemyBase>();
             _gameState = GameState.GetGameState(gameObject);
 
             _waypoints = new List<Vector2> {_gameState.StartPosition.transform.position};
@@ -32,7 +33,16 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            var p = Vector2.MoveTowards(transform.position, _waypoints[_currWaypoint], _base.Speed);
+            var slowAmount = 0f;
+            foreach (var effect in _base.Effects)
+            {
+                if (effect is SlowEffect slowEffect && slowEffect.Amount > slowAmount)
+                {
+                    slowAmount = slowEffect.Amount;
+                }
+            }
+
+            var p = Vector2.MoveTowards(transform.position, _waypoints[_currWaypoint], _base.Speed * (1 - slowAmount));
             _rigidbody.MovePosition(p);
 
             if ((Vector2) transform.position == _waypoints[_currWaypoint])

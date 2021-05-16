@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7876435881657909575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055758794849768214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6198f5edb0eba164cba05818ac63d51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tower: {fileID: 3770581399121130389, guid: 6ddca706fe672fe4b8e3f4b900af8347, type: 3}
+--- !u!1001 &5332067804305465475
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3770581398949360470, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 152bb446b7da027438bbbf79fd573ead, type: 3}
+    - target: {fileID: 3770581398949360470, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399031461662, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_Name
+      value: Tower Slow Temp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770581399121130390, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1367282223715270173, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+    - {fileID: 1296629577744321635, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+    - {fileID: 4473937607893684439, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+    - {fileID: 8005896541765222222, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+--- !u!1 &9055758794849768214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+  m_PrefabInstance: {fileID: 5332067804305465475}
+  m_PrefabAsset: {fileID: 0}

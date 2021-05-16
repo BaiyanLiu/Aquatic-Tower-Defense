@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Enemy;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Tower
     {
         public GameObject Projectile;
 
-        private Base _base;
+        private TowerBase _base;
 
         private readonly List<GameObject> _enemies = new List<GameObject>();
         private GameObject _target;
@@ -16,7 +17,7 @@ namespace Assets.Scripts.Tower
 
         private void Start()
         {
-            _base = GetComponent<Base>();
+            _base = GetComponent<TowerBase>();
         }
 
         private void FixedUpdate()
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Tower
             {
                 _enemies.Add(collision.gameObject);
                 _target = _enemies.First();
-                collision.gameObject.GetComponent<Enemy.Base>().OnDie += (sender, args) =>
+                collision.gameObject.GetComponent<EnemyBase>().OnDie += (sender, args) =>
                 {
                     _enemies.Remove(args);
                     _target = _enemies.FirstOrDefault();

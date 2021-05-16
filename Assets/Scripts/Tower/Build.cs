@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Tower;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Tower
 {
     public class Build : MonoBehaviour
     {

@@ -123,7 +123,7 @@ MonoBehaviour:
   ChainRange: 2.5
   DamageGain: 3
   RangeGain: 0.3
-  AttackSpeedGain: 0.1
+  AttackSpeedGain: -0.1
   ProjectileSpeedGain: 0.05
   SplashGain: 0
   ChainDamageGain: 0.05

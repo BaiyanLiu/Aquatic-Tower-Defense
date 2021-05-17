@@ -38,6 +38,10 @@ namespace Assets.Scripts.Tower
             _collider.radius = Range;
 
             Effects.AddRange(GetComponents<EffectBase>());
+            foreach (var effect in Effects)
+            {
+                effect.Tower = this;
+            }
         }
 
         public void UpdateExperience(int delta)

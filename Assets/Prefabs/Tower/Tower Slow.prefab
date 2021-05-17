@@ -118,20 +118,18 @@ MonoBehaviour:
   Damage: 5
   Range: 1.5
   AttackSpeed: 1
-  ProjectileSpeed: 1
+  ProjectileSpeed: 0.3
   Splash: 2.5
   ChainDamage: 0
   ChainRange: 0
   DamageGain: 1
   RangeGain: 0.2
-  AttackSpeedGain: 0.1
-  ProjectileSpeedGain: 0.1
+  AttackSpeedGain: -0.1
+  ProjectileSpeedGain: 0.03
   SplashGain: 0.3
   ChainDamageGain: 0
   ChainRangeGain: 0
   DamageType: 1
-  Effects:
-  - {fileID: 0}
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,10 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b51a74aaf541d141ba1c98a69076d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 0.5
   Duration: 1
-  AmountGain: 0.05
+  Frequency: 0
   DurationGain: 0.1
+  FrequencyGain: 0
+  Amount: 0.5
+  AmountGain: 0.05
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

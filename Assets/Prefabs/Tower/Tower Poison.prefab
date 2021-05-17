@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1296629577744321635}
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
+  - component: {fileID: 5264299131071858935}
   m_Layer: 0
   m_Name: Tower_Top
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c9ad4419dc63b7c41af8468b3d252a65, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4015b6c5f81f2f4a980ad65faa60180, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,21 +115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 30
-  Range: 1.5
+  Damage: 10
+  Range: 2.5
   AttackSpeed: 1
-  ProjectileSpeed: 0.3
-  Splash: 1.5
+  ProjectileSpeed: 0.5
+  Splash: 0
   ChainDamage: 0
   ChainRange: 0
   DamageGain: 5
-  RangeGain: 0.2
+  RangeGain: 0.5
   AttackSpeedGain: -0.1
-  ProjectileSpeedGain: 0.03
-  SplashGain: 0.2
+  ProjectileSpeedGain: 0.05
+  SplashGain: 0
   ChainDamageGain: 0
   ChainRangeGain: 0
-  DamageType: 2
+  DamageType: 1
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +143,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
+--- !u!114 &5264299131071858935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20823421aec869478304174ee3523be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 2
+  Frequency: 0.5
+  DurationGain: 0.2
+  FrequencyGain: -0.05
+  Damage: 10
+  DamageGain: 1
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3770581399121130390}
   m_Layer: 30
-  m_Name: Tower Splash
+  m_Name: Tower Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

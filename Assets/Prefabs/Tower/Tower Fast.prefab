@@ -117,13 +117,17 @@ MonoBehaviour:
   Damage: 5
   Range: 2
   AttackSpeed: 0.2
-  ProjectileSpeed: 0.5
+  ProjectileSpeed: 1
   Splash: 0
+  ChainDamage: 0
+  ChainRange: 0
   DamageGain: 1
   RangeGain: 0.2
-  AttackSpeedGain: 0.02
-  ProjectileSpeedGain: 0.05
+  AttackSpeedGain: -0.02
+  ProjectileSpeedGain: 0.1
   SplashGain: 0
+  ChainDamageGain: 0
+  ChainRangeGain: 0
   DamageType: 0
 --- !u!114 &4473937607893684439
 MonoBehaviour:

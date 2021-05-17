@@ -21,7 +21,7 @@ namespace Assets.Scripts.Enemy
         public int Experience;
         
         public float Health { get; private set; }
-        public List<EffectBase> Effects { get; } = new List<EffectBase>();
+        public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
 
         public int Level
         {
@@ -49,19 +49,38 @@ namespace Assets.Scripts.Enemy
 
         private void Update()
         {
-            Effects.RemoveAll(effect => (effect.Duration -= Time.deltaTime) <= 0f);
+            Effects.RemoveWhere(effect => (effect.Duration -= Time.deltaTime) <= 0f);
+
+            foreach (var effect in Effects)
+            {
+                if (effect is PoisonEffect poisonEffect && effect.UpdateTimer(Time.deltaTime))
+                {
+                    if (UpdateHealth(-poisonEffect.Damage))
+                    {
+                        effect.Tower.UpdateExperience(Experience);
+                    }
+                }
+            }
         }
 
         public bool OnAttacked(float healthDelta, DamageType damageType, List<EffectBase> effects)
         {
-            Health += healthDelta * DamageReduction * DamageTypeReduction(damageType);
-            _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
-            Effects.AddRange(effects);
-            if (Health <= 0)
+            Effects.UnionWith(effects);
+            return UpdateHealth(healthDelta * DamageReduction * DamageTypeReduction(damageType));
+        }
+
+        private bool UpdateHealth(float delta)
+        {
+            if (Health > 0f)
             {
-                _animator.SetBool("Dead", true);
-                OnDie?.Invoke(this, gameObject);
-                return true;
+                Health += delta;
+                _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
+                if (Health <= 0f)
+                {
+                    _animator.SetBool("Dead", true);
+                    OnDie?.Invoke(this, gameObject);
+                    return true;
+                }
             }
             return false;
         }

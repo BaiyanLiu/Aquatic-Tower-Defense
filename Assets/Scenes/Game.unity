@@ -862,6 +862,7 @@ MonoBehaviour:
   - {fileID: 9055758794849768214, guid: fe6279471f3367a4c9e88336a99b5f37, type: 3}
   - {fileID: 9055758794849768214, guid: c6ec419ed266b76449661db291d7ca21, type: 3}
   - {fileID: 9055758794849768214, guid: a3b7e4d8e0c7a6049a4fbc7299e19ce0, type: 3}
+  - {fileID: 9055758794849768214, guid: e5be65b1cabcf884e965d15f2df98595, type: 3}
   ValidColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
   InvalidColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1307370455

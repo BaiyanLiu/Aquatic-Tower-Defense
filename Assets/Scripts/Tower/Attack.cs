@@ -8,6 +8,7 @@ namespace Assets.Scripts.Tower
     public class Attack : MonoBehaviour
     {
         public GameObject Projectile;
+        public Color ProjectileColor = Color.white;
 
         private TowerBase _base;
 
@@ -39,7 +40,7 @@ namespace Assets.Scripts.Tower
 
         private void AttackEnemy()
         {
-            Tower.Projectile.Create(Projectile, transform.position, _base, _base.Damage, _target);
+            Tower.Projectile.Create(Projectile, ProjectileColor, transform.position, _base, _base.Damage, _target);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

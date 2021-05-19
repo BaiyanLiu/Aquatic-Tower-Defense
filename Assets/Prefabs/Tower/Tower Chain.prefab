@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
+  ProjectileColor: {r: 1, g: 0.9490196, b: 0, a: 1}
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Tower;
 using UnityEngine;
@@ -51,9 +52,9 @@ namespace Assets.Scripts.Enemy
         {
             Effects.RemoveWhere(effect => (effect.Duration -= Time.deltaTime) <= 0f);
 
-            foreach (var effect in Effects)
+            foreach (var effect in Effects.Where(effect => effect.UpdateTimer(Time.deltaTime)))
             {
-                if (effect is PoisonEffect poisonEffect && effect.UpdateTimer(Time.deltaTime))
+                if (effect is PoisonEffect poisonEffect)
                 {
                     if (UpdateHealth(-poisonEffect.Damage))
                     {

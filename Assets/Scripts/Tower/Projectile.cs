@@ -10,14 +10,16 @@ namespace Assets.Scripts.Tower
     {
         private Rigidbody2D _rigidbody;
 
+        private Color _color;
         private TowerBase _tower;
         private float _damage;
         private GameObject _target;
         private readonly ISet<GameObject> _prevTargets = new HashSet<GameObject>();
 
-        public static void Create(GameObject gameObject, Vector2 position, TowerBase tower, float damage, GameObject target, ISet<GameObject> prevTargets = null)
+        public static void Create(GameObject gameObject, Color color, Vector2 position, TowerBase tower, float damage, GameObject target, ISet<GameObject> prevTargets = null)
         {
             var projectile = Instantiate(gameObject, position, Quaternion.identity).GetComponent<Projectile>();
+            projectile._color = color;
             projectile._tower = tower;
             projectile._damage = damage;
             if (prevTargets != null)
@@ -30,6 +32,7 @@ namespace Assets.Scripts.Tower
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            GetComponent<SpriteRenderer>().color = _color;
         }
 
         private void FixedUpdate()
@@ -73,7 +76,7 @@ namespace Assets.Scripts.Tower
                         .FirstOrDefault(t => !_prevTargets.Contains(t.gameObject));
                     if (hit != null)
                     { 
-                        Create(gameObject, transform.position, _tower, _damage, hit.gameObject, _prevTargets);
+                        Create(gameObject, _color, transform.position, _tower, _damage, hit.gameObject, _prevTargets);
                     }
                 }
 

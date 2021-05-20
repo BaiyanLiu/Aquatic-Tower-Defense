@@ -38,6 +38,7 @@ namespace Assets.Scripts.Enemy
 
         private Animator _animator;
         private Transform _healthBar;
+        private SpriteRenderer[] _statusIndicators;
 
         private float _maxHealth;
         private float _armor;
@@ -45,22 +46,40 @@ namespace Assets.Scripts.Enemy
         private void Start()
         {
             _animator = GetComponent<Animator>();
-            _healthBar = transform.Find("Health Bar").Find("Fill");
+            _healthBar = transform.Find("Status").Find("Health").Find("Fill");
+            _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
         }
 
         private void Update()
         {
             Effects.RemoveWhere(effect => (effect.Duration -= Time.deltaTime) <= 0f);
 
-            foreach (var effect in Effects.Where(effect => effect.UpdateTimer(Time.deltaTime)))
+            var statusColors = new SortedDictionary<string, Color>();
+            foreach (var effect in Effects)
             {
-                if (effect is PoisonEffect poisonEffect)
+                if (effect.UpdateTimer(Time.deltaTime))
                 {
-                    if (UpdateHealth(-poisonEffect.Damage))
+                    if (effect is PoisonEffect poisonEffect)
                     {
-                        effect.Tower.UpdateExperience(Experience);
+                        if (UpdateHealth(-poisonEffect.Damage))
+                        {
+                            effect.Tower.UpdateExperience(Experience);
+                        }
                     }
                 }
+                statusColors[effect.Name] = effect.StatusColor;
+            }
+
+            var index = 0;
+            foreach (var statusColor in statusColors.Values)
+            {
+                _statusIndicators[index].color = statusColor;
+                _statusIndicators[index].enabled = true;
+                index++;
+            }
+            for (var i = index; i < _statusIndicators.Length; i++)
+            {
+                _statusIndicators[index].enabled = false;
             }
         }
 

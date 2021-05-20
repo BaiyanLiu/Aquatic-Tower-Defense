@@ -15,6 +15,9 @@ namespace Assets.Scripts.Effect
 
         public TowerBase Tower { get; set; }
 
+        public abstract string Name { get; }
+        public abstract Color StatusColor { get; }
+
         private float _effectTimer;
 
         public virtual void LevelUp()

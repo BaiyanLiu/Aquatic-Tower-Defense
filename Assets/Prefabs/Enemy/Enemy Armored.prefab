@@ -164,6 +164,7 @@ MonoBehaviour:
   Speed: 0.03
   ArmorType: 2
   Experience: 15
+  Gold: 15
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

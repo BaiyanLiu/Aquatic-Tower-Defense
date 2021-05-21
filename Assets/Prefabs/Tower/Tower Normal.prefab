@@ -129,6 +129,7 @@ MonoBehaviour:
   ChainDamageGain: 0
   ChainRangeGain: 0
   DamageType: 1
+  Cost: 15
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
+  ProjectileColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

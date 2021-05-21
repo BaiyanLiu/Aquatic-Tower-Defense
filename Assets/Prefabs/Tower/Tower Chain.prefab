@@ -129,6 +129,7 @@ MonoBehaviour:
   ChainDamageGain: 0.05
   ChainRangeGain: 0.1
   DamageType: 0
+  Cost: 20
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

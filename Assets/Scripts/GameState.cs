@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -16,8 +17,11 @@ namespace Assets.Scripts
         public GameObject StartPosition;
         public GameObject EndPosition;
 
+        public Text GoldText;
+
         public List<Vector2> Path { get; private set; }
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.transform.childCount > 0);
+        public int Gold { get; private set; } = 100;
 
         private Wave[] _waves;
         private int _currWave = -1;
@@ -25,6 +29,7 @@ namespace Assets.Scripts
         private void Start()
         {
             _waves = WavesParent.GetComponentsInChildren<Wave>();
+            UpdateGold(0);
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -45,6 +50,12 @@ namespace Assets.Scripts
         public bool HasPath(Vector2 exclude)
         {
             return PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, exclude).Count > 0;
+        }
+
+        public void UpdateGold(int delta)
+        {
+            Gold += delta;
+            GoldText.text = "G: " + Gold;
         }
     }
 }

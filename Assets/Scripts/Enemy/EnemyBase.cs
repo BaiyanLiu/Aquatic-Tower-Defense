@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Tower;
 using UnityEngine;
@@ -20,6 +19,7 @@ namespace Assets.Scripts.Enemy
         public float Speed;
         public ArmorType ArmorType;
         public int Experience;
+        public int Gold;
         
         public float Health { get; private set; }
         public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
@@ -39,6 +39,7 @@ namespace Assets.Scripts.Enemy
         private Animator _animator;
         private Transform _healthBar;
         private SpriteRenderer[] _statusIndicators;
+        private GameState _gameState;
 
         private float _maxHealth;
         private float _armor;
@@ -48,6 +49,7 @@ namespace Assets.Scripts.Enemy
             _animator = GetComponent<Animator>();
             _healthBar = transform.Find("Status").Find("Health").Find("Fill");
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
+            _gameState = GameState.GetGameState(gameObject);
         }
 
         private void Update()
@@ -99,6 +101,7 @@ namespace Assets.Scripts.Enemy
                 {
                     _animator.SetBool("Dead", true);
                     OnDie?.Invoke(this, gameObject);
+                    _gameState.UpdateGold(Gold);
                     return true;
                 }
             }

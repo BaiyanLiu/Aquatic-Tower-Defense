@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Tower
 {
@@ -8,7 +9,10 @@ namespace Assets.Scripts.Tower
     {
         public GameObject[] Temps;
 
+        public Text CostText;
+
         public Color ValidColor;
+        public Color ValidCostColor;
         public Color InvalidColor;
 
         private GameState _gameState;
@@ -16,6 +20,7 @@ namespace Assets.Scripts.Tower
         private Dictionary<KeyCode, GameObject> _temps;
         private GameObject _current;
         private SpriteRenderer[] _spriteRenderers;
+        private int _cost;
 
         private void Start()
         {
@@ -26,6 +31,7 @@ namespace Assets.Scripts.Tower
             {
                 _temps[KeyCode.Alpha1 + i] = Temps[i];
             }
+            UpdateCost(null);
         }
 
         private void Update()
@@ -38,6 +44,7 @@ namespace Assets.Scripts.Tower
                 }
                 _current = Instantiate(_temps[keyCode], GetMousePosition(), Quaternion.identity);
                 _spriteRenderers = _current.GetComponentsInChildren<SpriteRenderer>();
+                UpdateCost(_temps[keyCode].GetComponent<Temp>().Cost);
                 break;
             }
 
@@ -46,12 +53,15 @@ namespace Assets.Scripts.Tower
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     Destroy(_current);
+                    UpdateCost(null);
                 } 
                 else if (Input.GetMouseButtonDown(0))
                 {
                     if (IsValid() && _gameState.HasPath(_current.transform.position))
                     {
                         Instantiate(_current.GetComponent<Temp>().Tower, _current.transform.position, Quaternion.identity);
+                        _gameState.UpdateGold(-_cost);
+                        UpdateCost(null);
                         Destroy(_current);
                     }
                 }
@@ -62,6 +72,8 @@ namespace Assets.Scripts.Tower
                     spriteRenderer.color = IsValid() ? ValidColor : InvalidColor;
                 }
             }
+
+            CostText.color = _cost > _gameState.Gold ? InvalidColor : ValidCostColor;
         }
 
         private Vector2 GetMousePosition()
@@ -72,6 +84,7 @@ namespace Assets.Scripts.Tower
         private bool IsValid()
         {
             if (_gameState.IsWaveActive ||
+                _cost > _gameState.Gold ||
                 _current.transform.position.x > GameState.MapSize.x ||
                 _current.transform.position.x < -GameState.MapSize.x ||
                 _current.transform.position.y > GameState.MapSize.y ||
@@ -81,6 +94,19 @@ namespace Assets.Scripts.Tower
             }
             var hit = Physics2D.OverlapBox(_current.transform.position, _current.transform.localScale / 2f, 0f, 1 << 30);
             return hit == null;
+        }
+
+        private void UpdateCost(int? cost)
+        {
+            if (cost != null)
+            {
+                _cost = cost.Value;
+                CostText.text = "-" + _cost;
+            }
+            else
+            {
+                CostText.text = "";
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Assets.Scripts.Tower
         public float ChainRangeGain;
 
         public DamageType DamageType;
+        public int Cost;
 
         public int Level { get; set; } = 1;
         public int Experience { get; set; }

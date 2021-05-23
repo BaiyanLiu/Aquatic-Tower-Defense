@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
@@ -18,18 +20,34 @@ namespace Assets.Scripts
         public GameObject EndPosition;
 
         public Text GoldText;
+        public Text LivesText;
+        public Text LivesLostText;
 
         public List<Vector2> Path { get; private set; }
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.transform.childCount > 0);
         public int Gold { get; private set; } = 100;
+        public int Lives { get; private set; } = 20;
+        public bool IsGameOver => Lives == 0;
 
         private Wave[] _waves;
         private int _currWave = -1;
+        private float _livesLostTimer;
 
         private void Start()
         {
             _waves = WavesParent.GetComponentsInChildren<Wave>();
             UpdateGold(0);
+            UpdateLives(0);
+            LivesLostText.enabled = false;
+        }
+
+        private void Update()
+        {
+            if (_livesLostTimer > 0f)
+            {
+                _livesLostTimer -= Time.deltaTime;
+                LivesLostText.enabled = _livesLostTimer > 0f;
+            }
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -56,6 +74,22 @@ namespace Assets.Scripts
         {
             Gold += delta;
             GoldText.text = "G: " + Gold;
+        }
+
+        public void UpdateLives(int delta)
+        {
+            Lives += delta;
+            LivesText.text = "L: " + Lives;
+            if (delta != 0)
+            {
+                LivesLostText.text = Convert.ToString(delta);
+                _livesLostTimer = 0.5f;
+            }
+
+            if (IsGameOver)
+            {
+                SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
+            }
         }
     }
 }

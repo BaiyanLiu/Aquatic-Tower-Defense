@@ -165,6 +165,7 @@ MonoBehaviour:
   ArmorType: 0
   Experience: 8
   Gold: 8
+  Lives: 1
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

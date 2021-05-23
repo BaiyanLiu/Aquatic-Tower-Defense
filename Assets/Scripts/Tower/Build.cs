@@ -83,7 +83,8 @@ namespace Assets.Scripts.Tower
 
         private bool IsValid()
         {
-            if (_gameState.IsWaveActive ||
+            if (_gameState.IsGameOver ||
+                _gameState.IsWaveActive ||
                 _cost > _gameState.Gold ||
                 _current.transform.position.x > GameState.MapSize.x ||
                 _current.transform.position.x < -GameState.MapSize.x ||

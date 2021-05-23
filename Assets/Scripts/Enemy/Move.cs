@@ -28,7 +28,7 @@ namespace Assets.Scripts.Enemy
 
         private void FixedUpdate()
         {
-            if (_base.Health <= 0f)
+            if (_gameState.IsGameOver || _base.Health <= 0f)
             {
                 return;
             }
@@ -49,6 +49,7 @@ namespace Assets.Scripts.Enemy
             {
                 if (++_currWaypoint == _waypoints.Count)
                 {
+                    _gameState.UpdateLives(-_base.Lives);
                     Destroy(gameObject);
                     return;
                 }

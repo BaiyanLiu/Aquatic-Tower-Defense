@@ -20,6 +20,7 @@ namespace Assets.Scripts.Enemy
         public ArmorType ArmorType;
         public int Experience;
         public int Gold;
+        public int Lives;
         
         public float Health { get; private set; }
         public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
@@ -54,6 +55,11 @@ namespace Assets.Scripts.Enemy
 
         private void Update()
         {
+            if (_gameState.IsGameOver)
+            {
+                return;
+            }
+
             Effects.RemoveWhere(effect => (effect.Duration -= Time.deltaTime) <= 0f);
 
             var statusColors = new SortedDictionary<string, Color>();
@@ -81,7 +87,7 @@ namespace Assets.Scripts.Enemy
             }
             for (var i = index; i < _statusIndicators.Length; i++)
             {
-                _statusIndicators[index].enabled = false;
+                _statusIndicators[i].enabled = false;
             }
         }
 

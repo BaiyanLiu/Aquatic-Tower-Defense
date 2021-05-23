@@ -22,10 +22,11 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            if (!IsActive)
+            if (_gameState.IsGameOver || !IsActive)
             {
                 return;
             }
+
             _createEnemyTimer -= Time.deltaTime;
             if (_createEnemyTimer <= 0f)
             {

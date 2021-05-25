@@ -55,7 +55,7 @@ namespace Assets.Scripts.Enemy
 
         private void Update()
         {
-            if (_gameState.IsGameOver)
+            if (GameState.IsPaused || _gameState.IsGameOver)
             {
                 return;
             }

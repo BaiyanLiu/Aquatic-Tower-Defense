@@ -11,6 +11,8 @@ namespace Assets.Scripts
     {
         public static readonly Vector2Int MapSize = new Vector2Int(14, 8);
 
+        public static bool IsPaused { get; set; }
+
         public GameObject WavesParent;
         public GameObject EnemiesParent;
 
@@ -35,6 +37,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            IsPaused = false;
             _waves = WavesParent.GetComponentsInChildren<Wave>();
             UpdateGold(0);
             UpdateLives(0);
@@ -43,6 +46,18 @@ namespace Assets.Scripts
 
         private void Update()
         {
+            if (IsPaused)
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+                IsPaused = true;
+                return;
+            }
+
             if (_livesLostTimer > 0f)
             {
                 _livesLostTimer -= Time.deltaTime;

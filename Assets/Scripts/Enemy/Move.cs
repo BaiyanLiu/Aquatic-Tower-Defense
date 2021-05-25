@@ -28,7 +28,7 @@ namespace Assets.Scripts.Enemy
 
         private void FixedUpdate()
         {
-            if (_gameState.IsGameOver || _base.Health <= 0f)
+            if (GameState.IsPaused || _gameState.IsGameOver || _base.Health <= 0f)
             {
                 return;
             }

@@ -39,7 +39,7 @@ namespace Assets.Scripts.Tower
 
         private void FixedUpdate()
         {
-            if (_gameState.IsGameOver)
+            if (GameState.IsPaused || _gameState.IsGameOver)
             {
                 return;
             }

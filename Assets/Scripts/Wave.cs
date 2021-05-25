@@ -22,7 +22,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            if (_gameState.IsGameOver || !IsActive)
+            if (GameState.IsPaused || _gameState.IsGameOver || !IsActive)
             {
                 return;
             }

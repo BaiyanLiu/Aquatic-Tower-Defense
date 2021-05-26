@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Enemy;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace Assets.Scripts
 {
     public class Wave : MonoBehaviour
     {
+        public event EventHandler<float> OnCreateEnemy;
+
         public GameObject[] Enemies;
 
         public bool IsActive { get; private set; }
@@ -32,12 +35,14 @@ namespace Assets.Scripts
             {
                 var enemy = Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.transform.position, Quaternion.identity, _gameState.EnemiesParent.transform).GetComponent<EnemyBase>();
                 enemy.Level = _level;
-                if (++_currEnemy == Enemies.Length)
+                _createEnemyTimer = 1f;
+
+                OnCreateEnemy?.Invoke(this, (float) ++_currEnemy / Enemies.Length);
+                if (_currEnemy == Enemies.Length)
                 {
                     IsActive = false;
                     _currEnemy = 0;
                 }
-                _createEnemyTimer = 1f;
             }
         }
 

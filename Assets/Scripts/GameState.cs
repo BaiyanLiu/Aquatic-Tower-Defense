@@ -24,6 +24,7 @@ namespace Assets.Scripts
         public Text GoldText;
         public Text LivesText;
         public Text LivesLostText;
+        public Text StartButtonText;
 
         public List<Vector2> Path { get; private set; }
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.transform.childCount > 0);
@@ -63,6 +64,11 @@ namespace Assets.Scripts
                 _livesLostTimer -= Time.deltaTime;
                 LivesLostText.enabled = _livesLostTimer > 0f;
             }
+
+            if (!IsWaveActive)
+            {
+                StartButtonText.text = "Start Wave " + (_currWave + 2);
+            }
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -75,9 +81,19 @@ namespace Assets.Scripts
             if (!IsWaveActive)
             {
                 Path = PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
-                _currWave++;
-                _waves[_currWave % _waves.Length].StartWave(_currWave);
+                if (_currWave >= 0)
+                {
+                    _waves[_currWave % _waves.Length].OnCreateEnemy -= HandleCreateEnemy;
+                }
+                var wave = _waves[++_currWave % _waves.Length];
+                wave.OnCreateEnemy += HandleCreateEnemy;
+                wave.StartWave(_currWave);
             }
+        }
+
+        private void HandleCreateEnemy(object sender, float e)
+        {
+            StartButtonText.text = $"Wave {_currWave + 1} - {Math.Round(e * 100)}%";
         }
 
         public bool HasPath(Vector2 exclude)

@@ -131,6 +131,7 @@ MonoBehaviour:
   ChainRangeGain: 0
   DamageType: 1
   Cost: 15
+  Name: Slow Tower
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

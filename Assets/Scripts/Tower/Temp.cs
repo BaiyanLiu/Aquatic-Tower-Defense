@@ -7,5 +7,6 @@ namespace Assets.Scripts.Tower
         public GameObject Tower;
 
         public int Cost => Tower.GetComponentInChildren<TowerBase>().Cost;
+        public string Name => Tower.GetComponentInChildren<TowerBase>().Name;
     }
 }

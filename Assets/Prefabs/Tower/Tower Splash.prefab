@@ -130,6 +130,7 @@ MonoBehaviour:
   ChainRangeGain: 0
   DamageType: 2
   Cost: 20
+  Name: Splash Tower
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

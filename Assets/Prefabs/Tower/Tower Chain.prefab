@@ -130,6 +130,7 @@ MonoBehaviour:
   ChainRangeGain: 0.1
   DamageType: 0
   Cost: 20
+  Name: Chain Tower
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -78,7 +78,8 @@ namespace Assets.Scripts.Tower
                 {
                     if (IsValid() && _gameState.HasPath(_placeholder.transform.position))
                     {
-                        Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
+                        var tower = Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
+                        _gameState.RegisterTower(tower);
                         Destroy(_placeholder);
                         _name = null;
 
@@ -188,7 +189,7 @@ namespace Assets.Scripts.Tower
                 if (_name == _buildMenuNames[i])
                 {
                     CurrentNameText.rectTransform.anchoredPosition = new Vector2((_buildMenuScale.x + 10f) * (i + 1), 0f);
-                    position.x += CurrentNameText.rectTransform.rect.width + 10f;
+                    position.x += _prevNameWidth + 10f;
                     color = ValidColor;
                 }
 

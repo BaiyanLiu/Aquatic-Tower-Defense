@@ -21,9 +21,9 @@ namespace Assets.Scripts.Enemy
             _base = GetComponent<EnemyBase>();
             _gameState = GameState.GetGameState(gameObject);
 
-            _waypoints = new List<Vector2> {_gameState.StartPosition.transform.position};
+            _waypoints = new List<Vector2> {_gameState.StartPosition.position};
             _waypoints.AddRange(_gameState.Path);
-            _waypoints.Add(_gameState.DestroyPosition.transform.position);
+            _waypoints.Add(_gameState.DestroyPosition.position);
         }
 
         private void FixedUpdate()

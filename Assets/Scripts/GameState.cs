@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Screens;
+using Assets.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,20 +16,22 @@ namespace Assets.Scripts
         public static bool IsPaused { get; set; }
 
         public GameObject WavesParent;
-        public GameObject EnemiesParent;
+        public Transform EnemiesParent;
 
-        public GameObject CreatePosition;
-        public GameObject DestroyPosition;
-        public GameObject StartPosition;
-        public GameObject EndPosition;
+        public Transform CreatePosition;
+        public Transform DestroyPosition;
+        public Transform StartPosition;
+        public Transform EndPosition;
 
         public Text GoldText;
         public Text LivesText;
         public Text LivesLostText;
         public Text StartButtonText;
 
+        public TowerDetails TowerDetails;
+
         public List<Vector2> Path { get; private set; }
-        public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.transform.childCount > 0);
+        public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.childCount > 0);
         public int Gold { get; private set; } = 100;
         public int Lives { get; private set; } = 20;
         public bool IsGameOver => Lives == 0;
@@ -80,7 +84,7 @@ namespace Assets.Scripts
         {
             if (!IsWaveActive)
             {
-                Path = PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, Vector2.negativeInfinity);
+                Path = PathingHelper.ShortestPath(StartPosition.position, EndPosition.position, Vector2.negativeInfinity);
                 if (_currWave >= 0)
                 {
                     _waves[_currWave % _waves.Length].OnCreateEnemy -= HandleCreateEnemy;
@@ -98,7 +102,7 @@ namespace Assets.Scripts
 
         public bool HasPath(Vector2 exclude)
         {
-            return PathingHelper.ShortestPath(StartPosition.transform.position, EndPosition.transform.position, exclude).Count > 0;
+            return PathingHelper.ShortestPath(StartPosition.position, EndPosition.position, exclude).Count > 0;
         }
 
         public void UpdateGold(int delta)
@@ -121,6 +125,14 @@ namespace Assets.Scripts
             {
                 SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
             }
+        }
+
+        public void RegisterTower(GameObject tower)
+        {
+            tower.GetComponentInChildren<Interaction>().OnClick += (sender, args) =>
+            {
+                TowerDetails.UpdateTower(tower);
+            };
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Assets.Scripts
             _createEnemyTimer -= Time.deltaTime;
             if (_createEnemyTimer <= 0f)
             {
-                var enemy = Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.transform.position, Quaternion.identity, _gameState.EnemiesParent.transform).GetComponent<EnemyBase>();
+                var enemy = Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.position, Quaternion.identity, _gameState.EnemiesParent).GetComponent<EnemyBase>();
                 enemy.Level = _level;
                 _createEnemyTimer = 1f;
 

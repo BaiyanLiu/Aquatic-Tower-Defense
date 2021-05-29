@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -31,26 +32,30 @@ namespace Assets.Scripts.Tower
         private readonly List<SpriteRenderer[]> _buildMenuSpriteRenderers = new List<SpriteRenderer[]>();
         private Vector2 _buildMenuScale;
         private Vector2 _buildMenuInitialPosition;
-        private bool _updateBuildMenu;
+        private string _prevName;
+        private float _prevNameWidth = -1f;
 
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
-
-            for (var i = 0; i < Towers.Length; i++)
-            {
-                _towers[KeyCode.Alpha1 + i] = Towers[i];
-            }
 
             var buildMenuParent = BuildMenu.transform.parent;
             _buildMenuScale = 0.75f * new Vector2(1f / buildMenuParent.localScale.x, 1f / buildMenuParent.localScale.y);
             BuildMenu.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (_buildMenuScale.x + 10f) * Towers.Length - 10f);
             _buildMenuInitialPosition = new Vector2(BuildMenu.GetComponent<RectTransform>().rect.xMin + _buildMenuScale.x / 2f, 0f);
 
-            foreach (var tower in Towers)
+            for (var i = 0; i < Towers.Length; i++)
             {
-                var buildMenuTower = Instantiate(tower, Vector2.zero, Quaternion.identity, BuildMenu.transform);
+                var keyCode = KeyCode.Alpha1 + i;
+                _towers[keyCode] = Towers[i];
+
+                var buildMenuTower = CreatePlaceholder(Towers[i], Vector2.zero, BuildMenu.transform);
                 buildMenuTower.transform.localScale = _buildMenuScale;
+                buildMenuTower.GetComponentInChildren<Interaction>().OnClick += (sender, args) =>
+                {
+                    OnKeyDown(keyCode);
+                };
+
                 _buildMenuTowers.Add(buildMenuTower);
                 _buildMenuNames.Add(buildMenuTower.GetComponentInChildren<TowerBase>().Name);
                 _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
@@ -62,40 +67,9 @@ namespace Assets.Scripts.Tower
 
         private void Update()
         {
-            if (_updateBuildMenu)
-            {
-                _updateBuildMenu = false;
-                UpdateBuildMenu();
-            }
-
             foreach (var keyCode in _towers.Keys.Where(Input.GetKeyDown))
             {
-                if (_placeholder != null)
-                {
-                    Destroy(_placeholder);
-                }
-
-                var tower = _towers[keyCode];
-                if (_name != tower.GetComponentInChildren<TowerBase>().Name)
-                {
-                    _tower = tower;
-                    _placeholder = Instantiate(tower, GetMousePosition(), Quaternion.identity);
-                    _placeholder.GetComponentInChildren<BoxCollider2D>().enabled = false;
-                    _placeholder.GetComponentInChildren<Attack>().enabled = false;
-
-                    _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
-                    _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
-                    UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
-                }
-                else
-                {
-                    _name = null;
-                    UpdateCost(null);
-                }
-
-                CurrentNameText.text = _name;
-                _updateBuildMenu = true;
-                break;
+                OnKeyDown(keyCode);
             }
 
             if (_placeholder != null)
@@ -110,9 +84,7 @@ namespace Assets.Scripts.Tower
 
                         _gameState.UpdateGold(-_cost);
                         UpdateCost(null);
-
                         CurrentNameText.text = null;
-                        _updateBuildMenu = true;
                     }
                 }
 
@@ -124,6 +96,42 @@ namespace Assets.Scripts.Tower
             }
 
             CostText.color = _cost > _gameState.Gold ? InvalidColor : ValidCostColor;
+            UpdateBuildMenu();
+        }
+
+        private void OnKeyDown(KeyCode keyCode)
+        {
+            if (_placeholder != null)
+            {
+                Destroy(_placeholder);
+            }
+
+            var tower = _towers[keyCode];
+            if (_name != tower.GetComponentInChildren<TowerBase>().Name)
+            {
+                _tower = tower;
+                _placeholder = CreatePlaceholder(tower, GetMousePosition());
+                _placeholder.GetComponentInChildren<BoxCollider2D>().enabled = false;
+                _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
+                _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
+                UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
+            }
+            else
+            {
+                _name = null;
+                UpdateCost(null);
+            }
+
+            CurrentNameText.text = _name ?? "";
+        }
+
+        private GameObject CreatePlaceholder(GameObject tower, Vector2 position, Transform parent = null)
+        {
+            var placeholder = Instantiate(tower, position, Quaternion.identity, parent);
+            placeholder.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
+            placeholder.GetComponentInChildren<CircleCollider2D>().enabled = false;
+            placeholder.GetComponentInChildren<Attack>().enabled = false;
+            return placeholder;
         }
 
         private Vector2 GetMousePosition()
@@ -162,6 +170,14 @@ namespace Assets.Scripts.Tower
 
         private void UpdateBuildMenu()
         {
+            if (_prevName == _name && Math.Abs(_prevNameWidth - CurrentNameText.rectTransform.rect.width) < 0.00000001f)
+            {
+                return;
+            }
+
+            _prevName = _name;
+            _prevNameWidth = CurrentNameText.rectTransform.rect.width;
+
             var position = new Vector2(_buildMenuInitialPosition.x, _buildMenuInitialPosition.y);
             for (var i = 0; i < _buildMenuTowers.Count; i++)
             {

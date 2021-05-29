@@ -7,11 +7,11 @@ namespace Assets.Scripts.Tower
 {
     public class Build : MonoBehaviour
     {
-        public GameObject[] Temps;
-        public GameObject MenuParent;
+        public GameObject[] Towers;
+        public GameObject BuildMenu;
 
         public Text CostText;
-        public Text MenuNameText;
+        public Text CurrentNameText;
 
         public Color ValidColor;
         public Color ValidCostColor;
@@ -19,99 +19,104 @@ namespace Assets.Scripts.Tower
 
         private GameState _gameState;
 
-        private readonly Dictionary<KeyCode, GameObject> _temps = new Dictionary<KeyCode, GameObject>();
-        private GameObject _current;
-        private string _currentName;
+        private readonly Dictionary<KeyCode, GameObject> _towers = new Dictionary<KeyCode, GameObject>();
+        private GameObject _tower;
+        private GameObject _placeholder;
+        private string _name;
         private SpriteRenderer[] _spriteRenderers;
         private int _cost;
 
-        private readonly List<GameObject> _menuTemps = new List<GameObject>();
-        private readonly List<string> _menuNames = new List<string>();
-        private readonly List<SpriteRenderer[]> _menuSpriteRenderers = new List<SpriteRenderer[]>();
-        private Vector2 _menuScale;
-        private Vector2 _menuPosition;
-        private bool _updateMenu;
+        private readonly List<GameObject> _buildMenuTowers = new List<GameObject>();
+        private readonly List<string> _buildMenuNames = new List<string>();
+        private readonly List<SpriteRenderer[]> _buildMenuSpriteRenderers = new List<SpriteRenderer[]>();
+        private Vector2 _buildMenuScale;
+        private Vector2 _buildMenuInitialPosition;
+        private bool _updateBuildMenu;
 
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
 
-            for (var i = 0; i < Temps.Length; i++)
+            for (var i = 0; i < Towers.Length; i++)
             {
-                _temps[KeyCode.Alpha1 + i] = Temps[i];
+                _towers[KeyCode.Alpha1 + i] = Towers[i];
             }
 
-            var canvas = MenuParent.transform.parent;
-            _menuScale = 0.75f * new Vector2(1f / canvas.localScale.x, 1f / canvas.localScale.y);
-            MenuParent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (_menuScale.x + 10f) * Temps.Length - 10f);
-            _menuPosition = new Vector2(MenuParent.GetComponent<RectTransform>().rect.xMin + _menuScale.x / 2f, 0f);
+            var buildMenuParent = BuildMenu.transform.parent;
+            _buildMenuScale = 0.75f * new Vector2(1f / buildMenuParent.localScale.x, 1f / buildMenuParent.localScale.y);
+            BuildMenu.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (_buildMenuScale.x + 10f) * Towers.Length - 10f);
+            _buildMenuInitialPosition = new Vector2(BuildMenu.GetComponent<RectTransform>().rect.xMin + _buildMenuScale.x / 2f, 0f);
 
-            foreach (var temp in Temps)
+            foreach (var tower in Towers)
             {
-                var menuTemp = Instantiate(temp, Vector2.zero, Quaternion.identity, MenuParent.transform);
-                menuTemp.transform.localScale = _menuScale;
-                _menuTemps.Add(menuTemp);
-                _menuNames.Add(menuTemp.GetComponent<Temp>().Name);
-                _menuSpriteRenderers.Add(menuTemp.GetComponentsInChildren<SpriteRenderer>());
+                var buildMenuTower = Instantiate(tower, Vector2.zero, Quaternion.identity, BuildMenu.transform);
+                buildMenuTower.transform.localScale = _buildMenuScale;
+                _buildMenuTowers.Add(buildMenuTower);
+                _buildMenuNames.Add(buildMenuTower.GetComponentInChildren<TowerBase>().Name);
+                _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
             }
 
             UpdateCost(null);
-            UpdateMenu();
+            UpdateBuildMenu();
         }
 
         private void Update()
         {
-            if (_updateMenu)
+            if (_updateBuildMenu)
             {
-                _updateMenu = false;
-                UpdateMenu();
+                _updateBuildMenu = false;
+                UpdateBuildMenu();
             }
 
-            foreach (var keyCode in _temps.Keys.Where(Input.GetKeyDown))
+            foreach (var keyCode in _towers.Keys.Where(Input.GetKeyDown))
             {
-                if (_current != null)
+                if (_placeholder != null)
                 {
-                    Destroy(_current);
+                    Destroy(_placeholder);
                 }
 
-                var currentPrefab = _temps[keyCode];
-                if (_currentName != currentPrefab.GetComponent<Temp>().Name)
+                var tower = _towers[keyCode];
+                if (_name != tower.GetComponentInChildren<TowerBase>().Name)
                 {
-                    _current = Instantiate(currentPrefab, GetMousePosition(), Quaternion.identity);
-                    _currentName = _current.GetComponent<Temp>().Name;
-                    _spriteRenderers = _current.GetComponentsInChildren<SpriteRenderer>();
-                    UpdateCost(_current?.GetComponent<Temp>().Cost);
+                    _tower = tower;
+                    _placeholder = Instantiate(tower, GetMousePosition(), Quaternion.identity);
+                    _placeholder.GetComponentInChildren<BoxCollider2D>().enabled = false;
+                    _placeholder.GetComponentInChildren<Attack>().enabled = false;
+
+                    _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
+                    _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
+                    UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
                 }
                 else
                 {
-                    _currentName = null;
+                    _name = null;
                     UpdateCost(null);
                 }
 
-                MenuNameText.text = _currentName;
-                _updateMenu = true;
+                CurrentNameText.text = _name;
+                _updateBuildMenu = true;
                 break;
             }
 
-            if (_current != null)
+            if (_placeholder != null)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (IsValid() && _gameState.HasPath(_current.transform.position))
+                    if (IsValid() && _gameState.HasPath(_placeholder.transform.position))
                     {
-                        Instantiate(_current.GetComponent<Temp>().Tower, _current.transform.position, Quaternion.identity);
-                        Destroy(_current);
-                        _currentName = null;
+                        Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
+                        Destroy(_placeholder);
+                        _name = null;
 
                         _gameState.UpdateGold(-_cost);
                         UpdateCost(null);
 
-                        MenuNameText.text = null;
-                        _updateMenu = true;
+                        CurrentNameText.text = null;
+                        _updateBuildMenu = true;
                     }
                 }
 
-                _current.transform.position = GetMousePosition();
+                _placeholder.transform.position = GetMousePosition();
                 foreach (var spriteRenderer in _spriteRenderers)
                 {
                     spriteRenderer.color = IsValid() ? ValidColor : InvalidColor;
@@ -131,14 +136,14 @@ namespace Assets.Scripts.Tower
             if (_gameState.IsGameOver ||
                 _gameState.IsWaveActive ||
                 _cost > _gameState.Gold ||
-                _current.transform.position.x > GameState.MapSize.x ||
-                _current.transform.position.x < -GameState.MapSize.x ||
-                _current.transform.position.y > GameState.MapSize.y ||
-                _current.transform.position.y < -GameState.MapSize.y)
+                _placeholder.transform.position.x > GameState.MapSize.x ||
+                _placeholder.transform.position.x < -GameState.MapSize.x ||
+                _placeholder.transform.position.y > GameState.MapSize.y ||
+                _placeholder.transform.position.y < -GameState.MapSize.y)
             {
                 return false;
             }
-            var hit = Physics2D.OverlapBox(_current.transform.position, _current.transform.localScale / 2f, 0f, 1 << 30);
+            var hit = Physics2D.OverlapBox(_placeholder.transform.position, _placeholder.transform.localScale / 2f, 0f, 1 << 30);
             return hit == null;
         }
 
@@ -155,23 +160,23 @@ namespace Assets.Scripts.Tower
             }
         }
 
-        private void UpdateMenu()
+        private void UpdateBuildMenu()
         {
-            var position = new Vector2(_menuPosition.x, _menuPosition.y);
-            for (var i = 0; i < _menuTemps.Count; i++)
+            var position = new Vector2(_buildMenuInitialPosition.x, _buildMenuInitialPosition.y);
+            for (var i = 0; i < _buildMenuTowers.Count; i++)
             {
-                _menuTemps[i].transform.localPosition = position;
-                position.x += _menuScale.x + 10f;
+                _buildMenuTowers[i].transform.localPosition = position;
+                position.x += _buildMenuScale.x + 10f;
 
                 var color = Color.white;
-                if (_currentName == _menuNames[i])
+                if (_name == _buildMenuNames[i])
                 {
-                    MenuNameText.rectTransform.anchoredPosition = new Vector2((_menuScale.x + 10f) * (i + 1), 0f);
-                    position.x += MenuNameText.rectTransform.rect.width + 10f;
+                    CurrentNameText.rectTransform.anchoredPosition = new Vector2((_buildMenuScale.x + 10f) * (i + 1), 0f);
+                    position.x += CurrentNameText.rectTransform.rect.width + 10f;
                     color = ValidColor;
                 }
 
-                foreach (var spriteRenderer in _menuSpriteRenderers[i])
+                foreach (var spriteRenderer in _buildMenuSpriteRenderers[i])
                 {
                     spriteRenderer.color = color;
                 }

@@ -1013,7 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1074200170}
   m_Layer: 5
-  m_Name: Build
+  m_Name: Build Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1368,17 +1368,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019b04101221b344e85a4c3901061918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Temps:
-  - {fileID: 9055758794849768214, guid: 9332547b39d642d4fb4c9e0bcc666c21, type: 3}
-  - {fileID: 9055758794849768214, guid: e60ddad9b1f25d345b802e8bdd8ffe2a, type: 3}
-  - {fileID: 9055758794849768214, guid: f09da8f3b1c19834d9a6d47437ef6bd8, type: 3}
-  - {fileID: 9055758794849768214, guid: fe6279471f3367a4c9e88336a99b5f37, type: 3}
-  - {fileID: 9055758794849768214, guid: c6ec419ed266b76449661db291d7ca21, type: 3}
-  - {fileID: 9055758794849768214, guid: a3b7e4d8e0c7a6049a4fbc7299e19ce0, type: 3}
-  - {fileID: 9055758794849768214, guid: e5be65b1cabcf884e965d15f2df98595, type: 3}
-  MenuParent: {fileID: 1074200169}
+  Towers:
+  - {fileID: 3770581399121130389, guid: 0f8854782e1b41742baddbb1771d2d89, type: 3}
+  - {fileID: 3770581399121130389, guid: 136d139cd6d22a2438f402cc2c83e4eb, type: 3}
+  - {fileID: 3770581399121130389, guid: 6b5cdc12dc780594cb9fffc31b839e0f, type: 3}
+  - {fileID: 3770581399121130389, guid: b2318bb9421c09e4ab6b9d70dc82232e, type: 3}
+  - {fileID: 3770581399121130389, guid: 132fa265357557a45a87f4c2f95ff6b2, type: 3}
+  - {fileID: 3770581399121130389, guid: 6ddca706fe672fe4b8e3f4b900af8347, type: 3}
+  - {fileID: 3770581399121130389, guid: 3ac716c82dfc0db47a2958fd5a93e836, type: 3}
+  BuildMenu: {fileID: 1074200169}
   CostText: {fileID: 695254069}
-  MenuNameText: {fileID: 1801079223}
+  CurrentNameText: {fileID: 1801079223}
   ValidColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
   ValidCostColor: {r: 0.9882353, g: 0.9490196, b: 0, a: 1}
   InvalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -2764,7 +2764,7 @@ GameObject:
   - component: {fileID: 1801079223}
   - component: {fileID: 1801079225}
   m_Layer: 5
-  m_Name: Name
+  m_Name: Current Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

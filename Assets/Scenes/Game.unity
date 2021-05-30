@@ -534,7 +534,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Damage Type: Light'
+  m_Text: 'Damage Type: Normal'
 --- !u!222 &331281479
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -568,7 +568,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341568267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -2.0001984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1671346193}
@@ -576,11 +576,11 @@ RectTransform:
   m_Father: {fileID: 1290526194}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 853.5, y: 378.75}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 2000, y: 0}
   m_SizeDelta: {x: 210, y: 320}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &341568269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,15 +593,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f1936d22bd4eb44bbe9bd0dcb14df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Screen: {fileID: 341568268}
+  SelectedColor: {r: 1, g: 0.9490196, b: 0, a: 1}
   NameText: {fileID: 1006587657}
   LevelText: {fileID: 403613161}
   DamageText: {fileID: 1319860427}
   RangeText: {fileID: 2093507764}
   AttackSpeedText: {fileID: 382945008}
   ProjectileSpeedText: {fileID: 492039143}
-  SplashText: {fileID: 492039143}
-  ChainDamageText: {fileID: 1069715847}
-  ChainRangeText: {fileID: 1801547804}
+  SplashText: {fileID: 1069715847}
+  ChainDamageText: {fileID: 1801547804}
+  ChainRangeText: {fileID: 450411431}
   DamageTypeText: {fileID: 331281478}
 --- !u!1 &382945006
 GameObject:
@@ -673,7 +675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Attack Speed: 0.1 (+0.01)'
+  m_Text: 'Attack Speed: 1 (-0.1)'
 --- !u!222 &382945009
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -752,7 +754,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Level: 10 (100/1000)'
+  m_Text: 'Level: 1 (0/100)'
 --- !u!222 &403613162
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -831,7 +833,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Chain Range: 10 (+1)'
+  m_Text: 'Chain Range: 0 (+0)'
 --- !u!222 &450411432
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -962,7 +964,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'P. Speed: 0.1 (+0.01)'
+  m_Text: 'P. Speed: 0.5 (+0.05)'
 --- !u!222 &492039144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1708,7 +1710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Splash: 1 (+0.1)'
+  m_Text: 'Splash: 0 (+0)'
 --- !u!222 &1069715848
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2197,7 +2199,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Damage: 100 (+10)'
+  m_Text: 'Damage: 20 (+5)'
 --- !u!222 &1319860428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3909,7 +3911,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Chain Damage: 100 (+10)'
+  m_Text: 'Chain Damage: 0 (+0)'
 --- !u!222 &1801547805
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4018,7 +4020,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Range: 10 (+1)'
+  m_Text: 'Range: 3 (+0.5)'
 --- !u!222 &2093507765
 CanvasRenderer:
   m_ObjectHideFlags: 0

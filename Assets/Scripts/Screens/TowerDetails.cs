@@ -6,6 +6,9 @@ namespace Assets.Scripts.Screens
 {
     public class TowerDetails : MonoBehaviour
     {
+        public RectTransform Screen;
+        public Color SelectedColor;
+
         public Text NameText;
         public Text LevelText;
         public Text DamageText;
@@ -17,7 +20,9 @@ namespace Assets.Scripts.Screens
         public Text ChainRangeText;
         public Text DamageTypeText;
 
-        private TowerBase _tower;
+        private GameObject _tower;
+        private TowerBase _base;
+        private SpriteRenderer[] _spriteRenderers;
 
         private void Update()
         {
@@ -26,21 +31,47 @@ namespace Assets.Scripts.Screens
                 return;
             }
 
-            NameText.text = _tower.Name;
-            LevelText.text = $"Level: {_tower.Level} ({_tower.Experience}/{_tower.ExperienceRequired})";
-            DamageText.text = $"Damage: {_tower.Damage} (+{_tower.DamageGain})";
-            RangeText.text = $"Range: {_tower.Range} (+{_tower.RangeGain})";
-            AttackSpeedText.text = $"Attack Speed: {_tower.AttackSpeed} (+{_tower.AttackSpeedGain})";
-            ProjectileSpeedText.text = $"P. Speed: {_tower.ProjectileSpeed} (+{_tower.ProjectileSpeedGain})";
-            SplashText.text = $"Splash: {_tower.Splash} (+{_tower.SplashGain})";
-            ChainDamageText.text = $"Chain Damage: {_tower.ChainDamage} (+{_tower.ChainDamageGain})";
-            ChainRangeText.text = $"Chain Range: {_tower.ChainRangeGain} (+{_tower.ChainRangeGain})";
-            DamageTypeText.text = "Damage Type: " + _tower.DamageType;
+            NameText.text = _base.Name;
+            LevelText.text = $"Level: {_base.Level} ({_base.Experience}/{_base.ExperienceRequired})";
+            DamageText.text = $"Damage: {_base.Damage} (+{_base.DamageGain})";
+            RangeText.text = $"Range: {_base.Range} (+{_base.RangeGain})";
+            AttackSpeedText.text = $"Attack Speed: {_base.AttackSpeed} ({_base.AttackSpeedGain})";
+            ProjectileSpeedText.text = $"P. Speed: {_base.ProjectileSpeed} (+{_base.ProjectileSpeedGain})";
+            SplashText.text = $"Splash: {_base.Splash} (+{_base.SplashGain})";
+            ChainDamageText.text = $"Chain Damage: {_base.ChainDamage} (+{_base.ChainDamageGain})";
+            ChainRangeText.text = $"Chain Range: {_base.ChainRangeGain} (+{_base.ChainRangeGain})";
+            DamageTypeText.text = "Damage Type: " + _base.DamageType;
         }
 
         public void UpdateTower(GameObject tower)
         {
-            _tower = tower.GetComponentInChildren<TowerBase>();
+            if (_tower != null)
+            {
+                foreach (var spriteRenderer in _spriteRenderers)
+                {
+                    spriteRenderer.color = Color.white;
+                }
+                Screen.gameObject.SetActive(false);
+            }
+
+            if (tower != _tower)
+            {
+                _tower = tower;
+                _base = tower.GetComponentInChildren<TowerBase>();
+                _spriteRenderers = tower.GetComponentsInChildren<SpriteRenderer>();
+                foreach (var spriteRenderer in _spriteRenderers)
+                {
+                    spriteRenderer.color = SelectedColor;
+                }
+
+                Screen.pivot = tower.transform.position.y >= 0f ? Vector2.up : Vector2.zero;
+                Screen.position = new Vector2(tower.transform.position.x, tower.transform.position.y);
+                Screen.gameObject.SetActive(true);
+            }
+            else
+            {
+                _tower = null;
+            }
         }
     }
 }

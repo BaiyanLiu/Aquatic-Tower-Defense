@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,10 +20,28 @@ namespace Assets.Scripts.Screens
         public Text ChainDamageText;
         public Text ChainRangeText;
         public Text DamageTypeText;
+        public GameObject EffectsParent;
 
         private GameObject _tower;
         private TowerBase _base;
         private SpriteRenderer[] _spriteRenderers;
+        private float _initialHeight;
+
+        private readonly List<GameObject> _effects = new List<GameObject>();
+        private readonly List<EffectDisplay> _effectDisplays = new List<EffectDisplay>();
+        private readonly List<RectTransform> _effectTransforms = new List<RectTransform>();
+
+        private void Start()
+        {
+            _initialHeight = Screen.rect.height;
+            for (var i = 0; i < EffectsParent.transform.childCount; i++)
+            {
+                var effect = EffectsParent.transform.GetChild(i).gameObject;
+                _effects.Add(effect);
+                _effectDisplays.Add(effect.GetComponent<EffectDisplay>());
+                _effectTransforms.Add(effect.GetComponent<RectTransform>());
+            }
+        }
 
         private void Update()
         {
@@ -41,6 +60,23 @@ namespace Assets.Scripts.Screens
             ChainDamageText.text = $"Chain Damage: {_base.ChainDamage} (+{_base.ChainDamageGain})";
             ChainRangeText.text = $"Chain Range: {_base.ChainRangeGain} (+{_base.ChainRangeGain})";
             DamageTypeText.text = "Damage Type: " + _base.DamageType;
+
+            var height = 0f;
+            for (var i = 0; i < _effects.Count; i++)
+            {
+                if (i < _base.Effects.Count)
+                {
+                    _effectTransforms[i].anchoredPosition = new Vector2(0f, -height);
+                    height += _effectDisplays[i].UpdateEffect(_base.Effects[i]) + 10f;
+                    _effects[i].SetActive(true);
+                }
+                else
+                {
+                    _effects[i].SetActive(false);
+                }
+            }
+
+            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _initialHeight + height); 
         }
 
         public void UpdateTower(GameObject tower)

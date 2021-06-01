@@ -61,29 +61,34 @@ namespace Assets.Scripts.Tower
                 _prevTargets.Add(_target);
 
                 var enemies = new HashSet<EnemyBase> { _target.GetComponent<EnemyBase>()};
-                if (_tower.Splash > 0f)
+
+                if (_tower.Effects.LastOrDefault(effect => effect is SplashEffect) is SplashEffect splashEffect)
                 {
-                    var hits = Physics2D.OverlapCircleAll(transform.position, _tower.Splash, 1 << 29);
+                    var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Range, 1 << 29);
                     foreach (var hit in hits)
                     {
                         enemies.Add(hit.gameObject.GetComponent<EnemyBase>());
                     }
                 }
 
-                var effects = _tower.Effects.Select(effect => (EffectBase) effect.Clone()).ToList();
+                var effects = _tower.Effects.Where(effect => !effect.IsInnate).Select(effect => (EffectBase) effect.Clone()).ToList();
                 foreach (var enemy in enemies.Where(enemy => enemy.OnAttacked(-_damage, _tower.DamageType, effects)))
                 {
                     _tower.UpdateExperience(enemy.Experience);
                 }
 
-                _damage *= _tower.ChainDamage;
-                if (_damage >= 1f)
+                if (_tower.Effects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)
                 {
-                    var hit = Physics2D.OverlapCircleAll(transform.position, _tower.ChainRange, 1 << 29)
-                        .FirstOrDefault(t => !_prevTargets.Contains(t.gameObject));
-                    if (hit != null)
-                    { 
-                        Create(gameObject, _color, transform.position, _tower, _damage, hit.gameObject, _prevTargets);
+                    _damage *= chainEffect.Damage;
+                    if (_damage >= 1f)
+                    {
+                        var hit = Physics2D.OverlapCircleAll(transform.position, chainEffect.Range, 1 << 29)
+                            .FirstOrDefault(t => !_prevTargets.Contains(t.gameObject));
+                        if (hit != null)
+                        {
+                            Create(gameObject, _color, transform.position, _tower, _damage, hit.gameObject,
+                                _prevTargets);
+                        }
                     }
                 }
 

@@ -16,9 +16,6 @@ namespace Assets.Scripts.Screens
         public Text RangeText;
         public Text AttackSpeedText;
         public Text ProjectileSpeedText;
-        public Text SplashText;
-        public Text ChainDamageText;
-        public Text ChainRangeText;
         public Text DamageTypeText;
         public GameObject EffectsParent;
 
@@ -56,9 +53,6 @@ namespace Assets.Scripts.Screens
             RangeText.text = $"Range: {_base.Range} (+{_base.RangeGain})";
             AttackSpeedText.text = $"Attack Speed: {_base.AttackSpeed} ({_base.AttackSpeedGain})";
             ProjectileSpeedText.text = $"P. Speed: {_base.ProjectileSpeed} (+{_base.ProjectileSpeedGain})";
-            SplashText.text = $"Splash: {_base.Splash} (+{_base.SplashGain})";
-            ChainDamageText.text = $"Chain Damage: {_base.ChainDamage} (+{_base.ChainDamageGain})";
-            ChainRangeText.text = $"Chain Range: {_base.ChainRangeGain} (+{_base.ChainRangeGain})";
             DamageTypeText.text = "Damage Type: " + _base.DamageType;
 
             var height = 0f;

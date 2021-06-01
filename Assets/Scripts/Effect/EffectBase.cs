@@ -17,6 +17,7 @@ namespace Assets.Scripts.Effect
 
         public abstract string Name { get; }
         public abstract Color StatusColor { get; }
+        public abstract bool IsInnate { get; }
 
         private float _effectTimer;
 

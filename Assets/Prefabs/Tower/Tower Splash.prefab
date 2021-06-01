@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1296629577744321635}
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
+  - component: {fileID: 3927289101254364998}
   m_Layer: 0
   m_Name: Tower_Top
   m_TagString: Untagged
@@ -145,6 +146,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
   ProjectileColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &3927289101254364998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  Frequency: 0
+  DurationGain: 0
+  FrequencyGain: 0
+  Range: 1.5
+  RangeGain: 0.2
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

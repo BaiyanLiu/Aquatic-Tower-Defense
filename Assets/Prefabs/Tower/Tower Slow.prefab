@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
   - component: {fileID: 4471259508398665913}
+  - component: {fileID: 5863099448026833068}
   m_Layer: 0
   m_Name: Tower_Top
   m_TagString: Untagged
@@ -119,16 +120,10 @@ MonoBehaviour:
   Range: 1.5
   AttackSpeed: 1
   ProjectileSpeed: 0.3
-  Splash: 2.5
-  ChainDamage: 0
-  ChainRange: 0
   DamageGain: 1
   RangeGain: 0.2
   AttackSpeedGain: -0.1
   ProjectileSpeedGain: 0.03
-  SplashGain: 0.3
-  ChainDamageGain: 0
-  ChainRangeGain: 0
   DamageType: 1
   Cost: 15
   Name: Slow Tower
@@ -164,6 +159,24 @@ MonoBehaviour:
   FrequencyGain: 0
   Amount: 0.5
   AmountGain: 0.05
+--- !u!114 &5863099448026833068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  Frequency: 0
+  DurationGain: 0
+  FrequencyGain: 0
+  Range: 2.5
+  RangeGain: 0.3
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

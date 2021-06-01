@@ -10,17 +10,11 @@ namespace Assets.Scripts.Tower
         public float Range;
         public float AttackSpeed;
         public float ProjectileSpeed;
-        public float Splash;
-        public float ChainDamage;
-        public float ChainRange;
 
         public float DamageGain;
         public float RangeGain;
         public float AttackSpeedGain;
         public float ProjectileSpeedGain;
-        public float SplashGain;
-        public float ChainDamageGain;
-        public float ChainRangeGain;
 
         public DamageType DamageType;
         public int Cost;
@@ -59,9 +53,6 @@ namespace Assets.Scripts.Tower
                 Range += RangeGain;
                 AttackSpeed += AttackSpeedGain;
                 ProjectileSpeed += ProjectileSpeedGain;
-                Splash += SplashGain;
-                ChainDamage += ChainDamageGain;
-                ChainRange += ChainRangeGain;
 
                 foreach (var effect in Effects)
                 {

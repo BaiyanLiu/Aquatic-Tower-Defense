@@ -9,32 +9,52 @@ namespace Assets.Scripts.Screens
         public Text NameText;
         public Text DurationText;
         public Text FrequencyText;
-        public Text AmountText;
+        public Text AmountText1;
+        public Text AmountText2;
 
         public float UpdateEffect(EffectBase effect)
         {
             NameText.text = effect.Name;
-            var height = NameText.rectTransform.rect.height + 5f;
+            NameText.color = effect.StatusColor;
+            var height = NameText.rectTransform.rect.height;
 
             height = UpdateText(DurationText, effect.Duration > 0f, height, $"Duration: {effect.Duration} (+{effect.DurationGain})");
             height = UpdateText(FrequencyText, effect.Frequency > 0f, height, $"Frequency: {effect.Frequency} ({effect.FrequencyGain})");
 
-            var amountTextValue = effect switch
-            {
-                PoisonEffect poisonEffect => $"Damage: {poisonEffect.Damage} (+{poisonEffect.DamageGain})",
-                SlowEffect slowEffect => $"Amount: {slowEffect.Amount} (+{slowEffect.AmountGain})",
-                _ => null
-            };
-            height = UpdateText(AmountText, true, height, amountTextValue);
+            string amountTextValue1 = null;
+            string amountTextValue2 = null;
 
-            return height - 5f;
+            switch (effect)
+            {
+                case PoisonEffect poisonEffect:
+                    amountTextValue1 = $"Damage: {poisonEffect.Damage} (+{poisonEffect.DamageGain})";
+                    break;
+
+                case SlowEffect slowEffect:
+                    amountTextValue1 = $"Amount: {slowEffect.Amount} (+{slowEffect.AmountGain})";
+                    break;
+
+                case ChainEffect chainEffect:
+                    amountTextValue1 = $"Damage: {chainEffect.Damage} (+{chainEffect.DamageGain})";
+                    amountTextValue2 = $"Range: {chainEffect.Range} (+{chainEffect.RangeGain})";
+                    break;
+
+                case SplashEffect splashEffect:
+                    amountTextValue1 = $"Range: {splashEffect.Range} (+{splashEffect.RangeGain})";
+                    break;
+            }
+
+            height = UpdateText(AmountText1, amountTextValue1 != null, height, amountTextValue1);
+            height = UpdateText(AmountText2, amountTextValue2 != null, height, amountTextValue2);
+
+            return height;
         }
 
         private float UpdateText(Text text, bool isEnabled, float y, string textValue)
         {
             if (isEnabled)
             {
-                text.rectTransform.anchoredPosition = new Vector2(0f, -y);
+                text.rectTransform.anchoredPosition = new Vector2(0f, -(y + 5f));
                 text.text = textValue;
                 return y + text.rectTransform.rect.height + 5f;
             }

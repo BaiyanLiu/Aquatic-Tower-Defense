@@ -28,6 +28,7 @@ namespace Assets.Scripts
         public Text LivesLostText;
         public Text StartButtonText;
 
+        public GameObject PathTile;
         public TowerDetails TowerDetails;
 
         public List<Vector2> Path { get; private set; }
@@ -39,6 +40,7 @@ namespace Assets.Scripts
         private Wave[] _waves;
         private int _currWave = -1;
         private float _livesLostTimer;
+        private readonly List<GameObject> _pathTiles = new List<GameObject>();
 
         private void Start()
         {
@@ -72,6 +74,15 @@ namespace Assets.Scripts
             if (!IsWaveActive)
             {
                 StartButtonText.text = "Start Wave " + (_currWave + 2);
+
+                if (_pathTiles.Any())
+                {
+                    foreach (var pathTile in _pathTiles)
+                    {
+                        Destroy(pathTile);
+                    }
+                    _pathTiles.Clear();
+                }
             }
         }
 
@@ -84,7 +95,13 @@ namespace Assets.Scripts
         {
             if (!IsWaveActive)
             {
-                Path = PathingHelper.ShortestPath(StartPosition.position, EndPosition.position, Vector2.negativeInfinity);
+                var path = PathingHelper.ShortestPath(CreatePosition.position, DestroyPosition.position, Vector2.negativeInfinity);
+                foreach (var step in path)
+                {
+                    _pathTiles.Add(Instantiate(PathTile, step, Quaternion.identity));
+                }
+                Path = PathingHelper.CollapsePath(CreatePosition.position, path);
+
                 if (_currWave >= 0)
                 {
                     _waves[_currWave % _waves.Length].OnCreateEnemy -= HandleCreateEnemy;

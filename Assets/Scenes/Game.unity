@@ -1043,6 +1043,7 @@ MonoBehaviour:
   LivesText: {fileID: 300703131}
   LivesLostText: {fileID: 252397908}
   StartButtonText: {fileID: 249134126}
+  PathTile: {fileID: 7906944779217144928, guid: 3a5ec8a6730c4f9438b2d2be25efab15, type: 3}
   TowerDetails: {fileID: 341568269}
 --- !u!20 &519420031
 Camera:

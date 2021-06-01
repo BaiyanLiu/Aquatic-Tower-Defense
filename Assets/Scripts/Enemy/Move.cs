@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ namespace Assets.Scripts.Enemy
         private EnemyBase _base;
         private GameState _gameState;
 
-        private List<Vector2> _waypoints;
         private int _currWaypoint;
 
         private void Start()
@@ -20,10 +18,6 @@ namespace Assets.Scripts.Enemy
             _animator = GetComponent<Animator>();
             _base = GetComponent<EnemyBase>();
             _gameState = GameState.GetGameState(gameObject);
-
-            _waypoints = new List<Vector2> {_gameState.StartPosition.position};
-            _waypoints.AddRange(_gameState.Path);
-            _waypoints.Add(_gameState.DestroyPosition.position);
         }
 
         private void FixedUpdate()
@@ -42,12 +36,12 @@ namespace Assets.Scripts.Enemy
                 }
             }
 
-            var p = Vector2.MoveTowards(transform.position, _waypoints[_currWaypoint], _base.Speed * (1 - slowAmount));
+            var p = Vector2.MoveTowards(transform.position, _gameState.Path[_currWaypoint], _base.Speed * (1 - slowAmount));
             _rigidbody.MovePosition(p);
 
-            if ((Vector2) transform.position == _waypoints[_currWaypoint])
+            if ((Vector2) transform.position == _gameState.Path[_currWaypoint])
             {
-                if (++_currWaypoint == _waypoints.Count)
+                if (++_currWaypoint == _gameState.Path.Count)
                 {
                     _gameState.UpdateLives(-_base.Lives);
                     Destroy(gameObject);
@@ -55,7 +49,7 @@ namespace Assets.Scripts.Enemy
                 }
             }
 
-            var dir = _waypoints[_currWaypoint] - (Vector2) transform.position;
+            var dir = _gameState.Path[_currWaypoint] - (Vector2) transform.position;
             _animator.SetFloat("DirX", dir.x);
             _animator.SetFloat("DirY", dir.y);
         }

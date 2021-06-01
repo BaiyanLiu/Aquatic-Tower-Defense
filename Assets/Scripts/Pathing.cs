@@ -7,11 +7,14 @@ namespace Assets.Scripts
 {
     internal static class PathingHelper
     {
-        public static List<Vector2> ShortestPath(Vector2 from, Vector2 to, Vector2 exclude)
+        public static Stack<Vector2> ShortestPath(Vector2 from, Vector2 to, Vector2 exclude)
         {
             exclude = Vector2Int.RoundToInt(exclude);
             var nodes = new List<Vector2> {Vector2Int.RoundToInt(to)};
-            for (var x = -GameState.MapSize.x; x <= GameState.MapSize.x; x++)
+
+            var minX = (int) Math.Round(from.x);
+            var maxX = (int) Math.Round(to.x);
+            for (var x = minX; x <= maxX; x++)
             {
                 for (var y = -GameState.MapSize.y; y <= GameState.MapSize.y; y++)
                 {
@@ -54,7 +57,7 @@ namespace Assets.Scripts
                         path.Push(curr);
                         if (from == cameFrom[curr])
                         {
-                            return CollapsePath(from, path);
+                            return path;
                         }
                         curr = cameFrom[curr];
                     }
@@ -64,7 +67,7 @@ namespace Assets.Scripts
                 var neighbors = (
                     from dir in new[] { Vector2Int.right, Vector2Int.up, Vector2Int.left, Vector2Int.down }
                     let key = Vector2Int.RoundToInt(curr + dir)
-                    where IsValid(curr, dir) && dist.ContainsKey(key)
+                    where IsValid(curr, dir) && dist.ContainsKey(key) && (dir == Vector2Int.right || curr.x >= minX && curr.x <= maxX)
                     select key).ToList();
 
                 foreach (var neighbor in neighbors)
@@ -79,7 +82,7 @@ namespace Assets.Scripts
                 }
             }
 
-            return new List<Vector2>();
+            return new Stack<Vector2>();
         }
 
         private static int Dist(Vector2 from, Vector2 to)
@@ -93,7 +96,7 @@ namespace Assets.Scripts
             return hit.collider == null;
         }
 
-        private static List<Vector2> CollapsePath(Vector2 from, Stack<Vector2> path)
+        public static List<Vector2> CollapsePath(Vector2 from, Stack<Vector2> path)
         {
             var newPath = new List<Vector2>();
 

@@ -72,9 +72,9 @@ namespace Assets.Scripts.Tower
                 }
 
                 var effects = _tower.Effects.Where(effect => !effect.IsInnate).Select(effect => (EffectBase) effect.Clone()).ToList();
-                foreach (var enemy in enemies.Where(enemy => enemy.OnAttacked(-_damage, _tower.DamageType, effects)))
+                foreach (var enemy in enemies.Where(enemy => enemy.OnAttacked(_damage, _tower, effects)))
                 {
-                    _tower.UpdateExperience(enemy.Experience);
+                    _tower.EnemyKilled(enemy);
                 }
 
                 if (_tower.Effects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)

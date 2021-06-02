@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Enemy;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -23,6 +24,8 @@ namespace Assets.Scripts.Tower
         public int Level { get; set; } = 1;
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
+        public float DamageDone { get; set; }
+        public int Kills { get; set; }
 
         public List<EffectBase> Effects { get; } = new List<EffectBase>();
 
@@ -38,6 +41,17 @@ namespace Assets.Scripts.Tower
             {
                 effect.Tower = this;
             }
+        }
+
+        public void EnemyAttacked(float damage)
+        {
+            DamageDone += damage;
+        }
+
+        public void EnemyKilled(EnemyBase enemy)
+        {
+            UpdateExperience(enemy.Experience);
+            Kills++;
         }
 
         public void UpdateExperience(int delta)

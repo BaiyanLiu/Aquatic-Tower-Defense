@@ -69,9 +69,10 @@ namespace Assets.Scripts.Enemy
                 {
                     if (effect is PoisonEffect poisonEffect)
                     {
+                        effect.Tower.EnemyAttacked(Math.Min(poisonEffect.Damage, Health));
                         if (UpdateHealth(-poisonEffect.Damage))
                         {
-                            effect.Tower.UpdateExperience(Experience);
+                            effect.Tower.EnemyKilled(this);
                         }
                     }
                 }
@@ -91,10 +92,12 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        public bool OnAttacked(float healthDelta, DamageType damageType, List<EffectBase> effects)
+        public bool OnAttacked(float damage, TowerBase tower, List<EffectBase> effects)
         {
             Effects.UnionWith(effects);
-            return UpdateHealth(healthDelta * DamageReduction * DamageTypeReduction(damageType));
+            var healthDelta = damage * DamageReduction * DamageTypeReduction(tower.DamageType);
+            tower.EnemyAttacked(Math.Min(healthDelta, Health));
+            return UpdateHealth(-healthDelta);
         }
 
         private bool UpdateHealth(float delta)

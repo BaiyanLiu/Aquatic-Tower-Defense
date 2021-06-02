@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Tower;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Assets.Scripts.Screens
         public Text RangeText;
         public Text AttackSpeedText;
         public Text ProjectileSpeedText;
+        public Text DamageDoneText;
+        public Text KillsText;
         public Text DamageTypeText;
         public GameObject EffectsParent;
 
@@ -51,8 +54,10 @@ namespace Assets.Scripts.Screens
             LevelText.text = $"Level: {_base.Level} ({_base.Experience}/{_base.ExperienceRequired})";
             DamageText.text = $"Damage: {_base.Damage} (+{_base.DamageGain})";
             RangeText.text = $"Range: {_base.Range} (+{_base.RangeGain})";
-            AttackSpeedText.text = $"Attack Speed: {_base.AttackSpeed} ({_base.AttackSpeedGain})";
+            AttackSpeedText.text = $"A. Speed: {_base.AttackSpeed} ({_base.AttackSpeedGain})";
             ProjectileSpeedText.text = $"P. Speed: {_base.ProjectileSpeed} (+{_base.ProjectileSpeedGain})";
+            DamageDoneText.text = "Dmg Done: " + Math.Round(_base.DamageDone);
+            KillsText.text = "Kills: " + _base.Kills;
             DamageTypeText.text = "Damage Type: " + _base.DamageType;
 
             var height = 0f;

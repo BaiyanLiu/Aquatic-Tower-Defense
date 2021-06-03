@@ -20,6 +20,7 @@ namespace Assets.Scripts.Screens
         public Text DamageDoneText;
         public Text KillsText;
         public Text DamageTypeText;
+        public Transform RangeIndicator;
         public GameObject EffectsParent;
 
         private GameObject _tower;
@@ -75,7 +76,12 @@ namespace Assets.Scripts.Screens
                 }
             }
 
-            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _initialHeight + height); 
+            Screen.pivot = new Vector2(-0.1f, _tower.transform.position.y >= 0f ? 1f : 0f);
+            Screen.position = new Vector2(_tower.transform.position.x, _tower.transform.position.y);
+            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _initialHeight + height);
+
+            RangeIndicator.position = _tower.transform.position;
+            RangeIndicator.localScale = new Vector2(_base.Range * 2f, _base.Range * 2f);
         }
 
         public void UpdateTower(GameObject tower)
@@ -87,9 +93,10 @@ namespace Assets.Scripts.Screens
                     spriteRenderer.color = Color.white;
                 }
                 Screen.gameObject.SetActive(false);
+                RangeIndicator.gameObject.SetActive(false);
             }
 
-            if (tower != _tower)
+            if (tower != null && tower != _tower)
             {
                 _tower = tower;
                 _base = tower.GetComponentInChildren<TowerBase>();
@@ -98,10 +105,8 @@ namespace Assets.Scripts.Screens
                 {
                     spriteRenderer.color = SelectedColor;
                 }
-
-                Screen.pivot = tower.transform.position.y >= 0f ? Vector2.up : Vector2.zero;
-                Screen.position = new Vector2(tower.transform.position.x, tower.transform.position.y);
                 Screen.gameObject.SetActive(true);
+                RangeIndicator.gameObject.SetActive(true);
             }
             else
             {

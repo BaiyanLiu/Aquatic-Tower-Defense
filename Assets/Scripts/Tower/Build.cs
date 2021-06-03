@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Screens;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Tower
     {
         public GameObject[] Towers;
         public GameObject BuildMenu;
+        public TowerDetails TowerDetails;
 
         public Text CostText;
         public Text CurrentNameText;
@@ -81,11 +83,12 @@ namespace Assets.Scripts.Tower
                         var tower = Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
                         _gameState.RegisterTower(tower);
                         Destroy(_placeholder);
-                        _name = null;
+                        CurrentNameText.text = _name = null;
 
+                        _gameState.IsBuilding = false;
                         _gameState.UpdateGold(-_cost);
                         UpdateCost(null);
-                        CurrentNameText.text = null;
+                        TowerDetails.UpdateTower(null);
                     }
                 }
 
@@ -115,12 +118,17 @@ namespace Assets.Scripts.Tower
                 _placeholder.GetComponentInChildren<BoxCollider2D>().enabled = false;
                 _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
                 _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
+
+                _gameState.IsBuilding = true;
                 UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
+                TowerDetails.UpdateTower(_placeholder);
             }
             else
             {
                 _name = null;
+                _gameState.IsBuilding = false;
                 UpdateCost(null);
+                TowerDetails.UpdateTower(null);
             }
 
             CurrentNameText.text = _name ?? "";

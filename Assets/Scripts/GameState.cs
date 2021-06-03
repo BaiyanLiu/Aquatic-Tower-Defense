@@ -36,6 +36,7 @@ namespace Assets.Scripts
         public int Gold { get; private set; } = 100;
         public int Lives { get; private set; } = 20;
         public bool IsGameOver => Lives == 0;
+        public bool IsBuilding { private get; set; }
 
         private Wave[] _waves;
         private int _currWave = -1;
@@ -148,7 +149,10 @@ namespace Assets.Scripts
         {
             tower.GetComponentInChildren<Interaction>().OnClick += (sender, args) =>
             {
-                TowerDetails.UpdateTower(tower);
+                if (!IsBuilding)
+                {
+                    TowerDetails.UpdateTower(tower);
+                }
             };
         }
     }

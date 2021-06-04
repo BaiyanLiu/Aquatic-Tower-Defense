@@ -123,16 +123,10 @@ MonoBehaviour:
   Range: 3
   AttackSpeed: 1
   ProjectileSpeed: 0.5
-  Splash: 0
-  ChainDamage: 0
-  ChainRange: 0
   DamageGain: 5
   RangeGain: 0.5
   AttackSpeedGain: -0.1
   ProjectileSpeedGain: 0.05
-  SplashGain: 0
-  ChainDamageGain: 0
-  ChainRangeGain: 0
   DamageType: 1
   Cost: 15
   Name: Normal Tower
@@ -161,7 +155,7 @@ GameObject:
   - component: {fileID: 3770581399031461661}
   - component: {fileID: 3770581399031461662}
   - component: {fileID: 1367282223715270173}
-  - component: {fileID: 588926517510561720}
+  - component: {fileID: 157992502914712166}
   m_Layer: 30
   m_Name: Tower_Base
   m_TagString: Untagged
@@ -261,7 +255,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &588926517510561720
+--- !u!114 &157992502914712166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

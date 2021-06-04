@@ -88,7 +88,7 @@ namespace Assets.Scripts.Tower
                         _gameState.IsBuilding = false;
                         _gameState.UpdateGold(-_cost);
                         UpdateCost(null);
-                        TowerDetails.UpdateTower(null);
+                        TowerDetails.UpdateTarget(null);
                     }
                 }
 
@@ -121,14 +121,14 @@ namespace Assets.Scripts.Tower
 
                 _gameState.IsBuilding = true;
                 UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
-                TowerDetails.UpdateTower(_placeholder);
+                TowerDetails.UpdateTarget(_placeholder);
             }
             else
             {
                 _name = null;
                 _gameState.IsBuilding = false;
                 UpdateCost(null);
-                TowerDetails.UpdateTower(null);
+                TowerDetails.UpdateTarget(null);
             }
 
             CurrentNameText.text = _name ?? "";

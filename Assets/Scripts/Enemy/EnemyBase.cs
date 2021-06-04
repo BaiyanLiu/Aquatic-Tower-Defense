@@ -9,6 +9,7 @@ namespace Assets.Scripts.Enemy
     public class EnemyBase : MonoBehaviour
     {
         public event EventHandler<GameObject> OnDie;
+        public event EventHandler<GameObject> OnDestroyed;
 
         public float MaxHealthBase;
         public float ArmorBase;
@@ -21,7 +22,10 @@ namespace Assets.Scripts.Enemy
         public int Experience;
         public int Gold;
         public int Lives;
-        
+        public string Name;
+
+        public float MaxHealth { get; private set; }
+        public float Armor { get; private set; }
         public float Health { get; private set; }
         public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
 
@@ -29,21 +33,18 @@ namespace Assets.Scripts.Enemy
         {
             set
             {
-                _maxHealth = MaxHealthBase + MaxHealthGain * value;
-                _armor = ArmorBase + ArmorGain * value;
-                Health = _maxHealth;
+                MaxHealth = MaxHealthBase + MaxHealthGain * value;
+                Armor = ArmorBase + ArmorGain * value;
+                Health = MaxHealth;
             }
         }
 
-        private float DamageReduction => (100f - _armor) / 100f;
+        private float DamageReduction => (100f - Armor) / 100f;
 
         private Animator _animator;
         private Transform _healthBar;
         private SpriteRenderer[] _statusIndicators;
         private GameState _gameState;
-
-        private float _maxHealth;
-        private float _armor;
 
         private void Start()
         {
@@ -92,6 +93,11 @@ namespace Assets.Scripts.Enemy
             }
         }
 
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this, gameObject);
+        }
+
         public bool OnAttacked(float damage, TowerBase tower, List<EffectBase> effects)
         {
             Effects.UnionWith(effects);
@@ -105,12 +111,12 @@ namespace Assets.Scripts.Enemy
             if (Health > 0f)
             {
                 Health += delta;
-                _healthBar.localScale = new Vector2(Math.Max(Health / _maxHealth, 0f), 1f);
+                _healthBar.localScale = new Vector2(Math.Max(Health / MaxHealth, 0f), 1f);
                 if (Health <= 0f)
                 {
-                    _animator.SetBool("Dead", true);
                     OnDie?.Invoke(this, gameObject);
                     _gameState.UpdateGold(Gold);
+                    _animator.SetBool("Dead", true);
                     return true;
                 }
             }

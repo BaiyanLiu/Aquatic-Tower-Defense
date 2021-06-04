@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Screens;
-using Assets.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,6 +29,7 @@ namespace Assets.Scripts
 
         public GameObject PathTile;
         public TowerDetails TowerDetails;
+        public EnemyDetails EnemyDetails;
 
         public List<Vector2> Path { get; private set; }
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.childCount > 0);
@@ -151,8 +151,18 @@ namespace Assets.Scripts
             {
                 if (!IsBuilding)
                 {
-                    TowerDetails.UpdateTower(tower);
+                    EnemyDetails.UpdateTarget(null);
+                    TowerDetails.UpdateTarget(tower);
                 }
+            };
+        }
+
+        public void RegisterEnemy(GameObject enemy)
+        {
+            enemy.GetComponent<Interaction>().OnClick += (sender, args) =>
+            {
+                TowerDetails.UpdateTarget(null);
+                EnemyDetails.UpdateTarget(enemy);
             };
         }
     }

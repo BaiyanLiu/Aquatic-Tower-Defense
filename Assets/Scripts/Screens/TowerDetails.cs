@@ -6,12 +6,8 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
-    public class TowerDetails : MonoBehaviour
+    public class TowerDetails : DetailsScreen<TowerBase>
     {
-        public RectTransform Screen;
-        public Color SelectedColor;
-
-        public Text NameText;
         public Text LevelText;
         public Text DamageText;
         public Text RangeText;
@@ -23,18 +19,12 @@ namespace Assets.Scripts.Screens
         public Transform RangeIndicator;
         public GameObject EffectsParent;
 
-        private GameObject _tower;
-        private TowerBase _base;
-        private SpriteRenderer[] _spriteRenderers;
-        private float _initialHeight;
-
         private readonly List<GameObject> _effects = new List<GameObject>();
         private readonly List<EffectDisplay> _effectDisplays = new List<EffectDisplay>();
         private readonly List<RectTransform> _effectTransforms = new List<RectTransform>();
 
-        private void Start()
+        protected override void OnStart()
         {
-            _initialHeight = Screen.rect.height;
             for (var i = 0; i < EffectsParent.transform.childCount; i++)
             {
                 var effect = EffectsParent.transform.GetChild(i).gameObject;
@@ -44,30 +34,25 @@ namespace Assets.Scripts.Screens
             }
         }
 
-        private void Update()
+        protected override void OnUpdate()
         {
-            if (_tower == null)
-            {
-                return;
-            }
-
-            NameText.text = _base.Name;
-            LevelText.text = $"Level: {_base.Level} ({_base.Experience}/{_base.ExperienceRequired})";
-            DamageText.text = $"Damage: {_base.Damage} (+{_base.DamageGain})";
-            RangeText.text = $"Range: {_base.Range} (+{_base.RangeGain})";
-            AttackSpeedText.text = $"A. Speed: {_base.AttackSpeed} ({_base.AttackSpeedGain})";
-            ProjectileSpeedText.text = $"P. Speed: {_base.ProjectileSpeed} (+{_base.ProjectileSpeedGain})";
-            DamageDoneText.text = "Dmg Done: " + Math.Round(_base.DamageDone);
-            KillsText.text = "Kills: " + _base.Kills;
-            DamageTypeText.text = "Damage Type: " + _base.DamageType;
+            NameText.text = Base.Name;
+            LevelText.text = $"Level: {Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
+            DamageText.text = $"Damage: {Base.Damage} (+{Base.DamageGain})";
+            RangeText.text = $"Range: {Base.Range} (+{Base.RangeGain})";
+            AttackSpeedText.text = $"A. Speed: {Base.AttackSpeed} ({Base.AttackSpeedGain})";
+            ProjectileSpeedText.text = $"P. Speed: {Base.ProjectileSpeed} (+{Base.ProjectileSpeedGain})";
+            DamageDoneText.text = "Dmg Done: " + Math.Round(Base.DamageDone);
+            KillsText.text = "Kills: " + Base.Kills;
+            DamageTypeText.text = "Damage Type: " + Base.DamageType;
 
             var height = 0f;
             for (var i = 0; i < _effects.Count; i++)
             {
-                if (i < _base.Effects.Count)
+                if (i < Base.Effects.Count)
                 {
                     _effectTransforms[i].anchoredPosition = new Vector2(0f, -height);
-                    height += _effectDisplays[i].UpdateEffect(_base.Effects[i]) + 10f;
+                    height += _effectDisplays[i].UpdateEffect(Base.Effects[i]) + 10f;
                     _effects[i].SetActive(true);
                 }
                 else
@@ -76,42 +61,20 @@ namespace Assets.Scripts.Screens
                 }
             }
 
-            Screen.pivot = new Vector2(-0.1f, _tower.transform.position.y >= 0f ? 1f : 0f);
-            Screen.position = new Vector2(_tower.transform.position.x, _tower.transform.position.y);
-            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _initialHeight + height);
+            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, InitialHeight + height);
 
-            RangeIndicator.position = _tower.transform.position;
-            RangeIndicator.localScale = new Vector2(_base.Range * 2f, _base.Range * 2f);
+            RangeIndicator.position = Target.transform.position;
+            RangeIndicator.localScale = new Vector2(Base.Range * 2f, Base.Range * 2f);
         }
 
-        public void UpdateTower(GameObject tower)
+        protected override void OnDeselected()
         {
-            if (_tower != null)
-            {
-                foreach (var spriteRenderer in _spriteRenderers)
-                {
-                    spriteRenderer.color = Color.white;
-                }
-                Screen.gameObject.SetActive(false);
-                RangeIndicator.gameObject.SetActive(false);
-            }
+            RangeIndicator.gameObject.SetActive(false);
+        }
 
-            if (tower != null && tower != _tower)
-            {
-                _tower = tower;
-                _base = tower.GetComponentInChildren<TowerBase>();
-                _spriteRenderers = tower.GetComponentsInChildren<SpriteRenderer>();
-                foreach (var spriteRenderer in _spriteRenderers)
-                {
-                    spriteRenderer.color = SelectedColor;
-                }
-                Screen.gameObject.SetActive(true);
-                RangeIndicator.gameObject.SetActive(true);
-            }
-            else
-            {
-                _tower = null;
-            }
+        protected override void OnSelected()
+        {
+            RangeIndicator.gameObject.SetActive(true);
         }
     }
 }

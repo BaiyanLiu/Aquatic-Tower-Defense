@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8430441423056619184}
   - component: {fileID: 8430441423056619187}
   - component: {fileID: 8430441423056619186}
+  - component: {fileID: 1444565968851729633}
   m_Layer: 29
   m_Name: Enemy Armored
   m_TagString: Untagged
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: fd106049b32bab94fb5bada326c907f9, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -144,7 +145,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.5
 --- !u!114 &8430441423056619187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +167,7 @@ MonoBehaviour:
   Experience: 15
   Gold: 15
   Lives: 1
+  Name: Armored Enemy
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +178,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6836a3ca4c76e3640bd33d9437235216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1444565968851729633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430441423056619189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d909429fa6ebb5e4aba789472ecbb136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &9016888731183248554

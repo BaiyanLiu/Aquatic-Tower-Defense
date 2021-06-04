@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Tower
+namespace Assets.Scripts
 {
     public class Interaction : MonoBehaviour
     {

@@ -119,16 +119,10 @@ MonoBehaviour:
   Range: 1.5
   AttackSpeed: 1
   ProjectileSpeed: 0.3
-  Splash: 1.5
-  ChainDamage: 0
-  ChainRange: 0
   DamageGain: 5
   RangeGain: 0.2
   AttackSpeedGain: -0.1
   ProjectileSpeedGain: 0.03
-  SplashGain: 0.2
-  ChainDamageGain: 0
-  ChainRangeGain: 0
   DamageType: 2
   Cost: 20
   Name: Splash Tower
@@ -145,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
-  ProjectileColor: {r: 1, g: 0, b: 0, a: 1}
+  ProjectileColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
 --- !u!114 &3927289101254364998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +169,7 @@ GameObject:
   - component: {fileID: 3770581399031461661}
   - component: {fileID: 3770581399031461662}
   - component: {fileID: 1367282223715270173}
-  - component: {fileID: 6489079938799964930}
+  - component: {fileID: 8894916013915574332}
   m_Layer: 30
   m_Name: Tower_Base
   m_TagString: Untagged
@@ -275,7 +269,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6489079938799964930
+--- !u!114 &8894916013915574332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

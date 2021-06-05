@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Scenes;
 using Assets.Scripts.Tower;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace Assets.Scripts.Enemy
         {
             set
             {
-                MaxHealth = MaxHealthBase + MaxHealthGain * value;
+                MaxHealth = (MaxHealthBase + MaxHealthGain * value) * PlayerPrefs.GetInt(Settings.Health) / 100f;
                 Armor = ArmorBase + ArmorGain * value;
                 Health = MaxHealth;
             }

@@ -10,6 +10,11 @@ namespace Assets.Scripts.Scenes
             SceneManager.LoadScene("Game");
         }
 
+        public void Settings()
+        {
+            SceneManager.LoadScene("Settings");
+        }
+
         public void Exit()
         {
             Application.Quit();

@@ -236,7 +236,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 132.5, y: -35}
-  m_SizeDelta: {x: 245, y: 50}
+  m_SizeDelta: {x: 245, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131642173
 MonoBehaviour:
@@ -882,7 +882,7 @@ Camera:
   m_GameObject: {fileID: 991074755}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -968,7 +968,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -132.5, y: -35}
-  m_SizeDelta: {x: 245, y: 50}
+  m_SizeDelta: {x: 245, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1993277156
 MonoBehaviour:
@@ -1075,6 +1075,7 @@ GameObject:
   - component: {fileID: 2003489594}
   - component: {fileID: 2003489596}
   - component: {fileID: 2003489595}
+  - component: {fileID: 2003489597}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1143,3 +1144,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003489593}
   m_CullTransparentMesh: 1
+--- !u!114 &2003489597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003489593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1

@@ -80,6 +80,11 @@ namespace Assets.Scripts.Screens
 
             RangeIndicator.position = Target.transform.position;
             RangeIndicator.localScale = new Vector2(Base.Range * 2f, Base.Range * 2f);
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                Sell();
+            }
         }
 
         protected override void OnDeselected()
@@ -90,6 +95,16 @@ namespace Assets.Scripts.Screens
         protected override void OnSelected()
         {
             RangeIndicator.gameObject.SetActive(true);
+        }
+
+        public void Sell()
+        {
+            if (!GameState.IsBuilding && Target != null)
+            {
+                GameState.UpdateGold(Base.SellCost);
+                Destroy(Target);
+                UpdateTarget(null);
+            }
         }
     }
 }

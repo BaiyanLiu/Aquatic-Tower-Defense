@@ -22,7 +22,7 @@ namespace Assets.Scripts.Screens
 
         protected virtual void OnStart() {}
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (Target == null)
             {

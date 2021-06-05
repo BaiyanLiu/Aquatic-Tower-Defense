@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Enemy;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -18,11 +19,13 @@ namespace Assets.Scripts
         private float _createEnemyTimer;
         private int _currEnemy;
 
+        [UsedImplicitly]
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
         }
 
+        [UsedImplicitly]
         private void Update()
         {
             if (GameState.IsPaused || _gameState.IsGameOver || !IsActive)

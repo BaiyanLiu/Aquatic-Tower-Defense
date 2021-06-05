@@ -1,4 +1,5 @@
 using Assets.Scripts.Effect;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -12,6 +13,7 @@ namespace Assets.Scripts.Enemy
 
         private int _currWaypoint;
 
+        [UsedImplicitly]
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -20,6 +22,7 @@ namespace Assets.Scripts.Enemy
             _gameState = GameState.GetGameState(gameObject);
         }
 
+        [UsedImplicitly]
         private void FixedUpdate()
         {
             if (GameState.IsPaused || _gameState.IsGameOver || _base.Health <= 0f)

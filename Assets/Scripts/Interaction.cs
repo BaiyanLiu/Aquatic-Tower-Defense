@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -7,6 +8,7 @@ namespace Assets.Scripts
     {
         public event EventHandler OnClick;
 
+        [UsedImplicitly]
         private void OnMouseDown()
         {
             OnClick?.Invoke(this, EventArgs.Empty);

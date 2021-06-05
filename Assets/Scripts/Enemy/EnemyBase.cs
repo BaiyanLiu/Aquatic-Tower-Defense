@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Scenes;
 using Assets.Scripts.Tower;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -47,6 +48,7 @@ namespace Assets.Scripts.Enemy
         private SpriteRenderer[] _statusIndicators;
         private GameState _gameState;
 
+        [UsedImplicitly]
         private void Start()
         {
             _animator = GetComponent<Animator>();
@@ -55,6 +57,7 @@ namespace Assets.Scripts.Enemy
             _gameState = GameState.GetGameState(gameObject);
         }
 
+        [UsedImplicitly]
         private void Update()
         {
             if (GameState.IsPaused || _gameState.IsGameOver)
@@ -94,6 +97,7 @@ namespace Assets.Scripts.Enemy
             }
         }
 
+        [UsedImplicitly]
         private void OnDestroy()
         {
             OnDestroyed?.Invoke(this, gameObject);

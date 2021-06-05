@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Screens;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,7 @@ namespace Assets.Scripts.Tower
         private string _prevName;
         private float _prevNameWidth = -1f;
 
+        [UsedImplicitly]
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
@@ -67,6 +69,7 @@ namespace Assets.Scripts.Tower
             UpdateBuildMenu();
         }
 
+        [UsedImplicitly]
         private void Update()
         {
             foreach (var keyCode in _towers.Keys.Where(Input.GetKeyDown))

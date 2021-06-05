@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Tower
 
         private CircleCollider2D _collider;
 
+        [UsedImplicitly]
         private void Start()
         {
             SellCost = (int) Math.Round(Cost / 2f);

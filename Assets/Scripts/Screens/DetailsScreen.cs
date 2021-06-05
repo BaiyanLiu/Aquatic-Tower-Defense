@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Screens
         protected GameObject Target { get; private set; }
         protected T Base { get; private set; }
 
+        [UsedImplicitly]
         private void Start()
         {
             GameState = GameState.GetGameState(gameObject);
@@ -22,6 +24,7 @@ namespace Assets.Scripts.Screens
 
         protected virtual void OnStart() {}
 
+        [UsedImplicitly]
         private void Update()
         {
             if (Target == null)

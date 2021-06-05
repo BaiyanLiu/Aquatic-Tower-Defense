@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Enemy;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -17,12 +18,14 @@ namespace Assets.Scripts.Tower
         private GameObject _target;
         private float _attackTimer;
 
+        [UsedImplicitly]
         private void Start()
         {
             _base = GetComponent<TowerBase>();
             _gameState = GameState.GetGameState(gameObject);
         }
 
+        [UsedImplicitly]
         private void FixedUpdate()
         {
             if (GameState.IsPaused || _gameState.IsGameOver)
@@ -50,6 +53,7 @@ namespace Assets.Scripts.Tower
             Tower.Projectile.Create(Projectile, ProjectileColor, transform.position, _base, _base.Damage, _target);
         }
 
+        [UsedImplicitly]
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.name.StartsWith("Enemy"))
@@ -63,7 +67,8 @@ namespace Assets.Scripts.Tower
                 };
             }
         }
-        
+
+        [UsedImplicitly]
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.name.StartsWith("Enemy"))

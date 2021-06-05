@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Tower
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Tower
             projectile._target = target;
         }
 
+        [UsedImplicitly]
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -37,6 +39,7 @@ namespace Assets.Scripts.Tower
             GetComponent<SpriteRenderer>().color = _color;
         }
 
+        [UsedImplicitly]
         private void FixedUpdate()
         {
             if (GameState.IsPaused || _gameState.IsGameOver)
@@ -54,6 +57,7 @@ namespace Assets.Scripts.Tower
             _rigidbody.MovePosition(p);
         }
 
+        [UsedImplicitly]
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject == _target)

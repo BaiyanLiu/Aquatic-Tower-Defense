@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Screens;
 using Assets.Scripts.Tower;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -44,6 +45,7 @@ namespace Assets.Scripts
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
 
+        [UsedImplicitly]
         private void Start()
         {
             IsPaused = false;
@@ -53,6 +55,7 @@ namespace Assets.Scripts
             LivesLostText.enabled = false;
         }
 
+        [UsedImplicitly]
         private void Update()
         {
             if (IsPaused)
@@ -93,6 +96,7 @@ namespace Assets.Scripts
             return gameObject.scene.GetRootGameObjects().First(o => o.name == "Main Camera").GetComponent<GameState>();
         }
 
+        [UsedImplicitly]
         public void StartWave()
         {
             if (!IsWaveActive)

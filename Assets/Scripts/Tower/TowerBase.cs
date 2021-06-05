@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
@@ -24,8 +25,10 @@ namespace Assets.Scripts.Tower
         public int Level { get; set; } = 1;
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
+
         public float DamageDone { get; set; }
         public int Kills { get; set; }
+        public int SellCost { get; private set; }
 
         public List<EffectBase> Effects { get; } = new List<EffectBase>();
 
@@ -33,6 +36,8 @@ namespace Assets.Scripts.Tower
 
         private void Start()
         {
+            SellCost = (int) Math.Round(Cost / 2f);
+
             _collider = GetComponent<CircleCollider2D>();
             _collider.radius = Range;
 

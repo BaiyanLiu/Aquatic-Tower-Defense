@@ -36,7 +36,7 @@ namespace Assets.Scripts
         public int Gold { get; private set; } = 100;
         public int Lives { get; private set; } = 20;
         public bool IsGameOver => Lives == 0;
-        public bool IsBuilding { private get; set; }
+        public bool IsBuilding { get; set; }
 
         private Wave[] _waves;
         private int _currWave = -1;

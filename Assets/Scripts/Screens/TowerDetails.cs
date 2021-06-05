@@ -16,8 +16,11 @@ namespace Assets.Scripts.Screens
         public Text DamageDoneText;
         public Text KillsText;
         public Text DamageTypeText;
+
         public Transform RangeIndicator;
         public GameObject EffectsParent;
+        public RectTransform SellButton;
+        public Text SellButtonText;
 
         private readonly List<GameObject> _effects = new List<GameObject>();
         private readonly List<EffectDisplay> _effectDisplays = new List<EffectDisplay>();
@@ -59,6 +62,18 @@ namespace Assets.Scripts.Screens
                 {
                     _effects[i].SetActive(false);
                 }
+            }
+
+            if (!GameState.IsBuilding)
+            {
+                SellButtonText.text = "Sell: " + Base.SellCost;
+                SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
+                height += SellButton.rect.height + 5f;
+                SellButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                SellButton.gameObject.SetActive(false);
             }
 
             Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, InitialHeight + height);

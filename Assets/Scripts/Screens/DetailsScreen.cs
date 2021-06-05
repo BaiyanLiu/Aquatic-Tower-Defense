@@ -8,12 +8,14 @@ namespace Assets.Scripts.Screens
         public RectTransform Screen;
         public Text NameText;
 
+        protected GameState GameState { get; private set; }
         protected float InitialHeight { get; private set; }
         protected GameObject Target { get; private set; }
         protected T Base { get; private set; }
 
         private void Start()
         {
+            GameState = GameState.GetGameState(gameObject);
             InitialHeight = Screen.rect.height;
             OnStart();
         }

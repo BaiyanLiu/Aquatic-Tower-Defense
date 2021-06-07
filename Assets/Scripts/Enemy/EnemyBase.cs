@@ -72,10 +72,10 @@ namespace Assets.Scripts.Enemy
             {
                 if (effect.UpdateTimer(Time.deltaTime))
                 {
-                    if (effect is PoisonEffect poisonEffect)
+                    if (effect is PoisonEffect)
                     {
-                        effect.Tower.EnemyAttacked(Math.Min(poisonEffect.Amount, Health));
-                        if (UpdateHealth(-poisonEffect.Amount))
+                        effect.Tower.EnemyAttacked(Math.Min(effect.Amount, Health));
+                        if (UpdateHealth(-effect.Amount))
                         {
                             effect.Tower.EnemyKilled(this);
                         }

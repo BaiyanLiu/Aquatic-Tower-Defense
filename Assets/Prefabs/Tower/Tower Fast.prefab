@@ -118,6 +118,10 @@ MonoBehaviour:
   Range: 2
   AttackSpeed: 0.2
   ProjectileSpeed: 1
+  DamageBase: 5
+  RangeBase: 2
+  AttackSpeedBase: 0.2
+  ProjectileSpeedBase: 1
   DamageGain: 1
   RangeGain: 0.2
   AttackSpeedGain: -0.02

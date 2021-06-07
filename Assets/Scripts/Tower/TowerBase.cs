@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
+using Assets.Scripts.Item;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,10 +11,10 @@ namespace Assets.Scripts.Tower
 {
     public class TowerBase : MonoBehaviour
     {
-        public float Damage;
-        public float Range;
-        public float AttackSpeed;
-        public float ProjectileSpeed;
+        public float DamageBase;
+        public float RangeBase;
+        public float AttackSpeedBase;
+        public float ProjectileSpeedBase;
 
         public float DamageGain;
         public float RangeGain;
@@ -27,11 +29,17 @@ namespace Assets.Scripts.Tower
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
 
+        public float Damage { get; private set; }
+        public float Range { get; private set; }
+        public float AttackSpeed { get; private set; }
+        public float ProjectileSpeed { get; private set; }
+
         public float DamageDone { get; set; }
         public int Kills { get; set; }
         public int SellCost { get; private set; }
 
-        public List<EffectBase> Effects { get; } = new List<EffectBase>();
+        public EffectBase[] Effects { get; private set; }
+        public List<ItemBase> Items { get; } = new List<ItemBase>();
 
         private CircleCollider2D _collider;
 
@@ -40,14 +48,19 @@ namespace Assets.Scripts.Tower
         {
             SellCost = (int) Math.Round(Cost / 2f);
 
-            _collider = GetComponent<CircleCollider2D>();
-            _collider.radius = Range;
-
-            Effects.AddRange(GetComponents<EffectBase>());
+            Effects = GetComponents<EffectBase>();
             foreach (var effect in Effects)
             {
                 effect.Tower = this;
             }
+            foreach (var effect in Items.SelectMany(item => item.Effects))
+            {
+                effect.Tower = this;
+            }
+
+            _collider = GetComponent<CircleCollider2D>();
+
+            UpdateStats();
         }
 
         public void EnemyAttacked(float damage)
@@ -70,18 +83,31 @@ namespace Assets.Scripts.Tower
                 Experience -= ExperienceRequired;
                 ExperienceRequired += 100;
 
-                Damage += DamageGain;
-                Range += RangeGain;
-                AttackSpeed += AttackSpeedGain;
-                ProjectileSpeed += ProjectileSpeedGain;
-
                 foreach (var effect in Effects)
                 {
                     effect.LevelUp();
                 }
 
-                _collider.radius = Range;
+                UpdateStats();
             }
+        }
+
+        public void UpdateStats()
+        {
+            Damage = DamageBase + DamageGain * (Level - 1);
+            Range = RangeBase + RangeGain * (Level - 1);
+            AttackSpeed = AttackSpeedBase + AttackSpeedGain * (Level - 1);
+            ProjectileSpeed = ProjectileSpeedBase + ProjectileSpeedGain * (Level - 1);
+
+            foreach (var effect in Items.SelectMany(item => item.Effects))
+            {
+                if (effect is DamageEffect)
+                {
+                    Damage += effect.Amount;
+                }
+            }
+
+            _collider.radius = Range;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Screens
             var height = 0f;
             for (var i = 0; i < _effects.Count; i++)
             {
-                if (i < Base.Effects.Count)
+                if (i < Base.Effects.Length)
                 {
                     _effectTransforms[i].anchoredPosition = new Vector2(0f, -height);
                     height += _effectDisplays[i].UpdateEffect(Base.Effects[i]) + 10f;

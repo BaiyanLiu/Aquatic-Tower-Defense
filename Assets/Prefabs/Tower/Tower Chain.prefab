@@ -119,6 +119,10 @@ MonoBehaviour:
   Range: 2.5
   AttackSpeed: 1
   ProjectileSpeed: 0.5
+  DamageBase: 15
+  RangeBase: 2.5
+  AttackSpeedBase: 1
+  ProjectileSpeedBase: 0.5
   DamageGain: 3
   RangeGain: 0.3
   AttackSpeedGain: -0.1
@@ -158,9 +162,7 @@ MonoBehaviour:
   DurationGain: 0
   FrequencyGain: 0
   AmountGain: 0.05
-  Damage: 0.5
   Range: 2.5
-  DamageGain: 0.05
   RangeGain: 0.1
 --- !u!1 &3770581399031461660
 GameObject:

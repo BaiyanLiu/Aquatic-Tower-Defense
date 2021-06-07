@@ -27,7 +27,7 @@ namespace Assets.Scripts.Screens
             switch (effect)
             {
                 case PoisonEffect poisonEffect:
-                    amountTextValue1 = $"Damage: {poisonEffect.Damage} (+{poisonEffect.DamageGain})";
+                    amountTextValue1 = $"Damage: {poisonEffect.Amount} (+{poisonEffect.AmountGain})";
                     break;
 
                 case SlowEffect slowEffect:
@@ -35,12 +35,12 @@ namespace Assets.Scripts.Screens
                     break;
 
                 case ChainEffect chainEffect:
-                    amountTextValue1 = $"Damage: {chainEffect.Damage} (+{chainEffect.DamageGain})";
+                    amountTextValue1 = $"Damage: {chainEffect.Amount} (+{chainEffect.AmountGain})";
                     amountTextValue2 = $"Range: {chainEffect.Range} (+{chainEffect.RangeGain})";
                     break;
 
                 case SplashEffect splashEffect:
-                    amountTextValue1 = $"Range: {splashEffect.Range} (+{splashEffect.RangeGain})";
+                    amountTextValue1 = $"Range: {splashEffect.Amount} (+{splashEffect.AmountGain})";
                     break;
             }
 

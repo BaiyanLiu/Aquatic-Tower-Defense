@@ -9,15 +9,17 @@ namespace Assets.Scripts.Effect
     {
         public float Duration;
         public float Frequency;
+        public float Amount;
 
         public float DurationGain;
         public float FrequencyGain;
+        public float AmountGain;
 
         public TowerBase Tower { get; set; }
 
         public abstract string Name { get; }
-        public abstract Color StatusColor { get; }
-        public abstract bool IsInnate { get; }
+        public virtual Color StatusColor => Color.white;
+        public virtual bool IsInnate => false;
 
         private float _effectTimer;
 
@@ -25,6 +27,7 @@ namespace Assets.Scripts.Effect
         {
             Duration += DurationGain;
             Frequency += FrequencyGain;
+            Amount += AmountGain;
         }
 
         public bool UpdateTimer(float deltaTime)

@@ -155,8 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   Frequency: 0
+  Amount: 0.5
   DurationGain: 0.1
   FrequencyGain: 0
+  AmountGain: 0.05
   Amount: 0.5
   AmountGain: 0.05
 --- !u!114 &5863099448026833068
@@ -173,8 +175,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 0
   Frequency: 0
+  Amount: 2.5
   DurationGain: 0
   FrequencyGain: 0
+  AmountGain: 0.3
   Range: 2.5
   RangeGain: 0.3
 --- !u!1 &3770581399031461660

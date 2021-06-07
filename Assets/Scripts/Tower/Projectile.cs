@@ -68,7 +68,7 @@ namespace Assets.Scripts.Tower
 
                 if (_tower.Effects.LastOrDefault(effect => effect is SplashEffect) is SplashEffect splashEffect)
                 {
-                    var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Range, 1 << 29);
+                    var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Amount, 1 << 29);
                     foreach (var hit in hits)
                     {
                         enemies.Add(hit.gameObject.GetComponent<EnemyBase>());
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Tower
 
                 if (_tower.Effects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)
                 {
-                    _damage *= chainEffect.Damage;
+                    _damage *= chainEffect.Amount;
                     if (_damage >= 1f)
                     {
                         var hit = Physics2D.OverlapCircleAll(transform.position, chainEffect.Range, 1 << 29)

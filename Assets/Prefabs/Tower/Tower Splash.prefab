@@ -154,8 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 0
   Frequency: 0
+  Amount: 1.5
   DurationGain: 0
   FrequencyGain: 0
+  AmountGain: 0.2
   Range: 1.5
   RangeGain: 0.2
 --- !u!1 &3770581399031461660

@@ -74,8 +74,8 @@ namespace Assets.Scripts.Enemy
                 {
                     if (effect is PoisonEffect poisonEffect)
                     {
-                        effect.Tower.EnemyAttacked(Math.Min(poisonEffect.Damage, Health));
-                        if (UpdateHealth(-poisonEffect.Damage))
+                        effect.Tower.EnemyAttacked(Math.Min(poisonEffect.Amount, Health));
+                        if (UpdateHealth(-poisonEffect.Amount))
                         {
                             effect.Tower.EnemyKilled(this);
                         }

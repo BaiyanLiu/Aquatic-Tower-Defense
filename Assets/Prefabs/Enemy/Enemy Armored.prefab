@@ -167,6 +167,7 @@ MonoBehaviour:
   Experience: 15
   Gold: 15
   Lives: 1
+  ItemChance: 0.1
   Name: Armored Enemy
 --- !u!114 &8430441423056619186
 MonoBehaviour:

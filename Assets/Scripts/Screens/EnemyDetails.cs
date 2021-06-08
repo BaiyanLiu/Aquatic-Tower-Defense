@@ -13,6 +13,7 @@ namespace Assets.Scripts.Screens
         public Text ExperienceText;
         public Text GoldText;
         public Text LivesText;
+        public Text ItemChanceText;
         public Text ArmorTypeText;
 
         protected override void OnUpdate()
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Screens
             ExperienceText.text = "Experience: " + Base.Experience;
             GoldText.text = "Gold: " + Base.Gold;
             LivesText.text = "Lives: " + Base.Lives;
+            ItemChanceText.text = $"Item Chance: {Base.ItemChance * 100}%";
             ArmorTypeText.text = "Armor Type: " + Base.ArmorType;
         }
 

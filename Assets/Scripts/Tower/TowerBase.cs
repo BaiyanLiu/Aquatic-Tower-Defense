@@ -41,11 +41,15 @@ namespace Assets.Scripts.Tower
         public EffectBase[] Effects { get; private set; }
         public List<ItemBase> Items { get; } = new List<ItemBase>();
 
+        private GameState _gameState;
         private CircleCollider2D _collider;
 
         [UsedImplicitly]
         private void Start()
         {
+            _gameState = GameState.GetGameState(gameObject);
+            _collider = GetComponent<CircleCollider2D>();
+
             SellCost = (int) Math.Round(Cost / 2f);
 
             Effects = GetComponents<EffectBase>();
@@ -57,8 +61,6 @@ namespace Assets.Scripts.Tower
             {
                 effect.Tower = this;
             }
-
-            _collider = GetComponent<CircleCollider2D>();
 
             UpdateStats();
         }
@@ -72,6 +74,7 @@ namespace Assets.Scripts.Tower
         {
             UpdateExperience(enemy.Experience);
             Kills++;
+            _gameState.EnemyKilled(this, enemy);
         }
 
         public void UpdateExperience(int delta)

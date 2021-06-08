@@ -1,10 +1,10 @@
+using System;
 using Assets.Scripts.Effect;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class ItemBase : MonoBehaviour
+    public class ItemBase : MonoBehaviour, ICloneable
     {
         public string Name;
         public EffectBase[] Effects { get; private set; }
@@ -23,10 +23,11 @@ namespace Assets.Scripts.Item
             }
         }
 
-        [UsedImplicitly]
-        private void Start()
+        public object Clone()
         {
-            Effects = GetComponents<EffectBase>();
+            var clone = MemberwiseClone();
+            ((ItemBase) clone).Effects = GetComponents<EffectBase>();
+            return clone;
         }
     }
 }

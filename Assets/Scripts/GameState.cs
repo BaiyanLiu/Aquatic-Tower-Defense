@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Enemy;
+using Assets.Scripts.Item;
 using Assets.Scripts.Screens;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = System.Random;
 
 namespace Assets.Scripts
 {
@@ -33,12 +36,17 @@ namespace Assets.Scripts
         public TowerDetails TowerDetails;
         public EnemyDetails EnemyDetails;
 
+        public ItemBase[] ItemPool;
+
         public List<Vector2> Path { get; private set; }
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.childCount > 0);
         public int Gold { get; private set; } = 100;
         public int Lives { get; private set; } = 20;
         public bool IsGameOver => Lives == 0;
         public bool IsBuilding { get; set; }
+        public List<ItemBase> Items { get; } = new List<ItemBase>();
+
+        private readonly Random _random = new Random();
 
         private Wave[] _waves;
         private int _currWave = -1;
@@ -169,6 +177,15 @@ namespace Assets.Scripts
                 TowerDetails.UpdateTarget(null);
                 EnemyDetails.UpdateTarget(enemy);
             };
+        }
+
+        public void EnemyKilled(TowerBase tower, EnemyBase enemy)
+        {
+            if (_random.Next(1) <= enemy.ItemChance)
+            {
+                var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
+                item.Level = _currWave + 1;
+            }
         }
     }
 }

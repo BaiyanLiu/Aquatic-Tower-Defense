@@ -167,6 +167,7 @@ MonoBehaviour:
   Experience: 8
   Gold: 8
   Lives: 1
+  ItemChance: 0.1
   Name: Fast Enemy
 --- !u!114 &8430441423056619186
 MonoBehaviour:

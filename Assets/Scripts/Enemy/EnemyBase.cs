@@ -24,6 +24,7 @@ namespace Assets.Scripts.Enemy
         public int Experience;
         public int Gold;
         public int Lives;
+        public float ItemChance;
         public string Name;
 
         public float MaxHealth { get; private set; }

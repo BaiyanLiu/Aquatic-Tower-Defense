@@ -18,7 +18,7 @@ namespace Assets.Scripts.Screens
         public Text DamageTypeText;
 
         public Transform RangeIndicator;
-        public GameObject EffectsParent;
+        public Transform EffectsParent;
         public RectTransform SellButton;
         public Text SellButtonText;
 
@@ -28,9 +28,9 @@ namespace Assets.Scripts.Screens
 
         protected override void OnStart()
         {
-            for (var i = 0; i < EffectsParent.transform.childCount; i++)
+            for (var i = 0; i < EffectsParent.childCount; i++)
             {
-                var effect = EffectsParent.transform.GetChild(i).gameObject;
+                var effect = EffectsParent.GetChild(i).gameObject;
                 _effects.Add(effect);
                 _effectDisplays.Add(effect.GetComponent<EffectDisplay>());
                 _effectTransforms.Add(effect.GetComponent<RectTransform>());

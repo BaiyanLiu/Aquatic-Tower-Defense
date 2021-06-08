@@ -35,6 +35,7 @@ namespace Assets.Scripts
         public GameObject PathTile;
         public TowerDetails TowerDetails;
         public EnemyDetails EnemyDetails;
+        public Inventory Inventory;
 
         public ItemBase[] ItemPool;
 
@@ -181,10 +182,11 @@ namespace Assets.Scripts
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
         {
-            if (_random.Next(1) <= enemy.ItemChance)
+            if (_random.NextDouble() <= enemy.ItemChance)
             {
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;
+                Inventory.AddItem(item);
             }
         }
     }

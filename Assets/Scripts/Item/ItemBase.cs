@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Effect;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
@@ -23,11 +24,15 @@ namespace Assets.Scripts.Item
             }
         }
 
+        [UsedImplicitly]
+        private void Start()
+        {
+            Effects = GetComponents<EffectBase>();
+        }
+
         public object Clone()
         {
-            var clone = MemberwiseClone();
-            ((ItemBase) clone).Effects = GetComponents<EffectBase>();
-            return clone;
+            return MemberwiseClone();
         }
     }
 }

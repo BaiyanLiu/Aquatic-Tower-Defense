@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 6584080105398471311}
   - component: {fileID: 6587994040274066410}
   m_Layer: 5
-  m_Name: Effect Display
+  m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

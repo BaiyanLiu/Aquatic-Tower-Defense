@@ -24,6 +24,11 @@ namespace Assets.Scripts.Effect
 
         private float _effectTimer;
 
+        public static string FormatAmountDisplayText(string name, float amount, float amountGain, bool includeGain)
+        {
+            return $"{name}: {amount}" + (includeGain ? $" (+{amountGain})" : "");
+        }
+
         public virtual void LevelUp()
         {
             Duration += DurationGain;
@@ -42,9 +47,9 @@ namespace Assets.Scripts.Effect
             return false;
         }
 
-        public virtual List<string> GetDisplayText()
+        public virtual List<string> GetAmountDisplayText(bool includeGain)
         {
-            return new List<string> {$"{AmountName}: {Amount} (+{AmountGain})"};
+            return new List<string> {FormatAmountDisplayText(AmountName, Amount, AmountGain, includeGain)};
         }
 
         public object Clone()
@@ -57,14 +62,14 @@ namespace Assets.Scripts.Effect
         public bool Equals(EffectBase x, EffectBase y)
         {
             if (ReferenceEquals(x, y)) return true;
-            if (ReferenceEquals(x, null)) return false;
-            if (ReferenceEquals(y, null)) return false;
+            if (x is null) return false;
+            if (y is null) return false;
             return x.GetType() == y.GetType() && Equals(x.Tower, y.Tower);
         }
 
         public int GetHashCode(EffectBase obj)
         {
-            return (obj.Tower != null ? obj.Tower.GetHashCode() : 0);
+            return obj.Tower != null ? obj.Tower.GetHashCode() : 0;
         }
     }
 }

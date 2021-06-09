@@ -16,7 +16,7 @@ namespace Assets.Scripts.Screens
         public Text ItemChanceText;
         public Text ArmorTypeText;
 
-        protected override void OnUpdate()
+        protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
             HealthText.text = $"Health : {Math.Max(0, Math.Ceiling(Base.Health))}/{Base.MaxHealth}";
@@ -27,6 +27,7 @@ namespace Assets.Scripts.Screens
             LivesText.text = "Lives: " + Base.Lives;
             ItemChanceText.text = $"Item Chance: {Base.ItemChance * 100}%";
             ArmorTypeText.text = "Armor Type: " + Base.ArmorType;
+            return height;
         }
 
         protected override void OnDeselected()

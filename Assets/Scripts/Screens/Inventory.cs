@@ -9,6 +9,7 @@ namespace Assets.Scripts.Screens
     public class Inventory : MonoBehaviour
     {
         public Transform ItemsParent;
+        public ItemDetails ItemDetails;
 
         private readonly List<GameObject> _items = new List<GameObject>();
         private Vector2 _scale;
@@ -36,6 +37,11 @@ namespace Assets.Scripts.Screens
             itemObject.transform.localPosition = new Vector2(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y);
             itemObject.transform.localScale = _scale;
             itemObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
+
+            itemObject.GetComponent<Interaction>().OnClick += (sender, args) =>
+            {
+                ItemDetails.UpdateTarget(itemObject.gameObject);
+            };
 
             _items.Add(itemObject.gameObject);
         }

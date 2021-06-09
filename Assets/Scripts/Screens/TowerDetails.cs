@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Assets.Scripts.Effect;
 using Assets.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,26 +18,12 @@ namespace Assets.Scripts.Screens
         public Text DamageTypeText;
 
         public Transform RangeIndicator;
-        public Transform EffectsParent;
         public RectTransform SellButton;
         public Text SellButtonText;
 
-        private readonly List<GameObject> _effects = new List<GameObject>();
-        private readonly List<EffectDisplay> _effectDisplays = new List<EffectDisplay>();
-        private readonly List<RectTransform> _effectTransforms = new List<RectTransform>();
+        protected override EffectBase[] TargetEffects => Base.Effects;
 
-        protected override void OnStart()
-        {
-            for (var i = 0; i < EffectsParent.childCount; i++)
-            {
-                var effect = EffectsParent.GetChild(i).gameObject;
-                _effects.Add(effect);
-                _effectDisplays.Add(effect.GetComponent<EffectDisplay>());
-                _effectTransforms.Add(effect.GetComponent<RectTransform>());
-            }
-        }
-
-        protected override void OnUpdate()
+        protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
             LevelText.text = $"Level: {Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
@@ -48,21 +34,6 @@ namespace Assets.Scripts.Screens
             DamageDoneText.text = "Dmg Done: " + Math.Round(Base.DamageDone);
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
-
-            var height = 0f;
-            for (var i = 0; i < _effects.Count; i++)
-            {
-                if (i < Base.Effects.Length)
-                {
-                    _effectTransforms[i].anchoredPosition = new Vector2(0f, -height);
-                    height += _effectDisplays[i].UpdateEffect(Base.Effects[i]) + 10f;
-                    _effects[i].SetActive(true);
-                }
-                else
-                {
-                    _effects[i].SetActive(false);
-                }
-            }
 
             if (!GameState.IsBuilding)
             {
@@ -76,8 +47,6 @@ namespace Assets.Scripts.Screens
                 SellButton.gameObject.SetActive(false);
             }
 
-            Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, InitialHeight + height);
-
             RangeIndicator.position = Target.transform.position;
             RangeIndicator.localScale = new Vector2(Base.Range * 2f, Base.Range * 2f);
 
@@ -85,6 +54,8 @@ namespace Assets.Scripts.Screens
             {
                 Sell();
             }
+
+            return height;
         }
 
         protected override void OnDeselected()

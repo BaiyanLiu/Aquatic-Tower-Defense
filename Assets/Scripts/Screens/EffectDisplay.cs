@@ -7,6 +7,8 @@ namespace Assets.Scripts.Screens
 {
     public class EffectDisplay : MonoBehaviour
     {
+        public bool IncludeGain = true;
+
         public Text NameText;
         public Text DurationText;
         public Text FrequencyText;
@@ -18,16 +20,16 @@ namespace Assets.Scripts.Screens
             NameText.color = effect.StatusColor;
             var height = NameText.rectTransform.rect.height;
 
-            height = UpdateText(DurationText, effect.Duration > 0f, height, $"Duration: {effect.Duration} (+{effect.DurationGain})");
-            height = UpdateText(FrequencyText, effect.Frequency > 0f, height, $"Frequency: {effect.Frequency} ({effect.FrequencyGain})");
+            height = UpdateText(DurationText, effect.Duration > 0f, height, EffectBase.FormatAmountDisplayText("Duration", effect.Duration, effect.DurationGain, IncludeGain));
+            height = UpdateText(FrequencyText, effect.Frequency > 0f, height, EffectBase.FormatAmountDisplayText("Frequency", effect.Frequency, effect.FrequencyGain, IncludeGain));
 
-            using var amountDisplayText = effect.GetDisplayText().GetEnumerator();
+            using var amountDisplayText = effect.GetAmountDisplayText(IncludeGain).GetEnumerator();
             height = AmountTexts.Aggregate(height, (currentHeight, amountText) => UpdateText(amountText, amountDisplayText.MoveNext(), currentHeight, amountDisplayText.Current));
 
             return height;
         }
 
-        private float UpdateText(Text text, bool isEnabled, float y, string textValue)
+        private static float UpdateText(Text text, bool isEnabled, float y, string textValue)
         {
             if (isEnabled)
             {

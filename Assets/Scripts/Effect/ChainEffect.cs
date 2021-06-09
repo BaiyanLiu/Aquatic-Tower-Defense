@@ -18,11 +18,11 @@ namespace Assets.Scripts.Effect
             Range += RangeGain;
         }
 
-        public override List<string> GetDisplayText()
+        public override List<string> GetAmountDisplayText(bool includeGain)
         {
-            var displayText = base.GetDisplayText();
-            displayText.Add($"Range: {Range} (+{RangeGain})");
-            return displayText;
+            var amountDisplayText = base.GetAmountDisplayText(includeGain);
+            amountDisplayText.Add(FormatAmountDisplayText("Range", Range, RangeGain, includeGain));
+            return amountDisplayText;
         }
     }
 }

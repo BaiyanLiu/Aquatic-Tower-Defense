@@ -18,6 +18,7 @@ namespace Assets.Scripts.Effect
         public TowerBase Tower { get; set; }
 
         public abstract string Name { get; }
+        public virtual string AmountName => "Amount";
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
 
@@ -39,6 +40,11 @@ namespace Assets.Scripts.Effect
                 return true;
             }
             return false;
+        }
+
+        public virtual List<string> GetDisplayText()
+        {
+            return new List<string> {$"{AmountName}: {Amount} (+{AmountGain})"};
         }
 
         public object Clone()

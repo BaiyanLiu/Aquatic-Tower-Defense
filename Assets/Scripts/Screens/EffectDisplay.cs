@@ -1,3 +1,4 @@
+using System.Linq;
 using Assets.Scripts.Effect;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,7 @@ namespace Assets.Scripts.Screens
         public Text NameText;
         public Text DurationText;
         public Text FrequencyText;
-        public Text AmountText1;
-        public Text AmountText2;
+        public Text[] AmountTexts;
 
         public float UpdateEffect(EffectBase effect)
         {
@@ -21,31 +21,8 @@ namespace Assets.Scripts.Screens
             height = UpdateText(DurationText, effect.Duration > 0f, height, $"Duration: {effect.Duration} (+{effect.DurationGain})");
             height = UpdateText(FrequencyText, effect.Frequency > 0f, height, $"Frequency: {effect.Frequency} ({effect.FrequencyGain})");
 
-            string amountTextValue1 = null;
-            string amountTextValue2 = null;
-
-            switch (effect)
-            {
-                case PoisonEffect poisonEffect:
-                    amountTextValue1 = $"Damage: {poisonEffect.Amount} (+{poisonEffect.AmountGain})";
-                    break;
-
-                case SlowEffect slowEffect:
-                    amountTextValue1 = $"Amount: {slowEffect.Amount} (+{slowEffect.AmountGain})";
-                    break;
-
-                case ChainEffect chainEffect:
-                    amountTextValue1 = $"Damage: {chainEffect.Amount} (+{chainEffect.AmountGain})";
-                    amountTextValue2 = $"Range: {chainEffect.Range} (+{chainEffect.RangeGain})";
-                    break;
-
-                case SplashEffect splashEffect:
-                    amountTextValue1 = $"Range: {splashEffect.Amount} (+{splashEffect.AmountGain})";
-                    break;
-            }
-
-            height = UpdateText(AmountText1, amountTextValue1 != null, height, amountTextValue1);
-            height = UpdateText(AmountText2, amountTextValue2 != null, height, amountTextValue2);
+            using var amountDisplayText = effect.GetDisplayText().GetEnumerator();
+            height = AmountTexts.Aggregate(height, (currentHeight, amountText) => UpdateText(amountText, amountDisplayText.MoveNext(), currentHeight, amountDisplayText.Current));
 
             return height;
         }

@@ -551,5 +551,6 @@ MonoBehaviour:
   NameText: {fileID: 6584080104157493267}
   DurationText: {fileID: 6584080104722732136}
   FrequencyText: {fileID: 6584080104414213017}
-  AmountText1: {fileID: 6584080105071162229}
-  AmountText2: {fileID: 3127839724007087030}
+  AmountTexts:
+  - {fileID: 6584080105071162229}
+  - {fileID: 3127839724007087030}

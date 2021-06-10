@@ -21,7 +21,7 @@ namespace Assets.Scripts.Effect
         public override List<string> GetAmountDisplayText(bool includeGain)
         {
             var amountDisplayText = base.GetAmountDisplayText(includeGain);
-            amountDisplayText.Add(FormatAmountDisplayText("Range", Range, RangeGain, includeGain));
+            amountDisplayText.Add(FormatDisplayText("Range", Range, RangeGain, includeGain));
             return amountDisplayText;
         }
     }

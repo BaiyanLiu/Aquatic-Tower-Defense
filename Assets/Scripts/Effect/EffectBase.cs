@@ -24,7 +24,7 @@ namespace Assets.Scripts.Effect
 
         private float _effectTimer;
 
-        public static string FormatAmountDisplayText(string name, float amount, float amountGain, bool includeGain)
+        public static string FormatDisplayText(string name, float amount, float amountGain, bool includeGain)
         {
             return $"{name}: {amount}" + (includeGain ? $" (+{amountGain})" : "");
         }
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Effect
 
         public virtual List<string> GetAmountDisplayText(bool includeGain)
         {
-            return new List<string> {FormatAmountDisplayText(AmountName, Amount, AmountGain, includeGain)};
+            return new List<string> {FormatDisplayText(AmountName, Amount, AmountGain, includeGain)};
         }
 
         public object Clone()

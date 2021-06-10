@@ -27,7 +27,7 @@ namespace Assets.Scripts.Screens
                 parent = parent.parent;
             }
             _scale = new Vector2(1f / parent.localScale.x, 1f / parent.localScale.y);
-            _positionOffset = new Vector2(_scale.x / 2f + 5f, -(_scale.y / 2f + 5f));
+            _positionOffset = new Vector2(_scale.x / 2f + 7.6f, -(_scale.y / 2f + 7.6f));
         }
 
         public void AddItem(ItemBase item)

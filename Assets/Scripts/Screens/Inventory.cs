@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Item;
+using Assets.Scripts.Scenes;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Screens
 {
     public class Inventory : MonoBehaviour
     {
+        public bool IsMoveable;
         public Transform ItemsParent;
         public ItemDetails ItemDetails;
 
@@ -15,6 +17,11 @@ namespace Assets.Scripts.Screens
         private Vector2 _scale;
         private Vector2 _positionOffset;
         private int _sortingOrder;
+
+        private RectTransform _transform;
+        private bool _isMoving;
+        private Vector2 _initialPosition;
+        private Vector2 _initialMousePosition;
 
         [UsedImplicitly]
         private void Start()
@@ -28,6 +35,42 @@ namespace Assets.Scripts.Screens
             }
             _scale = new Vector2(1f / parent.localScale.x, 1f / parent.localScale.y);
             _positionOffset = new Vector2(_scale.x / 2f + 7.6f, -(_scale.y / 2f + 7.6f));
+
+            _transform = GetComponent<RectTransform>();
+        }
+
+        [UsedImplicitly]
+        private void Update()
+        {
+            if (_isMoving)
+            {
+                _transform.anchoredPosition = _initialPosition + Camera.main.ScreenToWorldPoint(Input.mousePosition) * _scale - _initialMousePosition;
+            }
+        }
+
+        [UsedImplicitly]
+        private void OnMouseDown()
+        {
+            if (!IsMoveable)
+            {
+                return;
+            }
+
+            _isMoving = true;
+            _initialPosition = _transform.anchoredPosition;
+            _initialMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) * _scale;
+        }
+
+        [UsedImplicitly]
+        private void OnMouseUp()
+        {
+            if (!IsMoveable)
+            {
+                return;
+            }
+            _isMoving = false;
+            PlayerPrefs.SetFloat(Settings.InventoryX, _transform.anchoredPosition.x);
+            PlayerPrefs.SetFloat(Settings.InventoryY, _transform.anchoredPosition.y);
         }
 
         public void AddItem(ItemBase item)

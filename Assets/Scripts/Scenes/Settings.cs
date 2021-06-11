@@ -9,19 +9,25 @@ namespace Assets.Scripts.Scenes
     public class Settings : MonoBehaviour
     {
         public const string Health = "Health";
+        public const string InventoryX = "InventoryX";
+        public const string InventoryY = "InventoryY";
 
         public Slider HealthSlider;
         public Text HealthValue;
 
         private int _health;
 
-        [UsedImplicitly]
-        private void Start()
+        public static void Init()
         {
             if (!PlayerPrefs.HasKey(Health))
             {
                 PlayerPrefs.SetInt(Health, 100);
             }
+        }
+
+        [UsedImplicitly]
+        private void Start()
+        {
             HealthSlider.value = _health = PlayerPrefs.GetInt(Health);
         }
 

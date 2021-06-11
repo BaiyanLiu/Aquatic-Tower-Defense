@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
+using Assets.Scripts.Scenes;
 using Assets.Scripts.Screens;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
@@ -57,11 +58,14 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void Start()
         {
+            Settings.Init();
             IsPaused = false;
             _waves = WavesParent.GetComponentsInChildren<Wave>();
+
             UpdateGold(0);
             UpdateLives(0);
             LivesLostText.enabled = false;
+            Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
         }
 
         [UsedImplicitly]

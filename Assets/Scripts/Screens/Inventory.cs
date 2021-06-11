@@ -45,5 +45,12 @@ namespace Assets.Scripts.Screens
 
             _items.Add(itemObject.gameObject);
         }
+
+        public void ResetItems()
+        {
+            _items.ForEach(Destroy);
+            _items.Clear();
+            ItemDetails.UpdateTarget(null);
+        }
     }
 }

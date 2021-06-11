@@ -91,10 +91,7 @@ namespace Assets.Scripts
 
                 if (_pathTiles.Any())
                 {
-                    foreach (var pathTile in _pathTiles)
-                    {
-                        Destroy(pathTile);
-                    }
+                    _pathTiles.ForEach(Destroy);
                     _pathTiles.Clear();
                 }
             }
@@ -187,6 +184,7 @@ namespace Assets.Scripts
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;
                 Inventory.AddItem(item);
+                tower.AddItem(item);
             }
         }
     }

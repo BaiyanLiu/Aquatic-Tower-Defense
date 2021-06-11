@@ -11,6 +11,8 @@ namespace Assets.Scripts.Tower
 {
     public class TowerBase : MonoBehaviour
     {
+        public event EventHandler<ItemBase> OnItemAdded;
+
         public float DamageBase;
         public float RangeBase;
         public float AttackSpeedBase;
@@ -111,6 +113,13 @@ namespace Assets.Scripts.Tower
             }
 
             _collider.radius = Range;
+        }
+
+        public void AddItem(ItemBase item)
+        {
+            Items.Add(item);
+            UpdateStats();
+            OnItemAdded?.Invoke(this, item);
         }
     }
 }

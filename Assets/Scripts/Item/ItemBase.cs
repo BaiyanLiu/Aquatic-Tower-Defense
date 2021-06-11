@@ -32,7 +32,9 @@ namespace Assets.Scripts.Item
 
         public object Clone()
         {
-            return MemberwiseClone();
+            var clone = MemberwiseClone();
+            ((ItemBase) clone).Effects = GetComponents<EffectBase>();
+            return clone;
         }
     }
 }

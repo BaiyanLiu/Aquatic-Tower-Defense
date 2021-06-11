@@ -38,7 +38,13 @@ namespace Assets.Scripts.Screens
                     _effectTransforms.Add(effect.GetComponent<RectTransform>());
                 }
             }
+
+            Screen.gameObject.SetActive(false);
+
+            OnStart();
         }
+
+        protected virtual void OnStart() {}
 
         [UsedImplicitly]
         private void Update()

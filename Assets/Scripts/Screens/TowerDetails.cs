@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Item;
 using Assets.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +18,19 @@ namespace Assets.Scripts.Screens
         public Text KillsText;
         public Text DamageTypeText;
 
+        public Inventory Inventory;
         public Transform RangeIndicator;
         public RectTransform SellButton;
         public Text SellButtonText;
 
         protected override EffectBase[] TargetEffects => Base.Effects;
+
+        private RectTransform _inventoryTransform;
+
+        protected override void OnStart()
+        {
+            _inventoryTransform = Inventory.GetComponent<RectTransform>();
+        }
 
         protected override float OnUpdate(float height)
         {
@@ -34,6 +43,9 @@ namespace Assets.Scripts.Screens
             DamageDoneText.text = "Dmg Done: " + Math.Round(Base.DamageDone);
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
+
+            _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height + 5f));
+            height += _inventoryTransform.rect.height + 10f;
 
             if (!GameState.IsBuilding)
             {
@@ -61,11 +73,20 @@ namespace Assets.Scripts.Screens
         protected override void OnDeselected()
         {
             RangeIndicator.gameObject.SetActive(false);
+            Inventory.ResetItems();
+            Base.OnItemAdded -= HandleTowerItemAdded;
         }
 
         protected override void OnSelected()
         {
             RangeIndicator.gameObject.SetActive(true);
+            Base.Items.ForEach(Inventory.AddItem);
+            Base.OnItemAdded += HandleTowerItemAdded;
+        }
+
+        private void HandleTowerItemAdded(object sender, ItemBase e)
+        {
+            Inventory.AddItem(e);
         }
 
         public void Sell()

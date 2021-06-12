@@ -65,7 +65,9 @@ namespace Assets.Scripts
             UpdateGold(0);
             UpdateLives(0);
             LivesLostText.enabled = false;
+
             Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
+            Inventory.gameObject.SetActive(false);
         }
 
         [UsedImplicitly]
@@ -81,6 +83,11 @@ namespace Assets.Scripts
                 SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
                 IsPaused = true;
                 return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Inventory.gameObject.SetActive(!Inventory.gameObject.activeSelf);
             }
 
             if (_livesLostTimer > 0f)

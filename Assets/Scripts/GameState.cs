@@ -88,6 +88,7 @@ namespace Assets.Scripts
             if (Input.GetKeyDown(KeyCode.I))
             {
                 Inventory.gameObject.SetActive(!Inventory.gameObject.activeSelf);
+                Inventory.ItemDetails.UpdateTarget(null);
             }
 
             if (_livesLostTimer > 0f)

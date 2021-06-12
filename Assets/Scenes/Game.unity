@@ -2901,6 +2901,7 @@ MonoBehaviour:
   Screen: {fileID: 912015843}
   EffectsParent: {fileID: 634977513}
   NameText: {fileID: 1633327969}
+  SelectedColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
 --- !u!1 &916336399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,6 +3210,7 @@ MonoBehaviour:
   Screen: {fileID: 978694285}
   EffectsParent: {fileID: 1306216218}
   NameText: {fileID: 105770889}
+  SelectedColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
 --- !u!1 &980575147
 GameObject:
   m_ObjectHideFlags: 0

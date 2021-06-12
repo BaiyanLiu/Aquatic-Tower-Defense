@@ -141,6 +141,9 @@ MonoBehaviour:
   Duration: 0
   Frequency: 0
   Amount: 5
+  DurationBase: 0
+  FrequencyBase: 0
+  AmountBase: 5
   DurationGain: 0
   FrequencyGain: 0
   AmountGain: 0.5

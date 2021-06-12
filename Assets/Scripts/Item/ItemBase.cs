@@ -1,6 +1,6 @@
 using System;
+using System.Linq;
 using Assets.Scripts.Effect;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
@@ -8,7 +8,7 @@ namespace Assets.Scripts.Item
     public class ItemBase : MonoBehaviour, ICloneable
     {
         public string Name;
-        public EffectBase[] Effects { get; private set; }
+        public EffectBase[] Effects { get; set; }
 
         public int Level
         {
@@ -16,24 +16,15 @@ namespace Assets.Scripts.Item
             {
                 foreach (var effect in Effects)
                 {
-                    for (var i = 1; i < value; i++)
-                    {
-                        effect.LevelUp();
-                    }
+                    effect.UpdateLevel(value);
                 }
             }
-        }
-
-        [UsedImplicitly]
-        private void Start()
-        {
-            Effects = GetComponents<EffectBase>();
         }
 
         public object Clone()
         {
             var clone = MemberwiseClone();
-            ((ItemBase) clone).Effects = GetComponents<EffectBase>();
+            ((ItemBase) clone).Effects = (from effect in (EffectBase[]) GetComponents<EffectBase>().Clone() select (EffectBase) effect.Clone()).ToArray();
             return clone;
         }
     }

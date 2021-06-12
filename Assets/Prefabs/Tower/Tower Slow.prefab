@@ -116,10 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
-  Range: 1.5
-  AttackSpeed: 1
-  ProjectileSpeed: 0.3
   DamageBase: 5
   RangeBase: 1.5
   AttackSpeedBase: 1
@@ -160,6 +156,9 @@ MonoBehaviour:
   Duration: 1
   Frequency: 0
   Amount: 0.5
+  DurationBase: 1
+  FrequencyBase: 0
+  AmountBase: 0.5
   DurationGain: 0.1
   FrequencyGain: 0
   AmountGain: 0.05
@@ -178,6 +177,9 @@ MonoBehaviour:
   Duration: 0
   Frequency: 0
   Amount: 2.5
+  DurationBase: 0
+  FrequencyBase: 0
+  AmountBase: 2.5
   DurationGain: 0
   FrequencyGain: 0
   AmountGain: 0.3

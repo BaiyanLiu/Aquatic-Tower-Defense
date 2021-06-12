@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Tower;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Effect
 {
     public abstract class EffectBase : MonoBehaviour, ICloneable, IEqualityComparer<EffectBase>
     {
-        public float Duration;
-        public float Frequency;
-        public float Amount;
+        public float DurationBase;
+        public float FrequencyBase;
+        public float AmountBase;
 
         public float DurationGain;
         public float FrequencyGain;
         public float AmountGain;
+
+        public float Duration { get; set; }
+        public float Frequency { get; private set; }
+        public float Amount { get; private set; }
 
         public TowerBase Tower { get; set; }
 
@@ -29,11 +34,29 @@ namespace Assets.Scripts.Effect
             return $"{name}: {amount}" + (includeGain ? $" (+{amountGain})" : "");
         }
 
+        [UsedImplicitly]
+        private void Start()
+        {
+            Duration = DurationBase;
+            Frequency = FrequencyBase;
+            Amount = AmountBase;
+            OnStart();
+        }
+
+        protected virtual void OnStart() {}
+
         public virtual void LevelUp()
         {
             Duration += DurationGain;
             Frequency += FrequencyGain;
             Amount += AmountGain;
+        }
+
+        public virtual void UpdateLevel(int level)
+        {
+            Duration = DurationBase + DurationGain * (level - 1);
+            Frequency = FrequencyBase + FrequencyGain * (level - 1);
+            Amount = AmountBase + AmountGain * (level - 1);
         }
 
         public bool UpdateTimer(float deltaTime)

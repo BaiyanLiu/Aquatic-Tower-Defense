@@ -76,6 +76,7 @@ namespace Assets.Scripts.Screens
         public void AddItem(ItemBase item)
         {
             var itemObject = Instantiate(item, Vector2.zero, Quaternion.identity, ItemsParent);
+            itemObject.Effects = item.Effects;
             // ReSharper disable once PossibleLossOfFraction
             itemObject.transform.localPosition = new Vector2(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y);
             itemObject.transform.localScale = _scale;

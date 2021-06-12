@@ -44,18 +44,20 @@ namespace Assets.Scripts.Screens
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
 
-            _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height + 5f));
-            height += _inventoryTransform.rect.height + 10f;
-
-            if (!GameState.IsBuilding)
+            if(!GameState.IsBuilding)
             {
+                _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height + 5f));
+                height += _inventoryTransform.rect.height + 10f;
+                Inventory.gameObject.SetActive(true);
+
                 SellButtonText.text = "Sell: " + Base.SellCost;
-                SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
-                height += SellButton.rect.height + 5f;
+                SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height + 5f));
+                height += SellButton.rect.height + 10f;
                 SellButton.gameObject.SetActive(true);
             }
             else
             {
+                Inventory.gameObject.SetActive(false);
                 SellButton.gameObject.SetActive(false);
             }
 

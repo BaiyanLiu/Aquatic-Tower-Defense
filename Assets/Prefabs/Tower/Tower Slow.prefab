@@ -153,9 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b51a74aaf541d141ba1c98a69076d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 1
-  Frequency: 0
-  Amount: 0.5
   DurationBase: 1
   FrequencyBase: 0
   AmountBase: 0.5
@@ -174,9 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 0
-  Frequency: 0
-  Amount: 2.5
   DurationBase: 0
   FrequencyBase: 0
   AmountBase: 2.5

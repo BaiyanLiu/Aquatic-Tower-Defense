@@ -152,9 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20823421aec869478304174ee3523be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 2
-  Frequency: 0.5
-  Amount: 10
   DurationBase: 2
   FrequencyBase: 0.5
   AmountBase: 10

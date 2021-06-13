@@ -78,13 +78,23 @@ namespace Assets.Scripts.Screens
             var itemObject = Instantiate(item, Vector2.zero, Quaternion.identity, ItemsParent);
             itemObject.Effects = item.Effects;
             // ReSharper disable once PossibleLossOfFraction
-            itemObject.transform.localPosition = new Vector2(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y);
+            var initialPosition = new Vector2(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y);
+            itemObject.transform.localPosition = initialPosition;
             itemObject.transform.localScale = _scale;
             itemObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 
-            itemObject.GetComponent<Interaction>().OnClick += (sender, args) =>
+            var interaction = itemObject.GetComponent<Interaction>();
+            interaction.OnClick += (sender, args) =>
             {
                 ItemDetails.UpdateTarget(itemObject.gameObject);
+            };
+            interaction.OnMove += (sender, delta) =>
+            {
+                itemObject.transform.localPosition = initialPosition + delta * _scale;
+            };
+            interaction.OnMoveEnd += (sender, args) =>
+            {
+                itemObject.transform.localPosition = initialPosition;
             };
 
             _items.Add(itemObject.gameObject);

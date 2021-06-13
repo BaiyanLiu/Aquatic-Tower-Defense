@@ -58,7 +58,6 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void Start()
         {
-            Settings.Init();
             IsPaused = false;
             _waves = WavesParent.GetComponentsInChildren<Wave>();
 

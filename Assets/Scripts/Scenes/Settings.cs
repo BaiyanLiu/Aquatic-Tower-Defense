@@ -17,14 +17,6 @@ namespace Assets.Scripts.Scenes
 
         private int _health;
 
-        public static void Init()
-        {
-            if (!PlayerPrefs.HasKey(Health))
-            {
-                PlayerPrefs.SetInt(Health, 100);
-            }
-        }
-
         [UsedImplicitly]
         private void Start()
         {

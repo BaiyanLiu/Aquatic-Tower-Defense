@@ -168,26 +168,53 @@ namespace Assets.Scripts
         public void RegisterTower(GameObject tower)
         {
             tower.GetComponentInChildren<Interaction>().OnClick += HandleTowerClick;
+            tower.GetComponentInChildren<Interaction>().OnEnter += HandleTowerMouseEnter;
+            tower.GetComponentInChildren<Interaction>().OnExit += HandleTowerMouseExit;
         }
 
         private void HandleTowerClick(object sender, GameObject e)
         {
+            ActivateTowerDetails(e, false);
+        }
+
+        private void HandleTowerMouseEnter(object sender, GameObject e)
+        {
+            ActivateTowerDetails(e, true);
+        }
+
+        private void ActivateTowerDetails(GameObject tower, bool isTemp)
+        {
             if (!IsBuilding)
             {
-                EnemyDetails.UpdateTarget(null);
-                TowerDetails.UpdateTarget(e.transform.parent.gameObject);
+                TowerDetails.UpdateTarget(tower.transform.parent.gameObject, isTemp);
             }
+        }
+
+        private void HandleTowerMouseExit(object sender, EventArgs e)
+        {
+            TowerDetails.UpdateTarget(null);
         }
 
         public void RegisterEnemy(GameObject enemy)
         {
             enemy.GetComponent<Interaction>().OnClick += HandleEnemyClick;
+            enemy.GetComponent<Interaction>().OnEnter += HandleEnemyMouseEnter;
+            enemy.GetComponent<Interaction>().OnExit += HandleEnemyMouseExit;
         }
 
         private void HandleEnemyClick(object sender, GameObject e)
         {
-            TowerDetails.UpdateTarget(null);
+            EnemyDetails.UpdateTarget(e, false);
+        }
+
+        private void HandleEnemyMouseEnter(object sender, GameObject e)
+        {
             EnemyDetails.UpdateTarget(e);
+        }
+
+        private void HandleEnemyMouseExit(object sender, EventArgs e)
+        {
+            EnemyDetails.UpdateTarget(null);
         }
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)

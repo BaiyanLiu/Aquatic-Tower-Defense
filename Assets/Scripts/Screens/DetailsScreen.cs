@@ -22,6 +22,8 @@ namespace Assets.Scripts.Screens
         private readonly List<EffectDisplay> _effectDisplays = new List<EffectDisplay>();
         private readonly List<RectTransform> _effectTransforms = new List<RectTransform>();
 
+        private bool _isTemp = true;
+
         [UsedImplicitly]
         private void Start()
         {
@@ -78,10 +80,22 @@ namespace Assets.Scripts.Screens
 
         protected abstract float OnUpdate(float height);
 
-        public void UpdateTarget(GameObject target)
+        public void UpdateTarget(GameObject target, bool isTemp = true)
         {
+            if (isTemp && !_isTemp)
+            {
+                return;
+            }
+
+            if (target == Target && !isTemp && _isTemp)
+            {
+                _isTemp = false;
+                return;
+            }
+
             if (Target != null)
             {
+                _isTemp = true;
                 Screen.gameObject.SetActive(false);
                 OnDeselected();
             }
@@ -90,12 +104,14 @@ namespace Assets.Scripts.Screens
             {
                 Target = target;
                 Base = target.GetComponentInChildren<T>();
+                _isTemp = isTemp;
                 Screen.gameObject.SetActive(true);
                 OnSelected();
             }
             else
             {
                 Target = null;
+                _isTemp = true;
             }
         }
 

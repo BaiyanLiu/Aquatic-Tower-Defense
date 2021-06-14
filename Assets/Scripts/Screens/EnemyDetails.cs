@@ -42,7 +42,7 @@ namespace Assets.Scripts.Screens
 
         private void HandleEnemyDestroyed(object sender, GameObject e)
         {
-            UpdateTarget(null);
+            UpdateTarget(null, false);
         }
     }
 }

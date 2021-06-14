@@ -97,7 +97,7 @@ namespace Assets.Scripts.Screens
             {
                 GameState.UpdateGold(Base.SellCost);
                 Destroy(Target);
-                UpdateTarget(null);
+                UpdateTarget(null, false);
             }
         }
     }

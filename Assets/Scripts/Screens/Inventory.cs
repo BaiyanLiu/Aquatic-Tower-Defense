@@ -87,6 +87,12 @@ namespace Assets.Scripts.Screens
 
             var interaction = itemObject.GetComponent<Interaction>();
             interaction.OnClick += HandleItemClick;
+            interaction.OnEnter += HandleItemMouseEnter;
+            interaction.OnExit += HandleItemMouseExit;
+            interaction.OnMoveStart += (sender, args) =>
+            {
+                ItemDetails.UpdateTarget(itemObject.gameObject, false);
+            };
             interaction.OnMove += (sender, delta) =>
             {
                 itemObject.transform.localPosition = initialPosition + (Vector3) (delta * _scale);
@@ -94,6 +100,7 @@ namespace Assets.Scripts.Screens
             interaction.OnMoveEnd += (sender, args) =>
             {
                 itemObject.transform.localPosition = initialPosition;
+                ItemDetails.UpdateTarget(null, false);
             };
 
             _items.Add(itemObject.gameObject);
@@ -101,7 +108,17 @@ namespace Assets.Scripts.Screens
 
         private void HandleItemClick(object sender, GameObject e)
         {
+            ItemDetails.UpdateTarget(e, false);
+        }
+
+        private void HandleItemMouseEnter(object sender, GameObject e)
+        {
             ItemDetails.UpdateTarget(e);
+        }
+
+        private void HandleItemMouseExit(object sender, EventArgs e)
+        {
+            ItemDetails.UpdateTarget(null);
         }
 
         public void ResetItems()

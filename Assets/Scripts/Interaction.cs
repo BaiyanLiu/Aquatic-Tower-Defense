@@ -6,7 +6,7 @@ namespace Assets.Scripts
 {
     public class Interaction : MonoBehaviour
     {
-        public event EventHandler OnClick;
+        public event EventHandler<GameObject> OnClick;
         public event EventHandler<Vector2> OnMove;
         public event EventHandler OnMoveEnd;
 
@@ -25,7 +25,7 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void OnMouseDown()
         {
-            OnClick?.Invoke(this, EventArgs.Empty);
+            OnClick?.Invoke(this, gameObject);
         }
 
         [UsedImplicitly]

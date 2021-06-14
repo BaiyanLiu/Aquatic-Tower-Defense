@@ -37,6 +37,8 @@ namespace Assets.Scripts.Screens
             _positionOffset = new Vector2(_scale.x / 2f + 7.6f, -(_scale.y / 2f + 7.6f));
 
             _transform = GetComponent<RectTransform>();
+
+            gameObject.SetActive(false);
         }
 
         [UsedImplicitly]
@@ -78,19 +80,16 @@ namespace Assets.Scripts.Screens
             var itemObject = Instantiate(item, Vector2.zero, Quaternion.identity, ItemsParent);
             itemObject.Effects = item.Effects;
             // ReSharper disable once PossibleLossOfFraction
-            var initialPosition = new Vector2(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y);
+            var initialPosition = new Vector3(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y, -1f);
             itemObject.transform.localPosition = initialPosition;
             itemObject.transform.localScale = _scale;
             itemObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 
             var interaction = itemObject.GetComponent<Interaction>();
-            interaction.OnClick += (sender, args) =>
-            {
-                ItemDetails.UpdateTarget(itemObject.gameObject);
-            };
+            interaction.OnClick += HandleItemClick;
             interaction.OnMove += (sender, delta) =>
             {
-                itemObject.transform.localPosition = initialPosition + delta * _scale;
+                itemObject.transform.localPosition = initialPosition + (Vector3) (delta * _scale);
             };
             interaction.OnMoveEnd += (sender, args) =>
             {
@@ -98,6 +97,11 @@ namespace Assets.Scripts.Screens
             };
 
             _items.Add(itemObject.gameObject);
+        }
+
+        private void HandleItemClick(object sender, GameObject e)
+        {
+            ItemDetails.UpdateTarget(e);
         }
 
         public void ResetItems()

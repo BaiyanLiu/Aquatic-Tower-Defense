@@ -64,9 +64,7 @@ namespace Assets.Scripts
             UpdateGold(0);
             UpdateLives(0);
             LivesLostText.enabled = false;
-
             Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
-            Inventory.gameObject.SetActive(false);
         }
 
         [UsedImplicitly]
@@ -169,23 +167,27 @@ namespace Assets.Scripts
 
         public void RegisterTower(GameObject tower)
         {
-            tower.GetComponentInChildren<Interaction>().OnClick += (sender, args) =>
+            tower.GetComponentInChildren<Interaction>().OnClick += HandleTowerClick;
+        }
+
+        private void HandleTowerClick(object sender, GameObject e)
+        {
+            if (!IsBuilding)
             {
-                if (!IsBuilding)
-                {
-                    EnemyDetails.UpdateTarget(null);
-                    TowerDetails.UpdateTarget(tower);
-                }
-            };
+                EnemyDetails.UpdateTarget(null);
+                TowerDetails.UpdateTarget(e.transform.parent.gameObject);
+            }
         }
 
         public void RegisterEnemy(GameObject enemy)
         {
-            enemy.GetComponent<Interaction>().OnClick += (sender, args) =>
-            {
-                TowerDetails.UpdateTarget(null);
-                EnemyDetails.UpdateTarget(enemy);
-            };
+            enemy.GetComponent<Interaction>().OnClick += HandleEnemyClick;
+        }
+
+        private void HandleEnemyClick(object sender, GameObject e)
+        {
+            TowerDetails.UpdateTarget(null);
+            EnemyDetails.UpdateTarget(e);
         }
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
@@ -195,7 +197,6 @@ namespace Assets.Scripts
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;
                 Inventory.AddItem(item);
-                tower.AddItem(item);
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Assets.Scripts.Screens
         public RectTransform SellButton;
         public Text SellButtonText;
 
-        protected override EffectBase[] TargetEffects => Base.Effects;
+        protected override EffectBase[] TargetEffects => Base.Effects ?? new EffectBase[0];
 
         private RectTransform _inventoryTransform;
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Screens
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
 
-            if(!GameState.IsBuilding)
+            if (!GameState.IsBuilding)
             {
                 _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height + 5f));
                 height += _inventoryTransform.rect.height + 10f;

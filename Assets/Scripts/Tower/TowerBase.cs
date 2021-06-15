@@ -12,6 +12,7 @@ namespace Assets.Scripts.Tower
     public class TowerBase : MonoBehaviour
     {
         public event EventHandler<ItemBase> OnItemAdded;
+        public event EventHandler<int> OnItemRemoved;
 
         public float DamageBase;
         public float RangeBase;
@@ -56,10 +57,6 @@ namespace Assets.Scripts.Tower
 
             Effects = GetComponents<EffectBase>();
             foreach (var effect in Effects)
-            {
-                effect.Tower = this;
-            }
-            foreach (var effect in Items.SelectMany(item => item.Effects))
             {
                 effect.Tower = this;
             }
@@ -118,8 +115,17 @@ namespace Assets.Scripts.Tower
         public void AddItem(ItemBase item)
         {
             Items.Add(item);
+            item.UpdateTower(this);
             UpdateStats();
             OnItemAdded?.Invoke(this, item);
+        }
+
+        public void RemoveItem(int index)
+        {
+            Items[index].UpdateTower(null);
+            Items.RemoveAt(index);
+            UpdateStats();
+            OnItemRemoved?.Invoke(this, index);
         }
     }
 }

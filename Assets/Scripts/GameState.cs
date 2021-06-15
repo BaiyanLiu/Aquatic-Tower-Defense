@@ -172,14 +172,14 @@ namespace Assets.Scripts
             tower.GetComponentInChildren<Interaction>().OnExit += HandleTowerMouseExit;
         }
 
-        private void HandleTowerClick(object sender, GameObject e)
+        private void HandleTowerClick(object sender, GameObject tower)
         {
-            ActivateTowerDetails(e, false);
+            ActivateTowerDetails(tower, false);
         }
 
-        private void HandleTowerMouseEnter(object sender, GameObject e)
+        private void HandleTowerMouseEnter(object sender, GameObject tower)
         {
-            ActivateTowerDetails(e, true);
+            ActivateTowerDetails(tower, true);
         }
 
         private void ActivateTowerDetails(GameObject tower, bool isTemp)
@@ -202,14 +202,14 @@ namespace Assets.Scripts
             enemy.GetComponent<Interaction>().OnExit += HandleEnemyMouseExit;
         }
 
-        private void HandleEnemyClick(object sender, GameObject e)
+        private void HandleEnemyClick(object sender, GameObject enemy)
         {
-            EnemyDetails.UpdateTarget(e, false);
+            EnemyDetails.UpdateTarget(enemy, false);
         }
 
-        private void HandleEnemyMouseEnter(object sender, GameObject e)
+        private void HandleEnemyMouseEnter(object sender, GameObject enemy)
         {
-            EnemyDetails.UpdateTarget(e);
+            EnemyDetails.UpdateTarget(enemy);
         }
 
         private void HandleEnemyMouseExit(object sender, EventArgs e)
@@ -223,8 +223,20 @@ namespace Assets.Scripts
             {
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;
-                Inventory.AddItem(item);
+                AddItem(item);
             }
+        }
+
+        public void AddItem(ItemBase item)
+        {
+            Items.Add(item);
+            Inventory.AddItem(item);
+        }
+
+        public void RemoveItem(int index)
+        {
+            Items.RemoveAt(index);
+            Inventory.RemoveItem(index);
         }
     }
 }

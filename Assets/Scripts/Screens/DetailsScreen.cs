@@ -15,7 +15,7 @@ namespace Assets.Scripts.Screens
         protected GameState GameState { get; private set; }
         protected float InitialHeight { get; private set; }
         protected GameObject Target { get; private set; }
-        protected T Base { get; private set; }
+        public T Base { get; private set; }
         protected virtual EffectBase[] TargetEffects { get; } = {};
 
         private readonly List<GameObject> _effects = new List<GameObject>();

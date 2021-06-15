@@ -9,7 +9,7 @@ namespace Assets.Scripts
         public event EventHandler<GameObject> OnClick;
         public event EventHandler<Vector2> OnMove;
         public event EventHandler OnMoveStart; 
-        public event EventHandler OnMoveEnd;
+        public event EventHandler<Vector2> OnMoveEnd;
         public event EventHandler<GameObject> OnEnter;
         public event EventHandler OnExit;
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts
             else
             {
                 _isMoving = false;
-                OnMoveEnd?.Invoke(this, EventArgs.Empty);
+                OnMoveEnd?.Invoke(this, Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
         }
 

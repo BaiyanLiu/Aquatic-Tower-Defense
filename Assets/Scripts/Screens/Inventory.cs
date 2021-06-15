@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.Scenes;
+using Assets.Scripts.Tower;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Screens
         public Transform ItemsParent;
         public ItemDetails ItemDetails;
 
+        private GameState _gameState;
         private readonly List<GameObject> _items = new List<GameObject>();
         private Vector2 _scale;
         private Vector2 _positionOffset;
@@ -26,6 +28,8 @@ namespace Assets.Scripts.Screens
         [UsedImplicitly]
         private void Start()
         {
+            _gameState = GameState.GetGameState(gameObject);
+
             var parent = ItemsParent.parent;
             _sortingOrder = parent.GetComponent<Canvas>().sortingOrder;
 
@@ -79,9 +83,7 @@ namespace Assets.Scripts.Screens
         {
             var itemObject = Instantiate(item, Vector2.zero, Quaternion.identity, ItemsParent);
             itemObject.Effects = item.Effects;
-            // ReSharper disable once PossibleLossOfFraction
-            var initialPosition = new Vector3(_items.Count % 6 * _positionOffset.x, _items.Count / 6 * _positionOffset.y, -1f);
-            itemObject.transform.localPosition = initialPosition;
+            UpdateItemPosition(itemObject.gameObject, _items.Count, Vector2.zero);
             itemObject.transform.localScale = _scale;
             itemObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 
@@ -95,30 +97,92 @@ namespace Assets.Scripts.Screens
             };
             interaction.OnMove += (sender, delta) =>
             {
-                itemObject.transform.localPosition = initialPosition + (Vector3) (delta * _scale);
+                var index = _items.IndexOf(itemObject.gameObject);
+                UpdateItemPosition(_items[index], index, delta * _scale);
             };
-            interaction.OnMoveEnd += (sender, args) =>
+
+            interaction.OnMoveEnd += (sender, position) =>
             {
-                itemObject.transform.localPosition = initialPosition;
+                var index = _items.IndexOf(itemObject.gameObject);
+                var tower = TowerForPosition(position);
+                if (tower != null)
+                {
+                    _gameState.RemoveItem(index);
+                    tower.AddItem(item);
+                    Destroy(itemObject.gameObject);
+                }
+                else
+                {
+                    UpdateItemPosition(_items[index], index, Vector2.zero);
+                }
                 ItemDetails.UpdateTarget(null, false);
             };
 
             _items.Add(itemObject.gameObject);
         }
 
-        private void HandleItemClick(object sender, GameObject e)
+        public void RemoveItem(int index)
         {
-            ItemDetails.UpdateTarget(e, false);
+            _items.RemoveAt(index);
+            for (var i = index; i < _items.Count; i++)
+            {
+                UpdateItemPosition(_items[i], i, Vector2.zero);
+            }
         }
 
-        private void HandleItemMouseEnter(object sender, GameObject e)
+        private void UpdateItemPosition(GameObject item, int index, Vector2 delta)
         {
-            ItemDetails.UpdateTarget(e);
+            // ReSharper disable once PossibleLossOfFraction
+            item.transform.localPosition = new Vector3(index % 6 * _positionOffset.x + delta.x, index / 6 * _positionOffset.y + delta.y, -1f);
+        }
+
+        private void HandleItemClick(object sender, GameObject item)
+        {
+            ItemDetails.UpdateTarget(item, false);
+        }
+
+        private void HandleItemMouseEnter(object sender, GameObject item)
+        {
+            ItemDetails.UpdateTarget(item);
         }
 
         private void HandleItemMouseExit(object sender, EventArgs e)
         {
             ItemDetails.UpdateTarget(null);
+        }
+
+        private TowerBase TowerForPosition(Vector2 position)
+        {
+            foreach (var hit in Physics2D.RaycastAll(position, Vector2.zero))
+            {
+                if (hit.collider is CircleCollider2D)
+                {
+                    continue;
+                }
+
+                if (hit.transform.GetComponent<Inventory>() == this)
+                {
+                    continue;
+                }
+
+                var parent = hit.transform.parent;
+                var tower = parent.GetComponentInChildren<TowerBase>();
+                if (tower == null)
+                {
+                    var towerDetails = parent.GetComponent<TowerDetails>();
+                    if (towerDetails != null)
+                    {
+                        tower = towerDetails.Base;
+                    }
+                }
+
+                if (tower != null)
+                {
+                    return tower;
+                }
+            }
+
+            return null;
         }
 
         public void ResetItems()

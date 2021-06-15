@@ -76,19 +76,26 @@ namespace Assets.Scripts.Screens
         {
             RangeIndicator.gameObject.SetActive(false);
             Inventory.ResetItems();
-            Base.OnItemAdded -= HandleTowerItemAdded;
+            Base.OnItemAdded -= HandleTowerAdded;
+            Base.OnItemRemoved -= HandleItemRemoved;
         }
 
         protected override void OnSelected()
         {
             RangeIndicator.gameObject.SetActive(true);
             Base.Items.ForEach(Inventory.AddItem);
-            Base.OnItemAdded += HandleTowerItemAdded;
+            Base.OnItemAdded += HandleTowerAdded;
+            Base.OnItemRemoved += HandleItemRemoved;
         }
 
-        private void HandleTowerItemAdded(object sender, ItemBase e)
+        private void HandleTowerAdded(object sender, ItemBase item)
         {
-            Inventory.AddItem(e);
+            Inventory.AddItem(item);
+        }
+
+        private void HandleItemRemoved(object sender, int index)
+        {
+            Inventory.RemoveItem(index);
         }
 
         public void Sell()

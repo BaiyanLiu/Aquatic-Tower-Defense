@@ -19,9 +19,19 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void Update()
         {
-            if (_isMoving)
+            if (!_isMoving)
+            {
+                return;
+            }
+
+            if (Input.GetMouseButton(1))
             {
                 OnMove?.Invoke(this, (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - _initialPosition);
+            }
+            else
+            {
+                _isMoving = false;
+                OnMoveEnd?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -39,11 +49,6 @@ namespace Assets.Scripts
                 _isMoving = true;
                 _initialPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 OnMoveStart?.Invoke(this, EventArgs.Empty);
-            }
-            else if (_isMoving && !Input.GetMouseButton(1))
-            {
-                _isMoving = false;
-                OnMoveEnd?.Invoke(this, EventArgs.Empty);
             }
         }
 

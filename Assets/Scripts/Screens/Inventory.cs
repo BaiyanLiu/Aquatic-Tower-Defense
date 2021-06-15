@@ -104,11 +104,26 @@ namespace Assets.Scripts.Screens
             interaction.OnMoveEnd += (sender, position) =>
             {
                 var index = _items.IndexOf(itemObject.gameObject);
-                var tower = TowerForPosition(position);
-                if (tower != null)
+                if (IsMoveValid(position, out var tower))
                 {
-                    _gameState.RemoveItem(index);
-                    tower.AddItem(item);
+                    if (item.Tower != null)
+                    {
+                        item.Tower.RemoveItem(index);
+                    } 
+                    else 
+                    {
+                        _gameState.RemoveItem(index);
+                    }
+
+                    if (tower != null)
+                    {
+                        tower.AddItem(item);
+                    }
+                    else
+                    {
+                        _gameState.AddItem(item);
+                    }
+
                     Destroy(itemObject.gameObject);
                 }
                 else
@@ -151,8 +166,9 @@ namespace Assets.Scripts.Screens
             ItemDetails.UpdateTarget(null);
         }
 
-        private TowerBase TowerForPosition(Vector2 position)
+        private bool IsMoveValid(Vector2 position, out TowerBase tower)
         {
+            tower = null;
             foreach (var hit in Physics2D.RaycastAll(position, Vector2.zero))
             {
                 if (hit.collider is CircleCollider2D)
@@ -160,13 +176,14 @@ namespace Assets.Scripts.Screens
                     continue;
                 }
 
-                if (hit.transform.GetComponent<Inventory>() == this)
+                var inventory = hit.transform.GetComponent<Inventory>();
+                if (inventory == this)
                 {
                     continue;
                 }
 
                 var parent = hit.transform.parent;
-                var tower = parent.GetComponentInChildren<TowerBase>();
+                tower = parent.childCount == 2 ? parent.GetChild(1).GetComponent<TowerBase>() : null;
                 if (tower == null)
                 {
                     var towerDetails = parent.GetComponent<TowerDetails>();
@@ -176,13 +193,13 @@ namespace Assets.Scripts.Screens
                     }
                 }
 
-                if (tower != null)
+                if (tower != null || inventory != null)
                 {
-                    return tower;
+                    return true;
                 }
             }
 
-            return null;
+            return false;
         }
 
         public void ResetItems()

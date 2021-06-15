@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Item
     {
         public string Name;
         public EffectBase[] Effects { get; set; }
+        public TowerBase Tower { get; private set; }
 
         public int Level
         {
@@ -18,6 +20,15 @@ namespace Assets.Scripts.Item
                 {
                     effect.UpdateLevel(value);
                 }
+            }
+        }
+
+        public void UpdateTower(TowerBase tower)
+        {
+            Tower = tower;
+            foreach (var effect in Effects)
+            {
+                effect.Tower = tower;
             }
         }
 

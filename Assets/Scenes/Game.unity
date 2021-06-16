@@ -1655,6 +1655,9 @@ MonoBehaviour:
   ItemPool:
   - {fileID: -8142668315617445787, guid: c093207afe06cf14cb8d1df08cb3b86c, type: 3}
   - {fileID: -8142668315617445787, guid: 64ab7ad33af1d2e47aa6915ff944fff6, type: 3}
+  - {fileID: -8142668315617445787, guid: 29145b80a3a266046b747dd8b6e2b9dd, type: 3}
+  - {fileID: -8142668315617445787, guid: df39044d39846e14fa4aa459167d9030, type: 3}
+  - {fileID: -8142668315617445787, guid: 5bc4a93604aa5ff4f889c80d75a8583e, type: 3}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

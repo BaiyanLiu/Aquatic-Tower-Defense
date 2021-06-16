@@ -27,6 +27,7 @@ namespace Assets.Scripts.Effect
 
         public override void UpdateLevel(int level)
         {
+            base.UpdateLevel(level);
             Range = RangeBase + RangeGain * (level - 1);
         }
 

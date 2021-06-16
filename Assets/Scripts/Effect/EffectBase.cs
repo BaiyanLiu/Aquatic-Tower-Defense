@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Effect
         public float Amount { get; private set; }
 
         public TowerBase Tower { get; set; }
+        public ItemBase Item { get; set; }
 
         public abstract string Name { get; }
         public virtual string AmountName => "Amount";

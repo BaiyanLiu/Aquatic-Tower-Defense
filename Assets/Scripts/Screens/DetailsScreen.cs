@@ -71,10 +71,10 @@ namespace Assets.Scripts.Screens
                 }
             }
 
-            height = OnUpdate(height);
-
             Screen.pivot = new Vector2(-0.1f, Target.transform.position.y >= 0f ? 1f : 0f);
             Screen.position = new Vector2(Target.transform.position.x, Target.transform.position.y);
+
+            height = OnUpdate(height);
             Screen.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, InitialHeight + height);
         }
 

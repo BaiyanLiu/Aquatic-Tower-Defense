@@ -42,6 +42,7 @@ namespace Assets.Scripts.Tower
         public int SellCost { get; private set; }
 
         public EffectBase[] Effects { get; private set; }
+        public List<EffectBase> AllEffects { get; } = new List<EffectBase>();
         public List<ItemBase> Items { get; } = new List<ItemBase>();
         public bool IsInventoryFull => Items.Count == 6;
 
@@ -61,6 +62,7 @@ namespace Assets.Scripts.Tower
             {
                 effect.Tower = this;
             }
+            AllEffects.AddRange(Effects);
 
             UpdateStats();
         }
@@ -116,6 +118,7 @@ namespace Assets.Scripts.Tower
         public void AddItem(ItemBase item)
         {
             Items.Add(item);
+            AllEffects.AddRange(item.Effects);
             item.UpdateTower(this);
             UpdateStats();
             OnItemAdded?.Invoke(this, item);
@@ -124,6 +127,7 @@ namespace Assets.Scripts.Tower
         public void RemoveItem(int index)
         {
             Items[index].UpdateTower(null);
+            AllEffects.RemoveAll(effect => effect.Item == Items[index]);
             Items.RemoveAt(index);
             UpdateStats();
             OnItemRemoved?.Invoke(this, index);

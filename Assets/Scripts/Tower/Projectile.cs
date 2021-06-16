@@ -66,7 +66,7 @@ namespace Assets.Scripts.Tower
 
                 var enemies = new HashSet<EnemyBase> { _target.GetComponent<EnemyBase>()};
 
-                if (_tower.Effects.LastOrDefault(effect => effect is SplashEffect) is SplashEffect splashEffect)
+                if (_tower.AllEffects.LastOrDefault(effect => effect is SplashEffect) is SplashEffect splashEffect)
                 {
                     var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Amount, 1 << 29);
                     foreach (var hit in hits)
@@ -75,13 +75,13 @@ namespace Assets.Scripts.Tower
                     }
                 }
 
-                var effects = _tower.Effects.Where(effect => !effect.IsInnate).Select(effect => (EffectBase) effect.Clone()).ToList();
+                var effects = _tower.AllEffects.Where(effect => !effect.IsInnate).Select(effect => (EffectBase) effect.Clone()).ToList();
                 foreach (var enemy in enemies.Where(enemy => enemy.OnAttacked(_damage, _tower, effects)))
                 {
                     _tower.EnemyKilled(enemy);
                 }
 
-                if (_tower.Effects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)
+                if (_tower.AllEffects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)
                 {
                     _damage *= chainEffect.Amount;
                     if (_damage >= 1f)

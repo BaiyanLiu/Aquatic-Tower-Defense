@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public class TowerBase : MonoBehaviour
+    public class TowerBase : MonoBehaviour, IHasItems
     {
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;
@@ -43,6 +43,7 @@ namespace Assets.Scripts.Tower
 
         public EffectBase[] Effects { get; private set; }
         public List<ItemBase> Items { get; } = new List<ItemBase>();
+        public bool IsInventoryFull => Items.Count == 6;
 
         private GameState _gameState;
         private CircleCollider2D _collider;

@@ -14,7 +14,7 @@ using Random = System.Random;
 
 namespace Assets.Scripts
 {
-    public class GameState : MonoBehaviour
+    public class GameState : MonoBehaviour, IHasItems
     {
         public static readonly Vector2Int MapSize = new Vector2Int(14, 8);
 
@@ -47,6 +47,7 @@ namespace Assets.Scripts
         public bool IsGameOver => Lives == 0;
         public bool IsBuilding { get; set; }
         public List<ItemBase> Items { get; } = new List<ItemBase>();
+        public bool IsInventoryFull => Items.Count == 36;
 
         private readonly Random _random = new Random();
 
@@ -219,7 +220,7 @@ namespace Assets.Scripts
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
         {
-            if (_random.NextDouble() <= enemy.ItemChance)
+            if (!IsInventoryFull && _random.NextDouble() <= enemy.ItemChance)
             {
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;

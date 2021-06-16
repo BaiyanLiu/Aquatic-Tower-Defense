@@ -1,9 +1,8 @@
 using System;
-using Assets.Scripts.Enemy;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Enemy
 {
     public class Wave : MonoBehaviour
     {

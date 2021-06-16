@@ -104,29 +104,23 @@ namespace Assets.Scripts.Screens
             interaction.OnMoveEnd += (sender, position) =>
             {
                 var index = _items.IndexOf(itemObject.gameObject);
+                var canMove = false;
+
                 if (IsMoveValid(position, out var tower))
                 {
-                    if (item.Tower != null)
-                    {
-                        item.Tower.RemoveItem(index);
-                    } 
-                    else 
-                    {
-                        _gameState.RemoveItem(index);
-                    }
+                    var source = item.Tower != null ? (IHasItems) item.Tower : _gameState;
+                    var target = tower != null ? (IHasItems) tower : _gameState;
 
-                    if (tower != null)
+                    canMove = !target.IsInventoryFull;
+                    if (canMove)
                     {
-                        tower.AddItem(item);
+                        source.RemoveItem(index);
+                        target.AddItem(item);
+                        Destroy(itemObject.gameObject);
                     }
-                    else
-                    {
-                        _gameState.AddItem(item);
-                    }
-
-                    Destroy(itemObject.gameObject);
                 }
-                else
+
+                if (!canMove)
                 {
                     UpdateItemPosition(_items[index], index, Vector2.zero);
                 }

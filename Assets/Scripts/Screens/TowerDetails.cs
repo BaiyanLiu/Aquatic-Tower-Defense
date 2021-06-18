@@ -18,6 +18,7 @@ namespace Assets.Scripts.Screens
         public Text KillsText;
         public Text DamageTypeText;
 
+        public RectTransform UpgradesParent;
         public Inventory Inventory;
         public Transform RangeIndicator;
         public RectTransform SellButton;
@@ -46,6 +47,10 @@ namespace Assets.Scripts.Screens
 
             if (!GameState.IsBuilding)
             {
+                UpgradesParent.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
+                height += _inventoryTransform.rect.height + 5f;
+                UpgradesParent.gameObject.SetActive(true);
+
                 _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
                 height += _inventoryTransform.rect.height + 5f;
                 Inventory.gameObject.SetActive(true);
@@ -57,6 +62,7 @@ namespace Assets.Scripts.Screens
             }
             else
             {
+                UpgradesParent.gameObject.SetActive(false);
                 Inventory.gameObject.SetActive(false);
                 SellButton.gameObject.SetActive(false);
             }

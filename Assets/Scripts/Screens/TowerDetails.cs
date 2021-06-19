@@ -24,7 +24,7 @@ namespace Assets.Scripts.Screens
         public RectTransform SellButton;
         public Text SellButtonText;
 
-        protected override EffectBase[] TargetEffects => Base.Effects ?? new EffectBase[0];
+        protected override EffectBase[] TargetEffects => Base.Effects.ToArray();
 
         private RectTransform _inventoryTransform;
 

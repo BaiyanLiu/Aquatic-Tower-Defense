@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
+using Assets.Scripts.Upgrade;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -32,19 +33,20 @@ namespace Assets.Scripts.Tower
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
 
-        public float Damage { get; private set; }
-        public float Range { get; private set; }
-        public float AttackSpeed { get; private set; }
-        public float ProjectileSpeed { get; private set; }
+        public float Damage { get; set; }
+        public float Range { get; set; }
+        public float AttackSpeed { get; set; }
+        public float ProjectileSpeed { get; set; }
 
         public float DamageDone { get; set; }
         public int Kills { get; set; }
-        public int SellCost { get; private set; }
+        public int SellCost { get; set; }
 
-        public EffectBase[] Effects { get; private set; }
+        public List<EffectBase> Effects { get; } = new List<EffectBase>();
         public List<EffectBase> AllEffects { get; } = new List<EffectBase>();
         public List<ItemBase> Items { get; } = new List<ItemBase>();
         public bool IsInventoryFull => Items.Count == 6;
+        public UpgradeBase[] Upgrades { get; private set; }
 
         private GameState _gameState;
         private CircleCollider2D _collider;
@@ -57,12 +59,14 @@ namespace Assets.Scripts.Tower
 
             SellCost = (int) Math.Round(Cost / 2f);
 
-            Effects = GetComponents<EffectBase>();
+            Effects.AddRange(GetComponents<EffectBase>());
             foreach (var effect in Effects)
             {
                 effect.Tower = this;
             }
             AllEffects.AddRange(Effects);
+
+            Upgrades = GetComponents<UpgradeBase>();
 
             UpdateStats();
         }
@@ -88,10 +92,7 @@ namespace Assets.Scripts.Tower
                 Experience -= ExperienceRequired;
                 ExperienceRequired += 100;
 
-                foreach (var effect in Effects)
-                {
-                    effect.LevelUp();
-                }
+                Effects.ForEach(effect => effect.LevelUp());
 
                 UpdateStats();
             }
@@ -110,6 +111,11 @@ namespace Assets.Scripts.Tower
                 {
                     Damage += effect.Amount;
                 }
+            }
+
+            foreach (var upgrade in Upgrades)
+            {
+                upgrade.Apply(this);
             }
 
             _collider.radius = Range;

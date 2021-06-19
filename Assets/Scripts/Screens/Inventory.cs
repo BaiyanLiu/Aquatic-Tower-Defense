@@ -178,14 +178,6 @@ namespace Assets.Scripts.Screens
 
                 var parent = hit.transform.parent;
                 tower = parent.childCount == 2 ? parent.GetChild(1).GetComponent<TowerBase>() : null;
-                if (tower == null)
-                {
-                    var towerDetails = parent.GetComponent<TowerDetails>();
-                    if (towerDetails != null)
-                    {
-                        tower = towerDetails.Base;
-                    }
-                }
 
                 if (tower != null || inventory != null)
                 {

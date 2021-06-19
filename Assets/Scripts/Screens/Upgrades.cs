@@ -46,7 +46,6 @@ namespace Assets.Scripts.Screens
             foreach (var upgrade in upgrades)
             {
                 var upgradeObject = Instantiate(upgrade.Prefab, Vector2.zero, Quaternion.identity, UpgradesParent);
-                // ReSharper disable once PossibleLossOfFraction
                 upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -100f);
                 upgradeObject.transform.localScale = _scale;
                 upgradeObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;

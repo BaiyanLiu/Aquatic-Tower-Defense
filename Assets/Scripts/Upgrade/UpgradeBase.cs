@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Text;
-using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade
 {
     public abstract class UpgradeBase : MonoBehaviour
     {
+        private const string HasColor = "#22b14cff";
+        private const string NextColor = "#fff200ff";
+        private const string FutureColor = "#808080ff";
+
         public GameObject Prefab;
         public float[] Amount;
         public int[] Cost;
@@ -14,31 +17,35 @@ namespace Assets.Scripts.Upgrade
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
 
-        protected int Level = -1;
+        private int _level = -1;
 
         public string FormatDisplayText<T>(string amountName, T[] amount)
         {
             var amountSb = new StringBuilder();
             for (var i = 0; i < amount.Length; i++)
             {
+                string color;
+                if (i <= _level)
+                {
+                    color = HasColor;
+                } 
+                else if (i == _level + 1)
+                {
+                    color = NextColor;
+                }
+                else
+                {
+                    color = FutureColor;
+                }
+
                 if (amountSb.Length > 0)
                 {
                     amountSb.Append("/");
                 }
-                if (i == Level)
-                {
-                    amountSb.Append("<b>");
-                }
-                amountSb.Append(amount[i]);
-                if (i == Level)
-                {
-                    amountSb.Append("</b>");
-                }
+                amountSb.Append($"<color={color}>{amount[i]}</color>");
             }
             return $"{amountName}: {amountSb}";
         }
-
-        public abstract void Apply(TowerBase tower);
 
         public virtual List<string> GetAmountDisplayText()
         {

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Screens
 
         private readonly List<GameObject> _upgrades = new List<GameObject>();
         private Vector2 _scale;
-        private Vector2 _positionOffset;
+        private float _positionOffset;
         private int _sortingOrder;
 
         [UsedImplicitly]
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Screens
                 parent = parent.parent;
             }
             _scale = new Vector2(1f / parent.localScale.x, 1f / parent.localScale.y);
-            _positionOffset = new Vector2(_scale.x / 2f + 7.6f, -(_scale.y / 2f + 7.6f));
+            _positionOffset = _scale.x / 2f + 7.6f;
 
             gameObject.SetActive(false);
         }
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Screens
             {
                 var upgradeObject = Instantiate(upgrade.Prefab, Vector2.zero, Quaternion.identity, UpgradesParent);
                 // ReSharper disable once PossibleLossOfFraction
-                upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset.x, _upgrades.Count / 6 * _positionOffset.y, -1f);
+                upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -1f);
                 upgradeObject.transform.localScale = _scale;
                 upgradeObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 

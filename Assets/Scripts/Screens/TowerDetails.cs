@@ -2,7 +2,6 @@ using System;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Item;
 using Assets.Scripts.Tower;
-using Assets.Scripts.Upgrade;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +24,7 @@ namespace Assets.Scripts.Screens
         public RectTransform SellButton;
         public Text SellButtonText;
 
-        protected override EffectBase[] TargetEffects => Base.Effects.ToArray();
+        protected override EffectBase[] TargetEffects => Base.Effects ?? new EffectBase[0];
 
         private RectTransform _upgradesTransform;
         private RectTransform _inventoryTransform;

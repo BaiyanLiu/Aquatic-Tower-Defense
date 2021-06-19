@@ -7,14 +7,16 @@ namespace Assets.Scripts.Upgrade
 {
     public abstract class UpgradeBase : MonoBehaviour
     {
+        public GameObject Prefab;
         public float[] Amount;
         public int[] Cost;
 
-        public int Level { get; private set; } = -1;
         public abstract string Name { get; }
-        public virtual string AmountName => "Amount";
+        protected virtual string AmountName => "Amount";
 
-        public static string FormatDisplayText<T>(string name, T[] amount, int level)
+        protected int Level = -1;
+
+        public string FormatDisplayText<T>(string amountName, T[] amount)
         {
             var amountSb = new StringBuilder();
             for (var i = 0; i < amount.Length; i++)
@@ -23,29 +25,24 @@ namespace Assets.Scripts.Upgrade
                 {
                     amountSb.Append("/");
                 }
-                if (i == level)
+                if (i == Level)
                 {
                     amountSb.Append("<b>");
                 }
                 amountSb.Append(amount[i]);
-                if (i == level)
+                if (i == Level)
                 {
                     amountSb.Append("</b>");
                 }
             }
-            return $"{name}: {amountSb}";
-        }
-
-        public int LevelUp()
-        {
-            return Cost[++Level];
+            return $"{amountName}: {amountSb}";
         }
 
         public abstract void Apply(TowerBase tower);
 
-        public virtual List<string> GetAmountDisplayText(bool includeGain)
+        public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount, Level)};
+            return new List<string> {FormatDisplayText(AmountName, Amount)};
         }
     }
 }

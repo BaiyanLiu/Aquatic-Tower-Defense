@@ -11,7 +11,7 @@ namespace Assets.Scripts.Effect
         public float Range { get; private set; }
 
         public override string Name => "Chain Effect";
-        public override string AmountName => "Damage";
+        protected override string AmountName => "Damage";
         public override Color StatusColor => new Color32(255, 242, 0, 255);
 
         protected override void OnStart()

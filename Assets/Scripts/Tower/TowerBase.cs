@@ -34,13 +34,13 @@ namespace Assets.Scripts.Tower
         public int ExperienceRequired { get; set; } = 100;
 
         public float Damage { get; set; }
-        public float Range { get; set; }
-        public float AttackSpeed { get; set; }
-        public float ProjectileSpeed { get; set; }
+        public float Range { get; private set; }
+        public float AttackSpeed { get; private set; }
+        public float ProjectileSpeed { get; private set; }
 
         public float DamageDone { get; set; }
         public int Kills { get; set; }
-        public int SellCost { get; set; }
+        public int SellCost { get; private set; }
 
         public List<EffectBase> Effects { get; } = new List<EffectBase>();
         public List<EffectBase> AllEffects { get; } = new List<EffectBase>();

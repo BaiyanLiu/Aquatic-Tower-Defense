@@ -5,7 +5,7 @@ namespace Assets.Scripts.Upgrade
     public class DamageUpgrade : UpgradeBase
     {
         public override string Name => "Damage Upgrade";
-        public override string AmountName => "Damage";
+        protected override string AmountName => "Damage";
 
         public override void Apply(TowerBase tower)
         {

@@ -80,7 +80,7 @@ namespace Assets.Scripts.Screens
 
         protected abstract float OnUpdate(float height);
 
-        public void UpdateTarget(GameObject target, bool isTemp = true)
+        public void UpdateTarget(GameObject target, bool isTemp = true, T baseObject = null)
         {
             if (isTemp && !_isTemp)
             {
@@ -103,7 +103,7 @@ namespace Assets.Scripts.Screens
             if (target != null && target != Target)
             {
                 Target = target;
-                Base = target.GetComponentInChildren<T>();
+                Base = baseObject ?? target.GetComponentInChildren<T>();
                 _isTemp = isTemp;
                 Screen.gameObject.SetActive(true);
                 OnSelected();

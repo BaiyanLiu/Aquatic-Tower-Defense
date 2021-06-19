@@ -25,7 +25,7 @@ namespace Assets.Scripts.Effect
         public ItemBase Item { get; set; }
 
         public abstract string Name { get; }
-        public virtual string AmountName => "Amount";
+        protected virtual string AmountName => "Amount";
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
 

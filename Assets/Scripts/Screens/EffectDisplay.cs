@@ -20,25 +20,13 @@ namespace Assets.Scripts.Screens
             NameText.color = effect.StatusColor;
             var height = NameText.rectTransform.rect.height;
 
-            height = UpdateText(DurationText, effect.Duration > 0f, height, EffectBase.FormatDisplayText("Duration", effect.Duration, effect.DurationGain, IncludeGain));
-            height = UpdateText(FrequencyText, effect.Frequency > 0f, height, EffectBase.FormatDisplayText("Frequency", effect.Frequency, effect.FrequencyGain, IncludeGain));
+            height = ScreenUtils.UpdateText(DurationText, effect.Duration > 0f, 0f, height, EffectBase.FormatDisplayText("Duration", effect.Duration, effect.DurationGain, IncludeGain));
+            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency > 0f, 0f, height, EffectBase.FormatDisplayText("Frequency", effect.Frequency, effect.FrequencyGain, IncludeGain));
 
             using var amountDisplayText = effect.GetAmountDisplayText(IncludeGain).GetEnumerator();
-            height = AmountTexts.Aggregate(height, (currentHeight, amountText) => UpdateText(amountText, amountDisplayText.MoveNext(), currentHeight, amountDisplayText.Current));
+            height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 0f, currentHeight, amountDisplayText.Current));
 
             return height;
-        }
-
-        private static float UpdateText(Text text, bool isEnabled, float y, string textValue)
-        {
-            if (isEnabled)
-            {
-                text.rectTransform.anchoredPosition = new Vector2(0f, -(y + 5f));
-                text.text = textValue;
-                return y + text.rectTransform.rect.height + 5f;
-            }
-            text.text = null;
-            return y;
         }
     }
 }

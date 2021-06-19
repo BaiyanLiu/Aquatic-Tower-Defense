@@ -2,6 +2,7 @@ using System;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Item;
 using Assets.Scripts.Tower;
+using Assets.Scripts.Upgrade;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Screens
         public Text KillsText;
         public Text DamageTypeText;
 
-        public RectTransform UpgradesParent;
+        public Upgrades Upgrades;
         public Inventory Inventory;
         public Transform RangeIndicator;
         public RectTransform SellButton;
@@ -26,10 +27,12 @@ namespace Assets.Scripts.Screens
 
         protected override EffectBase[] TargetEffects => Base.Effects.ToArray();
 
+        private RectTransform _upgradesTransform;
         private RectTransform _inventoryTransform;
 
         protected override void OnStart()
         {
+            _upgradesTransform = Upgrades.GetComponent<RectTransform>();
             _inventoryTransform = Inventory.GetComponent<RectTransform>();
         }
 
@@ -47,9 +50,9 @@ namespace Assets.Scripts.Screens
 
             if (!GameState.IsBuilding)
             {
-                UpgradesParent.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
+                _upgradesTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
                 height += _inventoryTransform.rect.height + 5f;
-                UpgradesParent.gameObject.SetActive(true);
+                Upgrades.gameObject.SetActive(true);
 
                 _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
                 height += _inventoryTransform.rect.height + 5f;
@@ -62,7 +65,7 @@ namespace Assets.Scripts.Screens
             }
             else
             {
-                UpgradesParent.gameObject.SetActive(false);
+                Upgrades.gameObject.SetActive(false);
                 Inventory.gameObject.SetActive(false);
                 SellButton.gameObject.SetActive(false);
             }
@@ -81,6 +84,7 @@ namespace Assets.Scripts.Screens
         protected override void OnDeselected()
         {
             RangeIndicator.gameObject.SetActive(false);
+            Upgrades.SetUpgrades(null);
             Inventory.ResetItems();
             Base.OnItemAdded -= HandleTowerAdded;
             Base.OnItemRemoved -= HandleItemRemoved;
@@ -89,6 +93,7 @@ namespace Assets.Scripts.Screens
         protected override void OnSelected()
         {
             RangeIndicator.gameObject.SetActive(true);
+            Upgrades.SetUpgrades(Base.Upgrades);
             Base.Items.ForEach(Inventory.AddItem);
             Base.OnItemAdded += HandleTowerAdded;
             Base.OnItemRemoved += HandleItemRemoved;

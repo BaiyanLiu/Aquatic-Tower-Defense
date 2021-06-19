@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Scenes
 {
-    public class Settings : MonoBehaviour
+    public sealed class Settings : MonoBehaviour
     {
         public const string Health = "Health";
         public const string InventoryX = "InventoryX";

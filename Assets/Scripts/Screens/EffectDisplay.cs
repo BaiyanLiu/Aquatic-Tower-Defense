@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
-    public class EffectDisplay : MonoBehaviour
+    public sealed class EffectDisplay : MonoBehaviour
     {
         public bool IncludeGain = true;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Interaction : MonoBehaviour
+    public sealed class Interaction : MonoBehaviour
     {
         public event EventHandler<GameObject> OnClick;
         public event EventHandler<Vector2> OnMove;

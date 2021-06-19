@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Scenes
 {
-    public class GameOver : MonoBehaviour
+    public sealed class GameOver : MonoBehaviour
     {
         [UsedImplicitly]
         public void Restart()

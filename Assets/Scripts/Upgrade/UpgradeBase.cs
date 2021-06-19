@@ -40,7 +40,7 @@ namespace Assets.Scripts.Upgrade
 
                 if (amountSb.Length > 0)
                 {
-                    amountSb.Append("/");
+                    amountSb.Append(" / ");
                 }
                 amountSb.Append($"<color={color}>{amount[i]}</color>");
             }

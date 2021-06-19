@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Screens
 {
-    public class ItemDetails : DetailsScreen<ItemBase>
+    public sealed class ItemDetails : DetailsScreen<ItemBase>
     {
         public Color SelectedColor;
 

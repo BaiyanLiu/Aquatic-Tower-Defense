@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
-    public class EnemyDetails : DetailsScreen<EnemyBase>
+    public sealed class EnemyDetails : DetailsScreen<EnemyBase>
     {
         public Text HealthText;
         public Text ArmorText;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public class Projectile : MonoBehaviour
+    public sealed class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rigidbody;
         private GameState _gameState;

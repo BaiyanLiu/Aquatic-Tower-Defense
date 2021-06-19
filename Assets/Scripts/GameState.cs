@@ -14,7 +14,7 @@ using Random = System.Random;
 
 namespace Assets.Scripts
 {
-    public class GameState : MonoBehaviour, IHasItems
+    public sealed class GameState : MonoBehaviour, IHasItems
     {
         public static readonly Vector2Int MapSize = new Vector2Int(14, 8);
 

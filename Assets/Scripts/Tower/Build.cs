@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Tower
 {
-    public class Build : MonoBehaviour
+    public sealed class Build : MonoBehaviour
     {
         public GameObject[] Towers;
         public GameObject BuildMenu;

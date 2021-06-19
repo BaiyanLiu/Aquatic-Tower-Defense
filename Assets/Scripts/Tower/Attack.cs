@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public class Attack : MonoBehaviour
+    public sealed class Attack : MonoBehaviour
     {
         public GameObject Projectile;
         public Color ProjectileColor = Color.white;

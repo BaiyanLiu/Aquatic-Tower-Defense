@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Screens
 {
-    public class Inventory : MonoBehaviour
+    public sealed class Inventory : MonoBehaviour
     {
         public bool IsMoveable;
         public Transform ItemsParent;
@@ -142,7 +142,7 @@ namespace Assets.Scripts.Screens
         private void UpdateItemPosition(GameObject item, int index, Vector2 delta)
         {
             // ReSharper disable once PossibleLossOfFraction
-            item.transform.localPosition = new Vector3(index % 6 * _positionOffset.x + delta.x, index / 6 * _positionOffset.y + delta.y, -1f);
+            item.transform.localPosition = new Vector3(index % 6 * _positionOffset.x + delta.x, index / 6 * _positionOffset.y + delta.y, -100f);
         }
 
         private void HandleItemClick(object sender, GameObject item)

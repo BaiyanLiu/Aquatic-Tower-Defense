@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public class Wave : MonoBehaviour
+    public sealed class Wave : MonoBehaviour
     {
         public event EventHandler<float> OnCreateEnemy;
 

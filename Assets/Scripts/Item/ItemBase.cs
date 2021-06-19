@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class ItemBase : MonoBehaviour, ICloneable
+    public sealed class ItemBase : MonoBehaviour, ICloneable
     {
         public string Name;
         public EffectBase[] Effects { get; set; }

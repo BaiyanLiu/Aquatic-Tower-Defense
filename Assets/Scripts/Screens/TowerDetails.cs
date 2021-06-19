@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
-    public class TowerDetails : DetailsScreen<TowerBase>
+    public sealed class TowerDetails : DetailsScreen<TowerBase>
     {
         public Text LevelText;
         public Text DamageText;

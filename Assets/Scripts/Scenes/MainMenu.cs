@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Scenes
 {
-    public class MainMenu : MonoBehaviour
+    public sealed class MainMenu : MonoBehaviour
     {
         [UsedImplicitly]
         private void Start()

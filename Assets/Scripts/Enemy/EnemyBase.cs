@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public class EnemyBase : MonoBehaviour
+    public sealed class EnemyBase : MonoBehaviour
     {
         public event EventHandler<GameObject> OnDie;
         public event EventHandler<GameObject> OnDestroyed;

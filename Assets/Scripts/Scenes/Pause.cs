@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Scenes
 {
-    public class Pause : MonoBehaviour
+    public sealed class Pause : MonoBehaviour
     {
         [UsedImplicitly]
         private void Update()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect
 {
-    public class PoisonEffect : EffectBase
+    public sealed class PoisonEffect : EffectBase
     {
         public override string Name => "Poison Effect";
         protected override string AmountName => "Damage";

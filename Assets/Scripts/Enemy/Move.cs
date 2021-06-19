@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public class Move : MonoBehaviour
+    public sealed class Move : MonoBehaviour
     {
         private Rigidbody2D _rigidbody;
         private Animator _animator;

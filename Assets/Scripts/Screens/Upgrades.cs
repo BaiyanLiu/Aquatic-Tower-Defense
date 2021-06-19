@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Screens
 {
-    public class Upgrades : MonoBehaviour
+    public sealed class Upgrades : MonoBehaviour
     {
         public Transform UpgradesParent;
         public UpgradeDetails UpgradeDetails;
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Screens
             {
                 var upgradeObject = Instantiate(upgrade.Prefab, Vector2.zero, Quaternion.identity, UpgradesParent);
                 // ReSharper disable once PossibleLossOfFraction
-                upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -1f);
+                upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -100f);
                 upgradeObject.transform.localScale = _scale;
                 upgradeObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 

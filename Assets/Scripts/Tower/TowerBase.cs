@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public class TowerBase : MonoBehaviour, IHasItems
+    public sealed class TowerBase : MonoBehaviour, IHasItems
     {
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;

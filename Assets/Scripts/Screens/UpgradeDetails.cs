@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
-    public class UpgradeDetails : DetailsScreen<UpgradeBase>
+    public sealed class UpgradeDetails : DetailsScreen<UpgradeBase>
     {
         public Text CostText;
         public Text[] AmountTexts;

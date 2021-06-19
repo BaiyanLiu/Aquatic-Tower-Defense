@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect
 {
-    public class ChainEffect : InnateEffect
+    public sealed class ChainEffect : InnateEffect
     {
         public float RangeBase;
         public float RangeGain;

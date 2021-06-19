@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect
 {
-    public class SplashEffect : InnateEffect
+    public sealed class SplashEffect : InnateEffect
     {
         public override string Name => "Splash Effect";
         protected override string AmountName => "Range";

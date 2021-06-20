@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Assets.Scripts.Item
 {
     public interface IHasItems

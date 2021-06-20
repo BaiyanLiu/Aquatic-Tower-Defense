@@ -19,8 +19,8 @@ namespace Assets.Scripts.Screens
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
-            HealthText.text = $"Health : {Math.Max(0, Math.Ceiling(Base.Health))}/{Base.MaxHealth}";
-            ArmorText.text = "Armor: " + Base.Armor;
+            HealthText.text = $"Health : {Math.Max(0, Math.Ceiling(Base.Health))}/{Base.MaxHealth.Value}";
+            ArmorText.text = "Armor: " + Base.Armor.Value;
             SpeedText.text = "Speed: " + Base.Speed;
             ExperienceText.text = "Experience: " + Base.Experience;
             GoldText.text = "Gold: " + Base.Gold;

@@ -53,7 +53,7 @@ namespace Assets.Scripts.Tower
                 return;
             }
 
-            var p = Vector2.MoveTowards(transform.position, _target.transform.position, _tower.ProjectileSpeed);
+            var p = Vector2.MoveTowards(transform.position, _target.transform.position, _tower.ProjectileSpeed.Value);
             _rigidbody.MovePosition(p);
         }
 
@@ -68,7 +68,7 @@ namespace Assets.Scripts.Tower
 
                 if (_tower.AllEffects.LastOrDefault(effect => effect is SplashEffect) is SplashEffect splashEffect)
                 {
-                    var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Amount, 1 << 29);
+                    var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Amount.Value, 1 << 29);
                     foreach (var hit in hits)
                     {
                         enemies.Add(hit.gameObject.GetComponent<EnemyBase>());
@@ -83,10 +83,10 @@ namespace Assets.Scripts.Tower
 
                 if (_tower.AllEffects.LastOrDefault(effect => effect is ChainEffect) is ChainEffect chainEffect)
                 {
-                    _damage *= chainEffect.Amount;
+                    _damage *= chainEffect.Amount.Value;
                     if (_damage >= 1f)
                     {
-                        var hit = Physics2D.OverlapCircleAll(transform.position, chainEffect.Range, 1 << 29)
+                        var hit = Physics2D.OverlapCircleAll(transform.position, chainEffect.Range.Value, 1 << 29)
                             .FirstOrDefault(t => !_prevTargets.Contains(t.gameObject));
                         if (hit != null)
                         {

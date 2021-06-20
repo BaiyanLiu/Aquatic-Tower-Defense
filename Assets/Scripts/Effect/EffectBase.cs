@@ -9,17 +9,9 @@ namespace Assets.Scripts.Effect
 {
     public abstract class EffectBase : MonoBehaviour, ICloneable, IEqualityComparer<EffectBase>
     {
-        public float DurationBase;
-        public float FrequencyBase;
-        public float AmountBase;
-
-        public float DurationGain;
-        public float FrequencyGain;
-        public float AmountGain;
-
-        public float Duration { get; set; }
-        public float Frequency { get; private set; }
-        public float Amount { get; private set; }
+        public Attribute<float> Duration;
+        public Attribute<float> Frequency;
+        public Attribute<float> Amount;
 
         public TowerBase Tower { get; set; }
         public ItemBase Item { get; set; }
@@ -31,17 +23,17 @@ namespace Assets.Scripts.Effect
 
         private float _effectTimer;
 
-        public static string FormatDisplayText(string name, float amount, float amountGain, bool includeGain)
+        public static string FormatDisplayText<T>(string name, Attribute<T> attribute, bool includeGain)
         {
-            return $"{name}: {amount}" + (includeGain ? $" (+{amountGain})" : "");
+            return $"{name}: {attribute.Value}" + (includeGain ? $" (+{attribute.Gain})" : "");
         }
 
         [UsedImplicitly]
         private void Start()
         {
-            Duration = DurationBase;
-            Frequency = FrequencyBase;
-            Amount = AmountBase;
+            Duration.Value = Duration.Base;
+            Frequency.Value = Frequency.Base;
+            Amount.Value = Amount.Base;
             OnStart();
         }
 
@@ -49,16 +41,16 @@ namespace Assets.Scripts.Effect
 
         public virtual void LevelUp()
         {
-            Duration += DurationGain;
-            Frequency += FrequencyGain;
-            Amount += AmountGain;
+            Duration.Value += Duration.Gain;
+            Frequency.Value += Frequency.Gain;
+            Amount.Value += Amount.Gain;
         }
 
         public virtual void UpdateLevel(int level)
         {
-            Duration = DurationBase + DurationGain * (level - 1);
-            Frequency = FrequencyBase + FrequencyGain * (level - 1);
-            Amount = AmountBase + AmountGain * (level - 1);
+            Duration.Value = Duration.Base + Duration.Gain * (level - 1);
+            Frequency.Value = Frequency.Base + Frequency.Gain * (level - 1);
+            Amount.Value = Amount.Base + Amount.Gain * (level - 1);
         }
 
         public bool UpdateTimer(float deltaTime)
@@ -66,7 +58,7 @@ namespace Assets.Scripts.Effect
             _effectTimer -= deltaTime;
             if (_effectTimer <= 0f)
             {
-                _effectTimer = Frequency;
+                _effectTimer = Frequency.Value;
                 return true;
             }
             return false;
@@ -74,13 +66,13 @@ namespace Assets.Scripts.Effect
 
         public virtual List<string> GetAmountDisplayText(bool includeGain)
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount, AmountGain, includeGain)};
+            return new List<string> {FormatDisplayText(AmountName, Amount, includeGain)};
         }
 
         public object Clone()
         {
             var clone = MemberwiseClone();
-            ((EffectBase) clone)._effectTimer = Frequency;
+            ((EffectBase) clone)._effectTimer = Frequency.Value;
             return clone;
         }
 

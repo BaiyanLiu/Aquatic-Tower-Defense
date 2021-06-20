@@ -114,14 +114,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageBase: 40
-  RangeBase: 6
-  AttackSpeedBase: 2
-  ProjectileSpeedBase: 1
-  DamageGain: 10
-  RangeGain: 0.5
-  AttackSpeedGain: -0.2
-  ProjectileSpeedGain: 0.1
+  Damage:
+    Base: 40
+    Gain: 10
+  Range:
+    Base: 6
+    Gain: 0.5
+  AttackSpeed:
+    Base: 2
+    Gain: -0.2
+  ProjectileSpeed:
+    Base: 1
+    Gain: 0.1
   DamageType: 1
   Cost: 20
   Name: Ranged Tower

@@ -39,10 +39,10 @@ namespace Assets.Scripts.Screens
         {
             NameText.text = Base.Name;
             LevelText.text = $"Level: {Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
-            DamageText.text = $"Damage: {Base.Damage} (+{Base.DamageGain})";
-            RangeText.text = $"Range: {Base.Range} (+{Base.RangeGain})";
-            AttackSpeedText.text = $"A. Speed: {Base.AttackSpeed} ({Base.AttackSpeedGain})";
-            ProjectileSpeedText.text = $"P. Speed: {Base.ProjectileSpeed} (+{Base.ProjectileSpeedGain})";
+            DamageText.text = $"Damage: {Base.Damage.Value} (+{Base.Damage.Gain})";
+            RangeText.text = $"Range: {Base.Range.Value} (+{Base.Range.Gain})";
+            AttackSpeedText.text = $"A. Speed: {Base.AttackSpeed.Value} ({Base.AttackSpeed.Gain})";
+            ProjectileSpeedText.text = $"P. Speed: {Base.ProjectileSpeed.Value} (+{Base.ProjectileSpeed.Gain})";
             DamageDoneText.text = "Dmg Done: " + Math.Round(Base.DamageDone);
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
@@ -70,7 +70,7 @@ namespace Assets.Scripts.Screens
             }
 
             RangeIndicator.position = Target.transform.position;
-            RangeIndicator.localScale = new Vector2(Base.Range * 2f, Base.Range * 2f);
+            RangeIndicator.localScale = new Vector2(Base.Range.Value * 2f, Base.Range.Value * 2f);
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {

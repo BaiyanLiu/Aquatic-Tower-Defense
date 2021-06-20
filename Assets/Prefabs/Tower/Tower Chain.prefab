@@ -115,14 +115,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageBase: 15
-  RangeBase: 2.5
-  AttackSpeedBase: 1
-  ProjectileSpeedBase: 0.5
-  DamageGain: 3
-  RangeGain: 0.3
-  AttackSpeedGain: -0.1
-  ProjectileSpeedGain: 0.05
+  Damage:
+    Base: 15
+    Gain: 3
+  Range:
+    Base: 2.5
+    Gain: 0.3
+  AttackSpeed:
+    Base: 1
+    Gain: -0.1
+  ProjectileSpeed:
+    Base: 0.5
+    Gain: 0.05
   DamageType: 0
   Cost: 20
   Name: Chain Tower
@@ -152,14 +156,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133c37cb5f45d394b8858c7d27b3c725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurationBase: 0
-  FrequencyBase: 0
-  AmountBase: 0.5
-  DurationGain: 0
-  FrequencyGain: 0
-  AmountGain: 0.05
-  RangeBase: 2.5
-  RangeGain: 0.1
+  Duration:
+    Base: 0
+    Gain: 0
+  Frequency:
+    Base: 0
+    Gain: 0
+  Amount:
+    Base: 0.5
+    Gain: 0.05
+  Range:
+    Base: 2.5
+    Gain: 0.1
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

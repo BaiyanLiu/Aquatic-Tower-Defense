@@ -115,14 +115,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageBase: 10
-  RangeBase: 2.5
-  AttackSpeedBase: 1
-  ProjectileSpeedBase: 0.5
-  DamageGain: 5
-  RangeGain: 0.5
-  AttackSpeedGain: -0.1
-  ProjectileSpeedGain: 0.05
+  Damage:
+    Base: 10
+    Gain: 2
+  Range:
+    Base: 2.5
+    Gain: 0.5
+  AttackSpeed:
+    Base: 1
+    Gain: -0.1
+  ProjectileSpeed:
+    Base: 0.5
+    Gain: 0.05
   DamageType: 1
   Cost: 20
   Name: Poison Tower
@@ -152,12 +156,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20823421aec869478304174ee3523be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurationBase: 2
-  FrequencyBase: 0.5
-  AmountBase: 10
-  DurationGain: 0.2
-  FrequencyGain: -0.05
-  AmountGain: 1
+  Duration:
+    Base: 2
+    Gain: 0.2
+  Frequency:
+    Base: 0.5
+    Gain: -0.05
+  Amount:
+    Base: 10
+    Gain: 1
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

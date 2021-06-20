@@ -5,10 +5,7 @@ namespace Assets.Scripts.Effect
 {
     public sealed class ChainEffect : InnateEffect
     {
-        public float RangeBase;
-        public float RangeGain;
-
-        public float Range { get; private set; }
+        public Attribute<float> Range;
 
         public override string Name => "Chain Effect";
         protected override string AmountName => "Damage";
@@ -16,25 +13,25 @@ namespace Assets.Scripts.Effect
 
         protected override void OnStart()
         {
-            Range = RangeBase;
+            Range.Value = Range.Base;
         }
 
         public override void LevelUp()
         {
             base.LevelUp();
-            Range += RangeGain;
+            Range.Value += Range.Gain;
         }
 
         public override void UpdateLevel(int level)
         {
             base.UpdateLevel(level);
-            Range = RangeBase + RangeGain * (level - 1);
+            Range.Value = Range.Base + Range.Gain * (level - 1);
         }
 
         public override List<string> GetAmountDisplayText(bool includeGain)
         {
             var amountDisplayText = base.GetAmountDisplayText(includeGain);
-            amountDisplayText.Add(FormatDisplayText("Range", Range, RangeGain, includeGain));
+            amountDisplayText.Add(FormatDisplayText("Range", Range, includeGain));
             return amountDisplayText;
         }
     }

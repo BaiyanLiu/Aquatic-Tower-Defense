@@ -115,14 +115,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageBase: 30
-  RangeBase: 1.5
-  AttackSpeedBase: 1
-  ProjectileSpeedBase: 0.3
-  DamageGain: 5
-  RangeGain: 0.2
-  AttackSpeedGain: -0.1
-  ProjectileSpeedGain: 0.03
+  Damage:
+    Base: 30
+    Gain: 5
+  Range:
+    Base: 1.5
+    Gain: 2
+  AttackSpeed:
+    Base: 1
+    Gain: -0.1
+  ProjectileSpeed:
+    Base: 0.3
+    Gain: 0.03
   DamageType: 2
   Cost: 20
   Name: Splash Tower
@@ -152,12 +156,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurationBase: 0
-  FrequencyBase: 0
-  AmountBase: 1.5
-  DurationGain: 0
-  FrequencyGain: 0
-  AmountGain: 0.2
+  Duration:
+    Base: 0
+    Gain: 0
+  Frequency:
+    Base: 0
+    Gain: 0
+  Amount:
+    Base: 1.5
+    Gain: 0.2
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

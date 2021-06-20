@@ -114,14 +114,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e57e98a784ff74eb04a8b3e12f52cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageBase: 5
-  RangeBase: 2
-  AttackSpeedBase: 0.2
-  ProjectileSpeedBase: 1
-  DamageGain: 1
-  RangeGain: 0.2
-  AttackSpeedGain: -0.02
-  ProjectileSpeedGain: 0.1
+  Damage:
+    Base: 5
+    Gain: 1
+  Range:
+    Base: 2
+    Gain: 0.2
+  AttackSpeed:
+    Base: 0.2
+    Gain: -0.02
+  ProjectileSpeed:
+    Base: 1
+    Gain: 0.1
   DamageType: 0
   Cost: 15
   Name: Fast Tower

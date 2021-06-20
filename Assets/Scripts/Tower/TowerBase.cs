@@ -15,15 +15,10 @@ namespace Assets.Scripts.Tower
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;
 
-        public float DamageBase;
-        public float RangeBase;
-        public float AttackSpeedBase;
-        public float ProjectileSpeedBase;
-
-        public float DamageGain;
-        public float RangeGain;
-        public float AttackSpeedGain;
-        public float ProjectileSpeedGain;
+        public Attribute<float> Damage;
+        public Attribute<float> Range;
+        public Attribute<float> AttackSpeed;
+        public Attribute<float> ProjectileSpeed;
 
         public DamageType DamageType;
         public int Cost;
@@ -32,11 +27,6 @@ namespace Assets.Scripts.Tower
         public int Level { get; set; } = 1;
         public int Experience { get; set; }
         public int ExperienceRequired { get; set; } = 100;
-
-        public float Damage { get; private set; }
-        public float Range { get; private set; }
-        public float AttackSpeed { get; private set; }
-        public float ProjectileSpeed { get; private set; }
 
         public float DamageDone { get; set; }
         public int Kills { get; set; }
@@ -103,20 +93,20 @@ namespace Assets.Scripts.Tower
 
         public void UpdateStats()
         {
-            Damage = DamageBase + DamageGain * (Level - 1);
-            Range = RangeBase + RangeGain * (Level - 1);
-            AttackSpeed = AttackSpeedBase + AttackSpeedGain * (Level - 1);
-            ProjectileSpeed = ProjectileSpeedBase + ProjectileSpeedGain * (Level - 1);
+            Damage.Value = Damage.Base + Damage.Gain * (Level - 1);
+            Range.Value = Range.Base + Range.Gain * (Level - 1);
+            AttackSpeed.Value = AttackSpeed.Base + AttackSpeed.Gain * (Level - 1);
+            ProjectileSpeed.Value = ProjectileSpeed.Base + ProjectileSpeed.Gain * (Level - 1);
 
             foreach (var effect in Items.SelectMany(item => item.Effects))
             {
                 if (effect is DamageEffect)
                 {
-                    Damage += effect.Amount;
+                    Damage.Value += effect.Amount.Value;
                 }
             }
 
-            _collider.radius = Range;
+            _collider.radius = Range.Value;
         }
 
         public void AddItem(ItemBase item)

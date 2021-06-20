@@ -138,12 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurationBase: 0
-  FrequencyBase: 0
-  AmountBase: 1
-  DurationGain: 0
-  FrequencyGain: 0
-  AmountGain: 0.1
+  Duration:
+    Base: 0
+    Gain: 0
+  Frequency:
+    Base: 0
+    Gain: 0
+  Amount:
+    Base: 1
+    Gain: 0.1
 --- !u!114 &6521877278147224254
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,9 +33,9 @@ namespace Assets.Scripts.Enemy
             var slowAmount = 0f;
             foreach (var effect in _base.Effects)
             {
-                if (effect is SlowEffect && effect.Amount > slowAmount)
+                if (effect is SlowEffect && effect.Amount.Value > slowAmount)
                 {
-                    slowAmount = effect.Amount;
+                    slowAmount = effect.Amount.Value;
                 }
             }
 

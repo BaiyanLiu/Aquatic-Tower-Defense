@@ -13,11 +13,8 @@ namespace Assets.Scripts.Enemy
         public event EventHandler<GameObject> OnDie;
         public event EventHandler<GameObject> OnDestroyed;
 
-        public float MaxHealthBase;
-        public float ArmorBase;
-
-        public float MaxHealthGain;
-        public float ArmorGain;
+        public Attribute<float> MaxHealth;
+        public Attribute<float> Armor;
 
         public float Speed;
         public ArmorType ArmorType;
@@ -27,8 +24,6 @@ namespace Assets.Scripts.Enemy
         public float ItemChance;
         public string Name;
 
-        public float MaxHealth { get; private set; }
-        public float Armor { get; private set; }
         public float Health { get; private set; }
         public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
 
@@ -36,13 +31,13 @@ namespace Assets.Scripts.Enemy
         {
             set
             {
-                MaxHealth = (MaxHealthBase + MaxHealthGain * value) * PlayerPrefs.GetInt(Settings.Health) / 100f;
-                Armor = ArmorBase + ArmorGain * value;
-                Health = MaxHealth;
+                MaxHealth.Value = (MaxHealth.Base + MaxHealth.Gain * value) * PlayerPrefs.GetInt(Settings.Health) / 100f;
+                Armor.Value = Armor.Base + Armor.Gain * value;
+                Health = MaxHealth.Value;
             }
         }
 
-        private float DamageReduction => (100f - Armor) / 100f;
+        private float DamageReduction => (100f - Armor.Value) / 100f;
 
         private Animator _animator;
         private Transform _healthBar;
@@ -66,7 +61,7 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            Effects.RemoveWhere(effect => (effect.Duration -= Time.deltaTime) <= 0f);
+            Effects.RemoveWhere(effect => (effect.Duration.Value -= Time.deltaTime) <= 0f);
 
             var statusColors = new SortedDictionary<string, Color>();
             foreach (var effect in Effects)
@@ -75,8 +70,8 @@ namespace Assets.Scripts.Enemy
                 {
                     if (effect is PoisonEffect)
                     {
-                        effect.Tower.EnemyAttacked(Math.Min(effect.Amount, Health));
-                        if (UpdateHealth(-effect.Amount))
+                        effect.Tower.EnemyAttacked(Math.Min(effect.Amount.Value, Health));
+                        if (UpdateHealth(-effect.Amount.Value))
                         {
                             effect.Tower.EnemyKilled(this);
                         }
@@ -117,7 +112,7 @@ namespace Assets.Scripts.Enemy
             if (Health > 0f)
             {
                 Health += delta;
-                _healthBar.localScale = new Vector2(Math.Max(Health / MaxHealth, 0f), 1f);
+                _healthBar.localScale = new Vector2(Math.Max(Health / MaxHealth.Value, 0f), 1f);
                 if (Health <= 0f)
                 {
                     OnDie?.Invoke(this, gameObject);

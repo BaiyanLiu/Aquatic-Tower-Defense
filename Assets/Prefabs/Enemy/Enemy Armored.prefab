@@ -158,10 +158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deea513d835986f4981bd8f961692512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealthBase: 200
-  ArmorBase: 2
-  MaxHealthGain: 20
-  ArmorGain: 0.5
+  MaxHealth:
+    Base: 200
+    Gain: 20
+  Armor:
+    Base: 2
+    Gain: 0.5
   Speed: 0.03
   ArmorType: 2
   Experience: 15

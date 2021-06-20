@@ -44,13 +44,13 @@ namespace Assets.Scripts.Tower
             if (_attackTimer < 0 && _target != null)
             {
                 AttackEnemy();
-                _attackTimer = _base.AttackSpeed;
+                _attackTimer = _base.AttackSpeed.Value;
             }
         }
 
         private void AttackEnemy()
         {
-            Tower.Projectile.Create(Projectile, ProjectileColor, transform.position, _base, _base.Damage, _target);
+            Tower.Projectile.Create(Projectile, ProjectileColor, transform.position, _base, _base.Damage.Value, _target);
         }
 
         [UsedImplicitly]

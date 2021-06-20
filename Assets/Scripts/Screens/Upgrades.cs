@@ -11,14 +11,21 @@ namespace Assets.Scripts.Screens
         public Transform UpgradesParent;
         public UpgradeDetails UpgradeDetails;
 
+        private GameState _gameState;
+
         private readonly List<GameObject> _upgrades = new List<GameObject>();
         private Vector2 _scale;
         private float _positionOffset;
         private int _sortingOrder;
 
+        private UpgradeBase _current;
+        private SpriteRenderer _spriteRenderer;
+
         [UsedImplicitly]
         private void Start()
         {
+            _gameState = GameState.GetGameState(gameObject);
+
             var parent = UpgradesParent.parent;
             _sortingOrder = parent.GetComponent<Canvas>().sortingOrder;
 
@@ -30,6 +37,15 @@ namespace Assets.Scripts.Screens
             _positionOffset = _scale.x / 2f + 7.6f;
 
             gameObject.SetActive(false);
+        }
+
+        [UsedImplicitly]
+        private void Update()
+        {
+            if (_current != null)
+            {
+                _spriteRenderer.color = _current.CanLevelUp ? _gameState.ValidColor : _gameState.InvalidColor;
+            }
         }
 
         public void SetUpgrades(UpgradeBase[] upgrades)
@@ -45,14 +61,18 @@ namespace Assets.Scripts.Screens
 
             foreach (var upgrade in upgrades)
             {
-                var upgradeObject = Instantiate(upgrade.Prefab, Vector2.zero, Quaternion.identity, UpgradesParent);
+                var upgradeObject = Instantiate(upgrade.Icon, Vector2.zero, Quaternion.identity, UpgradesParent);
                 upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -100f);
                 upgradeObject.transform.localScale = _scale;
                 upgradeObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
 
                 var interaction = upgradeObject.GetComponent<Interaction>();
+                interaction.OnClick += HandleUpgradeClick;
                 interaction.OnEnter += (sender, o) =>
                 {
+                    _current = upgrade;
+                    _spriteRenderer = o.GetComponent<SpriteRenderer>();
+                    _gameState.UpdateCost(upgrade.NextCost);
                     UpgradeDetails.UpdateTarget(upgradeObject, true, upgrade);
                 };
                 interaction.OnExit += HandleUpgradeMouseExit;
@@ -61,8 +81,17 @@ namespace Assets.Scripts.Screens
             }
         }
 
+        private void HandleUpgradeClick(object sender, GameObject o)
+        {
+            _current.LevelUp();
+            _gameState.UpdateCost(_current.NextCost);
+        }
+
         private void HandleUpgradeMouseExit(object sender, EventArgs e)
         {
+            _current = null;
+            _spriteRenderer.color = Color.white;
+            _gameState.UpdateCost(null);
             UpgradeDetails.UpdateTarget(null);
         }
     }

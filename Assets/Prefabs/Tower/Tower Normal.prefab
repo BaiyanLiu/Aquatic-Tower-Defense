@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9378c1276c8164394db785de35b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
   Amount:
   - 10
   - 20

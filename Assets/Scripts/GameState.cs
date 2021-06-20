@@ -29,10 +29,15 @@ namespace Assets.Scripts
         public Transform EndPosition;
 
         public Text GoldText;
+        public Text CostText;
         public Text LivesText;
         public Text LivesLostText;
         public Text StartButtonText;
 
+        public Color ValidColor;
+        public Color ValidCostColor;
+        public Color InvalidColor;
+        
         public GameObject PathTile;
         public TowerDetails TowerDetails;
         public EnemyDetails EnemyDetails;
@@ -55,6 +60,7 @@ namespace Assets.Scripts
         private int _currWave = -1;
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
+        private int _cost;
 
         [UsedImplicitly]
         private void Start()
@@ -63,6 +69,7 @@ namespace Assets.Scripts
             _waves = WavesParent.GetComponentsInChildren<Wave>();
 
             UpdateGold(0);
+            UpdateCost(null);
             UpdateLives(0);
             LivesLostText.enabled = false;
             Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
@@ -105,6 +112,8 @@ namespace Assets.Scripts
                     _pathTiles.Clear();
                 }
             }
+
+            CostText.color = _cost > Gold ? InvalidColor : ValidCostColor;
         }
 
         public static GameState GetGameState(GameObject gameObject)
@@ -148,6 +157,18 @@ namespace Assets.Scripts
         {
             Gold += delta;
             GoldText.text = "G: " + Gold;
+        }
+
+        public int UpdateCost(int? cost)
+        {
+            if (cost != null)
+            {
+                _cost = cost.Value;
+                CostText.text = "-" + _cost;
+                return _cost;
+            }
+            CostText.text = "";
+            return 0;
         }
 
         public void UpdateLives(int delta)

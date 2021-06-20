@@ -13,13 +13,7 @@ namespace Assets.Scripts.Tower
         public GameObject[] Towers;
         public GameObject BuildMenu;
         public TowerDetails TowerDetails;
-
-        public Text CostText;
         public Text CurrentNameText;
-
-        public Color ValidColor;
-        public Color ValidCostColor;
-        public Color InvalidColor;
 
         private GameState _gameState;
 
@@ -65,7 +59,6 @@ namespace Assets.Scripts.Tower
                 _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
             }
 
-            UpdateCost(null);
             UpdateBuildMenu();
         }
 
@@ -90,7 +83,7 @@ namespace Assets.Scripts.Tower
 
                         _gameState.IsBuilding = false;
                         _gameState.UpdateGold(-_cost);
-                        UpdateCost(null);
+                        _gameState.UpdateCost(null);
                         TowerDetails.UpdateTarget(null, false);
                     }
                 }
@@ -98,11 +91,10 @@ namespace Assets.Scripts.Tower
                 _placeholder.transform.position = GetMousePosition();
                 foreach (var spriteRenderer in _spriteRenderers)
                 {
-                    spriteRenderer.color = IsValid() ? ValidColor : InvalidColor;
+                    spriteRenderer.color = IsValid() ? _gameState.ValidColor : _gameState.InvalidColor;
                 }
             }
 
-            CostText.color = _cost > _gameState.Gold ? InvalidColor : ValidCostColor;
             UpdateBuildMenu();
         }
 
@@ -123,14 +115,14 @@ namespace Assets.Scripts.Tower
                 _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
 
                 _gameState.IsBuilding = true;
-                UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
+                _cost = _gameState.UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
                 TowerDetails.UpdateTarget(_placeholder, false);
             }
             else
             {
                 _name = null;
                 _gameState.IsBuilding = false;
-                UpdateCost(null);
+                _gameState.UpdateCost(null);
                 TowerDetails.UpdateTarget(null, false);
             }
 
@@ -167,19 +159,6 @@ namespace Assets.Scripts.Tower
             return hit == null;
         }
 
-        private void UpdateCost(int? cost)
-        {
-            if (cost != null)
-            {
-                _cost = cost.Value;
-                CostText.text = "-" + _cost;
-            }
-            else
-            {
-                CostText.text = "";
-            }
-        }
-
         private void UpdateBuildMenu()
         {
             if (_prevName == _name && Math.Abs(_prevNameWidth - CurrentNameText.rectTransform.rect.width) < 0.00000001f)
@@ -201,7 +180,7 @@ namespace Assets.Scripts.Tower
                 {
                     CurrentNameText.rectTransform.anchoredPosition = new Vector2((_buildMenuScale.x + 10f) * (i + 1), 0f);
                     position.x += _prevNameWidth + 10f;
-                    color = ValidColor;
+                    color = _gameState.ValidColor;
                 }
 
                 foreach (var spriteRenderer in _buildMenuSpriteRenderers[i])

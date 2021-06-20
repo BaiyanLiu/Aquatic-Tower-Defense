@@ -6,8 +6,6 @@ namespace Assets.Scripts.Screens
 {
     public sealed class ItemDetails : DetailsScreen<ItemBase>
     {
-        public Color SelectedColor;
-
         protected override EffectBase[] TargetEffects => Base.Effects;
 
         private SpriteRenderer _spriteRenderer;
@@ -26,7 +24,7 @@ namespace Assets.Scripts.Screens
         protected override void OnSelected()
         {
             _spriteRenderer = Target.GetComponent<SpriteRenderer>();
-            _spriteRenderer.color = SelectedColor;
+            _spriteRenderer.color = GameState.ValidColor;
         }
     }
 }

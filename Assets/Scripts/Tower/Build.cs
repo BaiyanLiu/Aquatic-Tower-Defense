@@ -115,7 +115,8 @@ namespace Assets.Scripts.Tower
                 _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
 
                 _gameState.IsBuilding = true;
-                _cost = _gameState.UpdateCost(_placeholder.GetComponentInChildren<TowerBase>().Cost);
+                _cost = _placeholder.GetComponentInChildren<TowerBase>().Cost;
+                _gameState.UpdateCost(_cost);
                 TowerDetails.UpdateTarget(_placeholder, false);
             }
             else

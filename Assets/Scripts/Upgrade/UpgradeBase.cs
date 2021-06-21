@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using Assets.Scripts.Tower;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -17,13 +18,14 @@ namespace Assets.Scripts.Upgrade
 
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
+        public TowerBase Tower { protected get; set; }
 
-        private bool HasNextLevel => Cost.Length > _level + 1;
-        public int? NextCost => HasNextLevel ? (int?) Cost[_level + 1] : null;
-        public bool CanLevelUp => HasNextLevel && _gameState.Gold >= Cost[_level + 1];
+        private bool HasNextLevel => Cost.Length > Level + 1;
+        public int? NextCost => HasNextLevel ? (int?) Cost[Level + 1] : null;
+        public bool CanLevelUp => HasNextLevel && _gameState.Gold >= Cost[Level + 1];
 
         private GameState _gameState;
-        private int _level = -1;
+        protected int Level = -1;
 
         [UsedImplicitly]
         private void Start()
@@ -35,10 +37,22 @@ namespace Assets.Scripts.Upgrade
         {
             if (CanLevelUp)
             {
-                _gameState.UpdateGold(-Cost[_level + 1]);
-                _level++;
+                _gameState.UpdateGold(-Cost[Level + 1]);
+                Level++;
+                Tower.UpdateStats();
             }
         }
+
+        public void Apply()
+        {
+            if (Level == -1)
+            {
+                return;
+            }
+            OnApply();
+        }
+
+        public abstract void OnApply();
 
         public string FormatDisplayText<T>(string amountName, T[] amount)
         {
@@ -46,11 +60,11 @@ namespace Assets.Scripts.Upgrade
             for (var i = 0; i < amount.Length; i++)
             {
                 string color;
-                if (i <= _level)
+                if (i <= Level)
                 {
                     color = HasColor;
                 } 
-                else if (i == _level + 1)
+                else if (i == Level + 1)
                 {
                     color = NextColor;
                 }

@@ -57,13 +57,17 @@ namespace Assets.Scripts.Tower
             AllEffects.AddRange(Effects);
 
             Upgrades = GetComponents<UpgradeBase>();
+            foreach (var upgrade in Upgrades)
+            {
+                upgrade.Tower = this;
+            }
 
             UpdateStats();
         }
 
         public void EnemyAttacked(float damage)
         {
-            DamageDone += damage;
+            DamageDone += Math.Max(damage, 0f);
         }
 
         public void EnemyKilled(EnemyBase enemy)
@@ -104,6 +108,11 @@ namespace Assets.Scripts.Tower
                 {
                     Damage.Value += effect.Amount.Value;
                 }
+            }
+
+            foreach (var upgrade in Upgrades)
+            {
+                upgrade.Apply();
             }
 
             _collider.radius = Range.Value;

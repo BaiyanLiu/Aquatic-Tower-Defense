@@ -159,16 +159,17 @@ namespace Assets.Scripts
             GoldText.text = "G: " + Gold;
         }
 
-        public int UpdateCost(int? cost)
+        public void UpdateCost(int? cost)
         {
             if (cost != null)
             {
                 _cost = cost.Value;
                 CostText.text = "-" + _cost;
-                return _cost;
             }
-            CostText.text = "";
-            return 0;
+            else
+            {
+                CostText.text = "";
+            }
         }
 
         public void UpdateLives(int delta)

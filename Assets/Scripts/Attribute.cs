@@ -3,7 +3,7 @@ using System;
 namespace Assets.Scripts
 {
     [Serializable]
-    public struct Attribute<T>
+    public class Attribute<T>
     {
         public T Base;
         public T Gain;

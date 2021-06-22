@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
   - component: {fileID: 225180929158847705}
+  - component: {fileID: 5050898691298476605}
+  - component: {fileID: 540633466035851902}
+  - component: {fileID: 2002385963171564854}
+  - component: {fileID: 4074294673377884810}
   m_Layer: 0
   m_Name: Tower_Top
   m_TagString: Untagged
@@ -168,6 +172,78 @@ MonoBehaviour:
   Range:
     Base: 2.5
     Gain: 0.1
+--- !u!114 &5050898691298476605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9378c1276c8164394db785de35b01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
+  Amount:
+  - 5
+  - 10
+  - 15
+  Cost: 0a0000000f00000014000000
+--- !u!114 &540633466035851902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0638a73f8e6ce4cb306f450e8b53c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 8749316955921980939, guid: 5138ccd23d77ae84496b598832d81c5b, type: 3}
+  Amount:
+  - 1
+  - 1.5
+  - 2
+  Cost: 0f0000001400000019000000
+--- !u!114 &2002385963171564854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ea24f7d3a6ace44bc799686cad86da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 8749316955921980939, guid: 9019b83f187510a4ba2f975e70cd073d, type: 3}
+  Amount:
+  - -0.1
+  - -0.2
+  - -0.3
+  Cost: 14000000190000001e000000
+--- !u!114 &4074294673377884810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb41254602322949a608df31e9350c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 8749316955921980939, guid: d085016dde0203e449fee7e0c8681a3d, type: 3}
+  Amount:
+  - 0.1
+  - 0.2
+  - 0.3
+  Cost: 050000000a0000000f000000
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

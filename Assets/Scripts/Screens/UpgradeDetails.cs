@@ -13,7 +13,7 @@ namespace Assets.Scripts.Screens
         {
             NameText.text = Base.Name;
             height += NameText.rectTransform.rect.height + 5f;
-            height = ScreenUtils.UpdateText(CostText, true, 5f, height, Base.FormatDisplayText("Cost", Base.Cost));
+            height = ScreenUtils.UpdateText(CostText, true, 5f, height, Base.FormatDisplayText("Cost", Base.Cost, true));
 
             using var amountDisplayText = Base.GetAmountDisplayText().GetEnumerator();
             height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 5f, currentHeight, amountDisplayText.Current));

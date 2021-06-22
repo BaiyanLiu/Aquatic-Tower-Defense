@@ -28,10 +28,10 @@ namespace Assets.Scripts.Effect
             Range.Value = Range.Base + Range.Gain * (level - 1);
         }
 
-        public override List<string> GetAmountDisplayText(bool includeGain)
+        public override List<string> GetAmountDisplayText()
         {
-            var amountDisplayText = base.GetAmountDisplayText(includeGain);
-            amountDisplayText.Add(FormatDisplayText("Range", Range, includeGain));
+            var amountDisplayText = base.GetAmountDisplayText();
+            amountDisplayText.Add(FormatDisplayText("Range", Range));
             return amountDisplayText;
         }
     }

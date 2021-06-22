@@ -39,6 +39,7 @@ namespace Assets.Scripts.Item
             foreach (var effect in effects)
             {
                 effect.Item = this;
+                effect.IncludeGain = false;
             }
             ((ItemBase) clone).Effects = effects;
             return clone;

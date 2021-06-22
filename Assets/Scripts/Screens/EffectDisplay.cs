@@ -7,8 +7,6 @@ namespace Assets.Scripts.Screens
 {
     public sealed class EffectDisplay : MonoBehaviour
     {
-        public bool IncludeGain = true;
-
         public Text NameText;
         public Text DurationText;
         public Text FrequencyText;
@@ -20,10 +18,10 @@ namespace Assets.Scripts.Screens
             NameText.color = effect.StatusColor;
             var height = NameText.rectTransform.rect.height;
 
-            height = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, 0f, height, EffectBase.FormatDisplayText("Duration", effect.Duration, IncludeGain));
-            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, 0f, height, EffectBase.FormatDisplayText("Frequency", effect.Frequency, IncludeGain));
+            height = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, 0f, height, effect.FormatDisplayText("Duration", effect.Duration));
+            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, 0f, height, effect.FormatDisplayText("Frequency", effect.Frequency));
 
-            using var amountDisplayText = effect.GetAmountDisplayText(IncludeGain).GetEnumerator();
+            using var amountDisplayText = effect.GetAmountDisplayText().GetEnumerator();
             height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 0f, currentHeight, amountDisplayText.Current));
 
             return height;

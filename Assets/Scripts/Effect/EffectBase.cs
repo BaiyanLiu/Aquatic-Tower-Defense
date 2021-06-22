@@ -15,6 +15,7 @@ namespace Assets.Scripts.Effect
 
         public TowerBase Tower { get; set; }
         public ItemBase Item { get; set; }
+        public bool IncludeGain { get; set; } = true;
 
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
@@ -23,9 +24,9 @@ namespace Assets.Scripts.Effect
 
         private float _effectTimer;
 
-        public static string FormatDisplayText<T>(string name, Attribute<T> attribute, bool includeGain)
+        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute)
         {
-            return $"{name}: {attribute.Value}" + (includeGain ? $" (+{attribute.Gain})" : "");
+            return $"{attributeName}: {attribute.Value}" + (IncludeGain ? $" (+{attribute.Gain})" : "");
         }
 
         [UsedImplicitly]
@@ -64,9 +65,9 @@ namespace Assets.Scripts.Effect
             return false;
         }
 
-        public virtual List<string> GetAmountDisplayText(bool includeGain)
+        public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount, includeGain)};
+            return new List<string> {FormatDisplayText(AmountName, Amount)};
         }
 
         public object Clone()

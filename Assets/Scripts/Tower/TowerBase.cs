@@ -30,7 +30,7 @@ namespace Assets.Scripts.Tower
 
         public float DamageDone { get; set; }
         public int Kills { get; set; }
-        public int SellCost { get; private set; }
+        public Attribute<int> SellCost { get; } = new Attribute<int>();
 
         public EffectBase[] Effects { get; private set; }
         public List<EffectBase> AllEffects { get; } = new List<EffectBase>();
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Tower
             _gameState = GameState.GetGameState(gameObject);
             _collider = GetComponent<CircleCollider2D>();
 
-            SellCost = (int) Math.Round(Cost / 2f);
+            SellCost.Value = SellCost.Base = (int) Math.Round(Cost / 2f);
 
             Effects = GetComponents<EffectBase>();
             foreach (var effect in Effects)
@@ -101,6 +101,7 @@ namespace Assets.Scripts.Tower
             Range.Value = Range.Base + Range.Gain * (Level - 1);
             AttackSpeed.Value = AttackSpeed.Base + AttackSpeed.Gain * (Level - 1);
             ProjectileSpeed.Value = ProjectileSpeed.Base + ProjectileSpeed.Gain * (Level - 1);
+            SellCost.Value = SellCost.Base;
 
             foreach (var effect in Items.SelectMany(item => item.Effects))
             {

@@ -57,7 +57,7 @@ namespace Assets.Scripts.Screens
                 height += _inventoryTransform.rect.height + 5f;
                 Inventory.gameObject.SetActive(true);
 
-                SellButtonText.text = "Sell: " + Base.SellCost;
+                SellButtonText.text = "Sell: " + Base.SellCost.Value;
                 SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
                 height += SellButton.rect.height + 5f;
                 SellButton.gameObject.SetActive(true);
@@ -112,7 +112,7 @@ namespace Assets.Scripts.Screens
         {
             if (!GameState.IsBuilding && Target != null)
             {
-                GameState.UpdateGold(Base.SellCost);
+                GameState.UpdateGold(Base.SellCost.Value);
                 Destroy(Target);
                 UpdateTarget(null, false);
             }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
@@ -54,7 +56,7 @@ namespace Assets.Scripts.Upgrade
 
         public abstract void OnApply();
 
-        public string FormatDisplayText<T>(string amountName, T[] amount)
+        public string FormatDisplayText<T>(string amountName, T[] amount, bool isCost)
         {
             var amountSb = new StringBuilder();
             for (var i = 0; i < amount.Length; i++)
@@ -77,14 +79,24 @@ namespace Assets.Scripts.Upgrade
                 {
                     amountSb.Append(" / ");
                 }
-                amountSb.Append($"<color={color}>{amount[i]}</color>");
+                amountSb.Append($"<color={color}>{(isCost ? DefaultFormatAmountText(i) : FormatAmountText(i))}</color>");
             }
             return $"{amountName}: {amountSb}";
         }
 
+        protected virtual string FormatAmountText(int index)
+        {
+            return DefaultFormatAmountText(index);
+        }
+
+        private string DefaultFormatAmountText(int index)
+        {
+            return Convert.ToString(Amount[index], CultureInfo.InvariantCulture);
+        }
+
         public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount)};
+            return new List<string> {FormatDisplayText(AmountName, Amount, false)};
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Assets.Scripts.Effect
 
         protected override void OnStart()
         {
+            Range ??= new Attribute<float>();
             Range.Value = Range.Base;
         }
 

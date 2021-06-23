@@ -7,15 +7,11 @@ namespace Assets.Scripts.Upgrade
     {
         public override string Name => "Sell Cost Upgrade";
         protected override string AmountName => "Sell Cost";
+        protected override string AmountUnit => "%";
 
         public override void OnApply()
         {
             Tower.SellCost.Value = Tower.SellCost.Value * Amount[Level] / 100f;
-        }
-
-        protected override string FormatAmountText<T>(T amount)
-        {
-            return amount + "%";
         }
     }
 }

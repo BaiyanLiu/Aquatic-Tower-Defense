@@ -19,19 +19,19 @@ namespace Assets.Scripts.Effect
 
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
+        protected virtual string AmountUnit => "";
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
 
         private float _effectTimer;
 
-        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute)
-        {
-            return $"{attributeName}: {attribute.Value}" + (IncludeGain ? $" (+{attribute.Gain})" : "");
-        }
-
         [UsedImplicitly]
         private void Start()
         {
+            Duration ??= new Attribute<float>();
+            Frequency ??= new Attribute<float>();
+            Amount ??= new Attribute<float>();
+
             Duration.Value = Duration.Base;
             Frequency.Value = Frequency.Base;
             Amount.Value = Amount.Base;
@@ -68,6 +68,11 @@ namespace Assets.Scripts.Effect
         public virtual List<string> GetAmountDisplayText()
         {
             return new List<string> {FormatDisplayText(AmountName, Amount)};
+        }
+
+        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute)
+        {
+            return $"{attributeName}: {attribute.Value}{AmountUnit}" + (IncludeGain ? $" (+{attribute.Gain}{AmountUnit})" : "");
         }
 
         public object Clone()

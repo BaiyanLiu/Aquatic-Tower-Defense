@@ -33,7 +33,7 @@ namespace Assets.Scripts.Screens
             var parent = ItemsParent.parent;
             _sortingOrder = parent.GetComponent<Canvas>().sortingOrder;
 
-            while (Math.Abs(parent.localScale.x - 1) < 0.00000001f)
+            while (Math.Abs(parent.localScale.x - 1) < 0.000001f)
             {
                 parent = parent.parent;
             }

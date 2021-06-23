@@ -32,7 +32,7 @@ namespace Assets.Scripts.Tower
         public int Kills { get; set; }
         public Attribute<float> SellCost { get; } = new Attribute<float>();
 
-        public EffectBase[] Effects { get; private set; }
+        public List<EffectBase> Effects { get; } = new List<EffectBase>();
         public List<EffectBase> AllEffects { get; } = new List<EffectBase>();
         public List<ItemBase> Items { get; } = new List<ItemBase>();
         public bool IsInventoryFull => Items.Count == 6;
@@ -50,11 +50,8 @@ namespace Assets.Scripts.Tower
             SellCost.Value = SellCost.Base = Cost / 2f;
             SellCost.Gain = SellCost.Base / 10f;
 
-            Effects = GetComponents<EffectBase>();
-            foreach (var effect in Effects)
-            {
-                effect.Tower = this;
-            }
+            Effects.AddRange(GetComponents<EffectBase>());
+            Effects.ForEach(effect => effect.Tower = this);
             AllEffects.AddRange(Effects);
 
             Upgrades = GetComponents<UpgradeBase>();
@@ -80,7 +77,13 @@ namespace Assets.Scripts.Tower
 
         public void UpdateExperience(int delta)
         {
-            Experience += delta;
+            var experienceAmount = AllEffects
+                .Where(effect => effect is ExperienceEffect)
+                .Select(effect => effect.Amount.Value)
+                .Prepend(100f)
+                .Max();
+
+            Experience += (int) (delta * experienceAmount / 100f);
             if (Experience >= ExperienceRequired)
             {
                 Level++;
@@ -117,7 +120,7 @@ namespace Assets.Scripts.Tower
                 upgrade.Apply();
             }
 
-            SellCost.Value = (int) Math.Round(SellCost.Value);
+            SellCost.Value = (float) Math.Round(SellCost.Value);
 
             _collider.radius = Range.Value;
         }

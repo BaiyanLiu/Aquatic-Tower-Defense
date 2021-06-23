@@ -162,7 +162,7 @@ namespace Assets.Scripts.Tower
 
         private void UpdateBuildMenu()
         {
-            if (_prevName == _name && Math.Abs(_prevNameWidth - CurrentNameText.rectTransform.rect.width) < 0.00000001f)
+            if (_prevName == _name && Math.Abs(_prevNameWidth - CurrentNameText.rectTransform.rect.width) < 0.000001f)
             {
                 return;
             }

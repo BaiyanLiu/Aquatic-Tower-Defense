@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
@@ -20,6 +18,7 @@ namespace Assets.Scripts.Upgrade
 
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
+        protected virtual string AmountUnit => "";
         public TowerBase Tower { protected get; set; }
 
         private bool HasNextLevel => Cost.Length > Level + 1;
@@ -33,7 +32,10 @@ namespace Assets.Scripts.Upgrade
         private void Start()
         {
             _gameState = GameState.GetGameState(gameObject);
+            OnStart();
         }
+
+        protected virtual void OnStart() {}
 
         public void LevelUp()
         {
@@ -45,8 +47,11 @@ namespace Assets.Scripts.Upgrade
             _gameState.UpdateGold(-cost);
             Tower.SellCost.Base += cost / 2f;
             Level++;
+            OnLevelUp();
             Tower.UpdateStats();
         }
+
+        protected virtual void OnLevelUp() {}
 
         public void Apply()
         {
@@ -57,7 +62,7 @@ namespace Assets.Scripts.Upgrade
             OnApply();
         }
 
-        public abstract void OnApply();
+        public virtual void OnApply() {}
 
         public string FormatDisplayText<T>(string amountName, T[] amount, bool isCost)
         {
@@ -82,19 +87,9 @@ namespace Assets.Scripts.Upgrade
                 {
                     amountSb.Append(" / ");
                 }
-                amountSb.Append($"<color={color}>{(isCost ? DefaultFormatAmountText(amount[i]) : FormatAmountText(amount[i]))}</color>");
+                amountSb.Append($"<color={color}>{amount[i]}{(isCost ? "" : AmountUnit)}</color>");
             }
             return $"{amountName}: {amountSb}";
-        }
-
-        protected virtual string FormatAmountText<T>(T amount)
-        {
-            return DefaultFormatAmountText(amount);
-        }
-
-        private static string DefaultFormatAmountText<T>(T amount)
-        {
-            return Convert.ToString(amount, CultureInfo.InvariantCulture);
         }
 
         public virtual List<string> GetAmountDisplayText()

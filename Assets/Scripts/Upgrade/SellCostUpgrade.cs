@@ -10,12 +10,12 @@ namespace Assets.Scripts.Upgrade
 
         public override void OnApply()
         {
-            Tower.SellCost.Value = (int) (Tower.SellCost.Value * Amount[Level] / 100f);
+            Tower.SellCost.Value = Tower.SellCost.Value * Amount[Level] / 100f;
         }
 
-        protected override string FormatAmountText(int index)
+        protected override string FormatAmountText<T>(T amount)
         {
-            return Amount[index] + "%";
+            return amount + "%";
         }
     }
 }

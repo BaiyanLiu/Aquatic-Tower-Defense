@@ -37,12 +37,15 @@ namespace Assets.Scripts.Upgrade
 
         public void LevelUp()
         {
-            if (CanLevelUp)
+            if (!CanLevelUp)
             {
-                _gameState.UpdateGold(-Cost[Level + 1]);
-                Level++;
-                Tower.UpdateStats();
+                return;
             }
+            var cost = Cost[Level + 1];
+            _gameState.UpdateGold(-cost);
+            Tower.SellCost.Base += cost / 2f;
+            Level++;
+            Tower.UpdateStats();
         }
 
         public void Apply()
@@ -79,19 +82,19 @@ namespace Assets.Scripts.Upgrade
                 {
                     amountSb.Append(" / ");
                 }
-                amountSb.Append($"<color={color}>{(isCost ? DefaultFormatAmountText(i) : FormatAmountText(i))}</color>");
+                amountSb.Append($"<color={color}>{(isCost ? DefaultFormatAmountText(amount[i]) : FormatAmountText(amount[i]))}</color>");
             }
             return $"{amountName}: {amountSb}";
         }
 
-        protected virtual string FormatAmountText(int index)
+        protected virtual string FormatAmountText<T>(T amount)
         {
-            return DefaultFormatAmountText(index);
+            return DefaultFormatAmountText(amount);
         }
 
-        private string DefaultFormatAmountText(int index)
+        private static string DefaultFormatAmountText<T>(T amount)
         {
-            return Convert.ToString(Amount[index], CultureInfo.InvariantCulture);
+            return Convert.ToString(amount, CultureInfo.InvariantCulture);
         }
 
         public virtual List<string> GetAmountDisplayText()

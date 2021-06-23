@@ -112,7 +112,7 @@ namespace Assets.Scripts.Screens
         {
             if (!GameState.IsBuilding && Target != null)
             {
-                GameState.UpdateGold(Base.SellCost.Value);
+                GameState.UpdateGold((int) Base.SellCost.Value);
                 Destroy(Target);
                 UpdateTarget(null, false);
             }

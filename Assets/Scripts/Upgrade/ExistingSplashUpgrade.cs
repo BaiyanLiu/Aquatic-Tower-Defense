@@ -4,17 +4,10 @@ using JetBrains.Annotations;
 namespace Assets.Scripts.Upgrade
 {
     [UsedImplicitly]
-    public sealed class ExistingSplashUpgrade : UpgradeBase
+    public sealed class ExistingSplashUpgrade : ExistingEffectUpgrade<SplashEffect>
     {
         public override string Name => "Splash Upgrade";
         protected override string AmountName => "Splash";
-
-        private EffectBase _effect;
-
-        protected override void OnStart()
-        {
-            _effect = gameObject.GetComponent<SplashEffect>();
-        }
 
         protected override void OnLevelUp()
         {
@@ -23,8 +16,8 @@ namespace Assets.Scripts.Upgrade
             {
                 delta -= Amount[Level - 1];
             }
-            _effect.Amount.Base += delta;
-            _effect.Amount.Value += delta;
+            Effect.Amount.Base += delta;
+            Effect.Amount.Value += delta;
         }
     }
 }

@@ -160,9 +160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth:
     Base: 100
-    Gain: 1
+    Gain: 10
   Armor:
-    Base: 10
+    Base: 1
     Gain: 0.3
   Speed: 0.05
   ArmorType: 1

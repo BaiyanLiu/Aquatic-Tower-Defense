@@ -75,10 +75,13 @@ namespace Assets.Scripts.Effect
             return $"{attributeName}: {attribute.Value}{AmountUnit}" + (IncludeGain ? $" (+{attribute.Gain}{AmountUnit})" : "");
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
-            var clone = MemberwiseClone();
-            ((EffectBase) clone)._effectTimer = Frequency.Value;
+            var clone = (EffectBase) MemberwiseClone();
+            clone._effectTimer = Frequency.Value;
+            clone.Duration = (Attribute<float>) Duration.Clone();
+            clone.Frequency = (Attribute<float>) Frequency.Clone();
+            clone.Amount = (Attribute<float>) Amount.Clone();
             return clone;
         }
 

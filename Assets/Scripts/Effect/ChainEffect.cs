@@ -35,5 +35,12 @@ namespace Assets.Scripts.Effect
             amountDisplayText.Add(FormatDisplayText("Range", Range));
             return amountDisplayText;
         }
+
+        public override object Clone()
+        {
+            var clone = (ChainEffect) base.Clone();
+            clone.Range = (Attribute<float>) Range.Clone();
+            return clone;
+        }
     }
 }

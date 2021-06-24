@@ -35,7 +35,7 @@ namespace Assets.Scripts.Item
         public object Clone()
         {
             var clone = MemberwiseClone();
-            var effects = (from effect in (EffectBase[]) GetComponents<EffectBase>().Clone() select (EffectBase) effect.Clone()).ToArray();
+            var effects = (from effect in GetComponents<EffectBase>() select (EffectBase) effect.Clone()).ToArray();
             foreach (var effect in effects)
             {
                 effect.Item = this;

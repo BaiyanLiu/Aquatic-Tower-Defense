@@ -12,6 +12,7 @@ namespace Assets.Scripts.Screens
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
+            NameText.color = Base.TitleColor;
             height += NameText.rectTransform.rect.height + 5f;
             height = ScreenUtils.UpdateText(CostText, true, 5f, height, Base.FormatDisplayText("Cost", Base.Cost, true));
 

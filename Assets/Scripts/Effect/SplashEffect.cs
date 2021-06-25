@@ -6,6 +6,6 @@ namespace Assets.Scripts.Effect
     {
         public override string Name => "Splash Effect";
         protected override string AmountName => "Range";
-        public override Color StatusColor => new Color32(255, 0, 0, 255);
+        public override Color StatusColor => new Color32(237, 28, 36, 255);
     }
 }

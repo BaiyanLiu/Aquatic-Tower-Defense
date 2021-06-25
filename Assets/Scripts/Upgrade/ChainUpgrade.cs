@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Assets.Scripts.Upgrade
 {
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Upgrade
 
         public override string Name => "Chain Upgrade";
         protected override string AmountName => "Damage";
+        public override Color TitleColor => new Color32(255, 242, 0, 255);
 
         protected override void OnLevelUp()
         {

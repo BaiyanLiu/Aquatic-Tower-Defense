@@ -19,6 +19,7 @@ namespace Assets.Scripts.Upgrade
         public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
         protected virtual string AmountUnit => "";
+        public virtual Color TitleColor => Color.white;
         public TowerBase Tower { protected get; set; }
 
         private bool HasNextLevel => Cost.Length > Level + 1;

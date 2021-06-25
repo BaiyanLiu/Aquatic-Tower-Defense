@@ -42,7 +42,7 @@ namespace Assets.Scripts.Screens
         [UsedImplicitly]
         private void Update()
         {
-            if (_current != null)
+            if (_current != null && _spriteRenderer != null)
             {
                 _spriteRenderer.color = _current.CanLevelUp ? _gameState.ValidColor : _gameState.InvalidColor;
             }

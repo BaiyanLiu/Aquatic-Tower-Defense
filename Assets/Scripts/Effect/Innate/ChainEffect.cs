@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Effect
+namespace Assets.Scripts.Effect.Innate
 {
     public sealed class ChainEffect : InnateEffect
     {

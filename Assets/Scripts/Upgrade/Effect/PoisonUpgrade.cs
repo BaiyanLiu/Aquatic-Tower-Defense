@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using JetBrains.Annotations;
 
-namespace Assets.Scripts.Upgrade
+namespace Assets.Scripts.Upgrade.Effect
 {
     [UsedImplicitly]
     public sealed class PoisonUpgrade : EffectUpgrade<PoisonEffect>

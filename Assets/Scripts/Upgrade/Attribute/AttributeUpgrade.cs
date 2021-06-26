@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Upgrade
+namespace Assets.Scripts.Upgrade.Attribute
 {
     public abstract class AttributeUpgrade : UpgradeBase
     {

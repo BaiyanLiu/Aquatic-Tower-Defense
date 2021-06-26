@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Effect
+namespace Assets.Scripts.Effect.Innate
 {
     public sealed class SplashEffect : InnateEffect
     {

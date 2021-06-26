@@ -1,27 +1,28 @@
 using System.Collections.Generic;
-using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Innate;
 using JetBrains.Annotations;
 
-namespace Assets.Scripts.Upgrade
+namespace Assets.Scripts.Upgrade.Effect
 {
     [UsedImplicitly]
-    public sealed class SlowUpgrade : EffectUpgrade<SlowEffect>
+    public sealed class ChainUpgrade : EffectUpgrade<ChainEffect>
     {
-        public float[] Duration;
+        public float[] Range;
 
-        public override string Name => "Slow Upgrade";
+        public override string Name => "Chain Upgrade";
+        protected override string AmountName => "Damage";
 
         protected override void OnLevelUp()
         {
             base.OnLevelUp();
             Effect.Amount.Value = Amount[Level];
-            Effect.Duration.Value = Duration[Level];
+            Effect.Range.Value = Range[Level];
         }
 
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Insert(0, FormatDisplayText("Duration", Duration, false));
+            amountDisplayText.Add(FormatDisplayText("Range", Range, false));
             return amountDisplayText;
         }
     }

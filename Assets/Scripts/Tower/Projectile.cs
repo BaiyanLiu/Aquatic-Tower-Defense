@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Innate;
 using Assets.Scripts.Enemy;
 using JetBrains.Annotations;
 using UnityEngine;

@@ -1,7 +1,7 @@
-using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Innate;
 using JetBrains.Annotations;
 
-namespace Assets.Scripts.Upgrade
+namespace Assets.Scripts.Upgrade.ExistingEffect
 {
     [UsedImplicitly]
     public sealed class ExistingSplashUpgrade : ExistingEffectUpgrade<SplashEffect>
@@ -11,11 +11,7 @@ namespace Assets.Scripts.Upgrade
 
         protected override void OnLevelUp()
         {
-            var delta = Amount[Level];
-            if (Level > 0)
-            {
-                delta -= Amount[Level - 1];
-            }
+            var delta = GetDelta(Amount);
             Effect.Amount.Base += delta;
             Effect.Amount.Value += delta;
         }

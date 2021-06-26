@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Innate;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
 using Assets.Scripts.Upgrade;

@@ -1,7 +1,7 @@
 using Assets.Scripts.Effect;
 using UnityEngine;
 
-namespace Assets.Scripts.Upgrade
+namespace Assets.Scripts.Upgrade.Effect
 {
     public abstract class EffectUpgrade<T> : UpgradeBase where T : EffectBase
     {

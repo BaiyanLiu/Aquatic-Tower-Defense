@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Effect
+namespace Assets.Scripts.Effect.Innate
 {
     public sealed class ItemChanceEffect : InnateEffect
     {

@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Effect
+namespace Assets.Scripts.Effect.Innate
 {
     public abstract class InnateEffect : EffectBase
     {

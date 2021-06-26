@@ -23,6 +23,7 @@ namespace Assets.Scripts.Upgrade
                 Tower.Effects.Add(Effect);
                 Tower.AllEffects.Add(Effect);
             }
+            Effect.Amount.Value = Amount[Level];
         }
     }
 }

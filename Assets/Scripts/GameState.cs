@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
 using Assets.Scripts.Scenes;
@@ -242,7 +243,8 @@ namespace Assets.Scripts
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
         {
-            if (!IsInventoryFull && _random.NextDouble() <= enemy.ItemChance)
+            var towerItemChance = tower.AllEffects.OfType<ItemChanceEffect>().Select(effect => effect.Amount.Value).Prepend(100f).Max();
+            if (!IsInventoryFull && _random.NextDouble() <= enemy.ItemChance * towerItemChance / 100f)
             {
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
                 item.Level = _currWave + 1;

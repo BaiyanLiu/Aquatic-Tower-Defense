@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 540633466035851902}
   - component: {fileID: 2002385963171564854}
   - component: {fileID: 4074294673377884810}
+  - component: {fileID: 7263638802594741422}
   - component: {fileID: 6681515797260235566}
   m_Layer: 0
   m_Name: Tower_Top
@@ -245,6 +246,24 @@ MonoBehaviour:
   - 0.2
   - 0.3
   Cost: 050000000a0000000f000000
+--- !u!114 &7263638802594741422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd406bfaa0bbeb44bdb76c588ad3b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 8749316955921980939, guid: b429c7aa343e9484bbd6af40d324cd8b, type: 3}
+  Amount:
+  - 110
+  - 120
+  - 130
+  Cost: 0a0000000f00000014000000
 --- !u!114 &6681515797260235566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756469a6fd2a7247b16628590bd93c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: b2d146ab28c90eb4ebe58ed18339073d, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: 6cda461d55cd2bb418c27936f4964520, type: 3}
   Amount:
   - 0.2
   - 0.3

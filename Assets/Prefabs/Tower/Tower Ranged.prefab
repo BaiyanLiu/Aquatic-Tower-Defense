@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3e03f2ca221d4f90b258e7723b49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: 6cda461d55cd2bb418c27936f4964520, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: b2d146ab28c90eb4ebe58ed18339073d, type: 3}
   Amount:
   - 5
   - 10

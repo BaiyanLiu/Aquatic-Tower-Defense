@@ -1,3 +1,4 @@
+using System.Linq;
 using Assets.Scripts.Effect;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -30,15 +31,7 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            var slowAmount = 0f;
-            foreach (var effect in _base.Effects)
-            {
-                if (effect is SlowEffect && effect.Amount.Value > slowAmount)
-                {
-                    slowAmount = effect.Amount.Value;
-                }
-            }
-
+            var slowAmount = _base.Effects.OfType<SlowEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
             var p = Vector2.MoveTowards(transform.position, _gameState.Path[_currWaypoint], _base.Speed * (1 - slowAmount));
             _rigidbody.MovePosition(p);
 

@@ -8,11 +8,5 @@ namespace Assets.Scripts.Upgrade
     {
         public override string Name => "Splash Upgrade";
         protected override string AmountName => "Range";
-
-        protected override void OnLevelUp()
-        {
-            base.OnLevelUp();
-            Effect.Amount.Value = Amount[Level];
-        }
     }
 }

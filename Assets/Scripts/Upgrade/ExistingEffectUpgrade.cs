@@ -13,5 +13,15 @@ namespace Assets.Scripts.Upgrade
         {
             Effect = gameObject.GetComponent<T>();
         }
+
+        protected float GetDelta(float[] attribute)
+        {
+            var delta = attribute[Level];
+            if (Level > 0)
+            {
+                delta -= attribute[Level - 1];
+            }
+            return delta;
+        }
     }
 }

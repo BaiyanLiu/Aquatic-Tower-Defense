@@ -10,7 +10,6 @@ namespace Assets.Scripts.Enemy
         private Rigidbody2D _rigidbody;
         private Animator _animator;
         private EnemyBase _base;
-        private GameState _gameState;
 
         private int _currWaypoint;
 
@@ -20,32 +19,31 @@ namespace Assets.Scripts.Enemy
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _base = GetComponent<EnemyBase>();
-            _gameState = GameState.GetGameState(gameObject);
         }
 
         [UsedImplicitly]
         private void FixedUpdate()
         {
-            if (GameState.IsPaused || _gameState.IsGameOver || _base.Health <= 0f)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver || _base.Health <= 0f)
             {
                 return;
             }
 
             var slowAmount = _base.Effects.OfType<SlowEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
-            var p = Vector2.MoveTowards(transform.position, _gameState.Path[_currWaypoint], _base.Speed * (1 - slowAmount));
+            var p = Vector2.MoveTowards(transform.position, GameState.Instance.Path[_currWaypoint], _base.Speed * (1 - slowAmount));
             _rigidbody.MovePosition(p);
 
-            if ((Vector2) transform.position == _gameState.Path[_currWaypoint])
+            if ((Vector2) transform.position == GameState.Instance.Path[_currWaypoint])
             {
-                if (++_currWaypoint == _gameState.Path.Count)
+                if (++_currWaypoint == GameState.Instance.Path.Count)
                 {
-                    _gameState.UpdateLives(-_base.Lives);
+                    GameState.Instance.UpdateLives(-_base.Lives);
                     Destroy(gameObject);
                     return;
                 }
             }
 
-            var dir = _gameState.Path[_currWaypoint] - (Vector2) transform.position;
+            var dir = GameState.Instance.Path[_currWaypoint] - (Vector2) transform.position;
             _animator.SetFloat("DirX", dir.x);
             _animator.SetFloat("DirY", dir.y);
         }

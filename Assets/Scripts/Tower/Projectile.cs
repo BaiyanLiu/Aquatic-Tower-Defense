@@ -11,7 +11,6 @@ namespace Assets.Scripts.Tower
     public sealed class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rigidbody;
-        private GameState _gameState;
 
         private Color _color;
         private TowerBase _tower;
@@ -36,14 +35,13 @@ namespace Assets.Scripts.Tower
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _gameState = GameState.GetGameState(gameObject);
             GetComponent<SpriteRenderer>().color = _color;
         }
 
         [UsedImplicitly]
         private void FixedUpdate()
         {
-            if (GameState.IsPaused || _gameState.IsGameOver)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver)
             {
                 return;
             }

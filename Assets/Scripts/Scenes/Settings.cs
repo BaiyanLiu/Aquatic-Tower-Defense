@@ -11,6 +11,7 @@ namespace Assets.Scripts.Scenes
         public const string Health = "Health";
         public const string InventoryX = "InventoryX";
         public const string InventoryY = "InventoryY";
+        public const string Load = "Load";
 
         public Slider HealthSlider;
         public Text HealthValue;

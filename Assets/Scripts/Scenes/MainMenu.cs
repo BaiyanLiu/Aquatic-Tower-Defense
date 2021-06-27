@@ -13,11 +13,19 @@ namespace Assets.Scripts.Scenes
             {
                 PlayerPrefs.SetInt(Scenes.Settings.Health, 100);
             }
+            PlayerPrefs.SetInt(Scenes.Settings.Load, 0);
         }
 
         [UsedImplicitly]
         public void StartGame()
         {
+            SceneManager.LoadScene("Game");
+        }
+
+        [UsedImplicitly]
+        public void Load()
+        {
+            PlayerPrefs.SetInt(Scenes.Settings.Load, 1);
             SceneManager.LoadScene("Game");
         }
 

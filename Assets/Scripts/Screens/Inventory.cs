@@ -14,7 +14,6 @@ namespace Assets.Scripts.Screens
         public Transform ItemsParent;
         public ItemDetails ItemDetails;
 
-        private GameState _gameState;
         private readonly List<GameObject> _items = new List<GameObject>();
         private Vector2 _scale;
         private Vector2 _positionOffset;
@@ -28,8 +27,6 @@ namespace Assets.Scripts.Screens
         [UsedImplicitly]
         private void Start()
         {
-            _gameState = GameState.GetGameState(gameObject);
-
             var parent = ItemsParent.parent;
             _sortingOrder = parent.GetComponent<Canvas>().sortingOrder;
 
@@ -108,8 +105,8 @@ namespace Assets.Scripts.Screens
 
                 if (IsMoveValid(position, out var tower))
                 {
-                    var source = item.Tower != null ? (IHasItems) item.Tower : _gameState;
-                    var target = tower != null ? (IHasItems) tower : _gameState;
+                    var source = item.Tower != null ? (IHasItems) item.Tower : GameState.Instance;
+                    var target = tower != null ? (IHasItems) tower : GameState.Instance;
 
                     canMove = !target.IsInventoryFull;
                     if (canMove)

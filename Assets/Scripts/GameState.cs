@@ -19,7 +19,7 @@ namespace Assets.Scripts
     {
         public static readonly Vector2Int MapSize = new Vector2Int(14, 8);
 
-        public static bool IsPaused { get; set; }
+        public static GameState Instance { get; private set; }
 
         public GameObject WavesParent;
         public Transform EnemiesParent;
@@ -46,12 +46,16 @@ namespace Assets.Scripts
 
         public ItemBase[] ItemPool;
 
-        public List<Vector2> Path { get; private set; }
+        public bool IsPaused { get; set; }
+        public bool IsBuilding { get; set; }
+
         public bool IsWaveActive => _currWave >= 0 && (_waves[_currWave % _waves.Length].IsActive || EnemiesParent.childCount > 0);
+        public List<Vector2> Path { get; private set; }
+
         public int Gold { get; private set; } = 100;
         public int Lives { get; private set; } = 20;
         public bool IsGameOver => Lives == 0;
-        public bool IsBuilding { get; set; }
+
         public List<ItemBase> Items { get; } = new List<ItemBase>();
         public bool IsInventoryFull => Items.Count == 36;
 
@@ -66,8 +70,16 @@ namespace Assets.Scripts
         [UsedImplicitly]
         private void Start()
         {
+            Instance = this;
+
             IsPaused = false;
             _waves = WavesParent.GetComponentsInChildren<Wave>();
+
+            if (PlayerPrefs.GetInt(Settings.Load) == 1)
+            {
+                Load();
+                PlayerPrefs.SetInt(Settings.Load, 0);
+            }
 
             UpdateGold(0);
             UpdateCost(null);
@@ -262,6 +274,20 @@ namespace Assets.Scripts
         {
             Items.RemoveAt(index);
             Inventory.RemoveItem(index);
+        }
+
+        public void Save()
+        {
+            IsPaused = true;
+            // TODO
+            IsPaused = false;
+        }
+
+        public void Load()
+        {
+            IsPaused = true;
+            // TODO
+            IsPaused = false;
         }
     }
 }

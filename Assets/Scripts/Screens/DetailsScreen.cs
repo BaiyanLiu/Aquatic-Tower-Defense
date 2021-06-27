@@ -12,7 +12,6 @@ namespace Assets.Scripts.Screens
         public Transform EffectsParent;
         public Text NameText;
 
-        protected GameState GameState { get; private set; }
         protected float InitialHeight { get; private set; }
         protected GameObject Target { get; private set; }
         public T Base { get; private set; }
@@ -27,7 +26,6 @@ namespace Assets.Scripts.Screens
         [UsedImplicitly]
         private void Start()
         {
-            GameState = GameState.GetGameState(gameObject);
             InitialHeight = Screen.rect.height;
 
             if (EffectsParent != null)

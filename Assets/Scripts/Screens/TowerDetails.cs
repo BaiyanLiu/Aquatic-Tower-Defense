@@ -47,7 +47,7 @@ namespace Assets.Scripts.Screens
             KillsText.text = "Kills: " + Base.Kills;
             DamageTypeText.text = "Damage Type: " + Base.DamageType;
 
-            if (!GameState.IsBuilding)
+            if (!GameState.Instance.IsBuilding)
             {
                 _upgradesTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
                 height += _inventoryTransform.rect.height + 5f;
@@ -110,9 +110,9 @@ namespace Assets.Scripts.Screens
 
         public void Sell()
         {
-            if (!GameState.IsBuilding && Target != null)
+            if (!GameState.Instance.IsBuilding && Target != null)
             {
-                GameState.UpdateGold((int) Base.SellCost.Value);
+                GameState.Instance.UpdateGold((int) Base.SellCost.Value);
                 Destroy(Target);
                 UpdateTarget(null, false);
             }

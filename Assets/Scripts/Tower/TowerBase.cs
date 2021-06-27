@@ -39,13 +39,11 @@ namespace Assets.Scripts.Tower
         public bool IsInventoryFull => Items.Count == 6;
         public UpgradeBase[] Upgrades { get; private set; }
 
-        private GameState _gameState;
         private CircleCollider2D _collider;
 
         [UsedImplicitly]
         private void Start()
         {
-            _gameState = GameState.GetGameState(gameObject);
             _collider = GetComponent<CircleCollider2D>();
 
             SellCost.Value = SellCost.Base = Cost / 2f;
@@ -73,7 +71,7 @@ namespace Assets.Scripts.Tower
         {
             UpdateExperience(enemy.Experience);
             Kills++;
-            _gameState.EnemyKilled(this, enemy);
+            GameState.Instance.EnemyKilled(this, enemy);
         }
 
         public void UpdateExperience(int delta)

@@ -11,8 +11,6 @@ namespace Assets.Scripts.Screens
         public Transform UpgradesParent;
         public UpgradeDetails UpgradeDetails;
 
-        private GameState _gameState;
-
         private readonly List<GameObject> _upgrades = new List<GameObject>();
         private Vector2 _scale;
         private float _positionOffset;
@@ -24,8 +22,6 @@ namespace Assets.Scripts.Screens
         [UsedImplicitly]
         private void Start()
         {
-            _gameState = GameState.GetGameState(gameObject);
-
             var parent = UpgradesParent.parent;
             _sortingOrder = parent.GetComponent<Canvas>().sortingOrder;
 
@@ -44,7 +40,7 @@ namespace Assets.Scripts.Screens
         {
             if (_current != null && _spriteRenderer != null)
             {
-                _spriteRenderer.color = _current.CanLevelUp ? _gameState.ValidColor : _gameState.InvalidColor;
+                _spriteRenderer.color = _current.CanLevelUp ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
             }
         }
 
@@ -72,7 +68,7 @@ namespace Assets.Scripts.Screens
                 {
                     _current = upgrade;
                     _spriteRenderer = o.GetComponent<SpriteRenderer>();
-                    _gameState.UpdateCost(upgrade.NextCost);
+                    GameState.Instance.UpdateCost(upgrade.NextCost);
                     UpgradeDetails.UpdateTarget(upgradeObject, true, upgrade);
                 };
                 interaction.OnExit += HandleUpgradeMouseExit;
@@ -84,14 +80,14 @@ namespace Assets.Scripts.Screens
         private void HandleUpgradeClick(object sender, GameObject o)
         {
             _current.LevelUp();
-            _gameState.UpdateCost(_current.NextCost);
+            GameState.Instance.UpdateCost(_current.NextCost);
         }
 
         private void HandleUpgradeMouseExit(object sender, EventArgs e)
         {
             _current = null;
             _spriteRenderer.color = Color.white;
-            _gameState.UpdateCost(null);
+            GameState.Instance.UpdateCost(null);
             UpgradeDetails.UpdateTarget(null);
         }
     }

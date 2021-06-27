@@ -42,7 +42,6 @@ namespace Assets.Scripts.Enemy
         private Animator _animator;
         private Transform _healthBar;
         private SpriteRenderer[] _statusIndicators;
-        private GameState _gameState;
 
         [UsedImplicitly]
         private void Start()
@@ -50,13 +49,12 @@ namespace Assets.Scripts.Enemy
             _animator = GetComponent<Animator>();
             _healthBar = transform.Find("Status").Find("Health").Find("Fill");
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
-            _gameState = GameState.GetGameState(gameObject);
         }
 
         [UsedImplicitly]
         private void Update()
         {
-            if (GameState.IsPaused || _gameState.IsGameOver)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver)
             {
                 return;
             }
@@ -116,7 +114,7 @@ namespace Assets.Scripts.Enemy
                 if (Health <= 0f)
                 {
                     OnDie?.Invoke(this, gameObject);
-                    _gameState.UpdateGold(Gold);
+                    GameState.Instance.UpdateGold(Gold);
                     _animator.SetBool("Dead", true);
                     return true;
                 }

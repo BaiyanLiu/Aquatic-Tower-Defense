@@ -15,8 +15,6 @@ namespace Assets.Scripts.Tower
         public TowerDetails TowerDetails;
         public Text CurrentNameText;
 
-        private GameState _gameState;
-
         private readonly Dictionary<KeyCode, GameObject> _towers = new Dictionary<KeyCode, GameObject>();
         private GameObject _tower;
         private GameObject _placeholder;
@@ -35,8 +33,6 @@ namespace Assets.Scripts.Tower
         [UsedImplicitly]
         private void Start()
         {
-            _gameState = GameState.GetGameState(gameObject);
-
             var buildMenuParent = BuildMenu.transform.parent;
             _buildMenuScale = 0.75f * new Vector2(1f / buildMenuParent.localScale.x, 1f / buildMenuParent.localScale.y);
             BuildMenu.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (_buildMenuScale.x + 10f) * Towers.Length - 10f);
@@ -74,16 +70,16 @@ namespace Assets.Scripts.Tower
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (IsValid() && _gameState.HasPath(_placeholder.transform.position))
+                    if (IsValid() && GameState.Instance.HasPath(_placeholder.transform.position))
                     {
                         var tower = Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
-                        _gameState.RegisterTower(tower);
+                        GameState.Instance.RegisterTower(tower);
                         Destroy(_placeholder);
                         CurrentNameText.text = _name = null;
 
-                        _gameState.IsBuilding = false;
-                        _gameState.UpdateGold(-_cost);
-                        _gameState.UpdateCost(null);
+                        GameState.Instance.IsBuilding = false;
+                        GameState.Instance.UpdateGold(-_cost);
+                        GameState.Instance.UpdateCost(null);
                         TowerDetails.UpdateTarget(null, false);
                     }
                 }
@@ -91,7 +87,7 @@ namespace Assets.Scripts.Tower
                 _placeholder.transform.position = GetMousePosition();
                 foreach (var spriteRenderer in _spriteRenderers)
                 {
-                    spriteRenderer.color = IsValid() ? _gameState.ValidColor : _gameState.InvalidColor;
+                    spriteRenderer.color = IsValid() ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
                 }
             }
 
@@ -114,16 +110,16 @@ namespace Assets.Scripts.Tower
                 _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
                 _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
 
-                _gameState.IsBuilding = true;
+                GameState.Instance.IsBuilding = true;
                 _cost = _placeholder.GetComponentInChildren<TowerBase>().Cost;
-                _gameState.UpdateCost(_cost);
+                GameState.Instance.UpdateCost(_cost);
                 TowerDetails.UpdateTarget(_placeholder, false);
             }
             else
             {
                 _name = null;
-                _gameState.IsBuilding = false;
-                _gameState.UpdateCost(null);
+                GameState.Instance.IsBuilding = false;
+                GameState.Instance.UpdateCost(null);
                 TowerDetails.UpdateTarget(null, false);
             }
 
@@ -146,9 +142,9 @@ namespace Assets.Scripts.Tower
 
         private bool IsValid()
         {
-            if (_gameState.IsGameOver ||
-                _gameState.IsWaveActive ||
-                _cost > _gameState.Gold ||
+            if (GameState.Instance.IsGameOver ||
+                GameState.Instance.IsWaveActive ||
+                _cost > GameState.Instance.Gold ||
                 _placeholder.transform.position.x > GameState.MapSize.x ||
                 _placeholder.transform.position.x < -GameState.MapSize.x ||
                 _placeholder.transform.position.y > GameState.MapSize.y ||
@@ -181,7 +177,7 @@ namespace Assets.Scripts.Tower
                 {
                     CurrentNameText.rectTransform.anchoredPosition = new Vector2((_buildMenuScale.x + 10f) * (i + 1), 0f);
                     position.x += _prevNameWidth + 10f;
-                    color = _gameState.ValidColor;
+                    color = GameState.Instance.ValidColor;
                 }
 
                 foreach (var spriteRenderer in _buildMenuSpriteRenderers[i])

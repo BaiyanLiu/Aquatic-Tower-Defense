@@ -16,10 +16,24 @@ namespace Assets.Scripts.Scenes
         }
 
         [UsedImplicitly]
+        public void Save()
+        {
+            GameState.Instance.Save();
+            SceneManager.UnloadSceneAsync("Pause");
+        }
+
+        [UsedImplicitly]
+        public void Load()
+        {
+            GameState.Instance.Load();
+            SceneManager.UnloadSceneAsync("Pause");
+        }
+
+        [UsedImplicitly]
         public void Resume()
         {
+            GameState.Instance.IsPaused = false;
             SceneManager.UnloadSceneAsync("Pause");
-            GameState.IsPaused = false;
         }
 
         [UsedImplicitly]

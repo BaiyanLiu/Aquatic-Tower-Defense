@@ -12,22 +12,14 @@ namespace Assets.Scripts.Enemy
 
         public bool IsActive { get; private set; }
 
-        private GameState _gameState;
-
         private int _level;
         private float _createEnemyTimer;
         private int _currEnemy;
 
         [UsedImplicitly]
-        private void Start()
-        {
-            _gameState = GameState.GetGameState(gameObject);
-        }
-
-        [UsedImplicitly]
         private void Update()
         {
-            if (GameState.IsPaused || _gameState.IsGameOver || !IsActive)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver || !IsActive)
             {
                 return;
             }
@@ -35,8 +27,8 @@ namespace Assets.Scripts.Enemy
             _createEnemyTimer -= Time.deltaTime;
             if (_createEnemyTimer <= 0f)
             {
-                var enemy = Instantiate(Enemies[_currEnemy], _gameState.CreatePosition.position, Quaternion.identity, _gameState.EnemiesParent);
-                _gameState.RegisterEnemy(enemy);
+                var enemy = Instantiate(Enemies[_currEnemy], GameState.Instance.CreatePosition.position, Quaternion.identity, GameState.Instance.EnemiesParent);
+                GameState.Instance.RegisterEnemy(enemy);
                 enemy.GetComponent<EnemyBase>().Level = _level;
                 _createEnemyTimer = 1f;
 

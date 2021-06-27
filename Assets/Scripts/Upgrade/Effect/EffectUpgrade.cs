@@ -1,4 +1,5 @@
 using Assets.Scripts.Effect;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade.Effect
@@ -9,7 +10,8 @@ namespace Assets.Scripts.Upgrade.Effect
 
         protected T Effect;
 
-        protected sealed override void OnStart()
+        [UsedImplicitly]
+        private void Start()
         {
             Effect = gameObject.AddComponent<T>();
             Effect.Tower = Tower;

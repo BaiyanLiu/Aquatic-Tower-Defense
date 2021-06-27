@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Assets.Scripts.Tower;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade
@@ -24,19 +23,9 @@ namespace Assets.Scripts.Upgrade
 
         private bool HasNextLevel => Cost.Length > Level + 1;
         public int? NextCost => HasNextLevel ? (int?) Cost[Level + 1] : null;
-        public bool CanLevelUp => HasNextLevel && _gameState.Gold >= Cost[Level + 1];
+        public bool CanLevelUp => HasNextLevel && GameState.Instance.Gold >= Cost[Level + 1];
 
-        private GameState _gameState;
         protected int Level = -1;
-
-        [UsedImplicitly]
-        private void Start()
-        {
-            _gameState = GameState.GetGameState(gameObject);
-            OnStart();
-        }
-
-        protected virtual void OnStart() {}
 
         public void LevelUp()
         {
@@ -45,7 +34,7 @@ namespace Assets.Scripts.Upgrade
                 return;
             }
             var cost = Cost[Level + 1];
-            _gameState.UpdateGold(-cost);
+            GameState.Instance.UpdateGold(-cost);
             Tower.SellCost.Base += cost / 2f;
             Level++;
             OnLevelUp();

@@ -12,7 +12,6 @@ namespace Assets.Scripts.Tower
         public Color ProjectileColor = Color.white;
 
         private TowerBase _base;
-        private GameState _gameState;
 
         private readonly List<GameObject> _enemies = new List<GameObject>();
         private GameObject _target;
@@ -22,13 +21,12 @@ namespace Assets.Scripts.Tower
         private void Start()
         {
             _base = GetComponent<TowerBase>();
-            _gameState = GameState.GetGameState(gameObject);
         }
 
         [UsedImplicitly]
         private void FixedUpdate()
         {
-            if (GameState.IsPaused || _gameState.IsGameOver)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver)
             {
                 return;
             }

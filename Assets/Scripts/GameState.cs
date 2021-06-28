@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Effect.Innate;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
+using Assets.Scripts.Persistence;
 using Assets.Scripts.Scenes;
 using Assets.Scripts.Screens;
 using Assets.Scripts.Tower;
@@ -279,14 +280,18 @@ namespace Assets.Scripts
         public void Save()
         {
             IsPaused = true;
-            // TODO
+            SaveUtils.Save();
             IsPaused = false;
         }
 
         public void Load()
         {
             IsPaused = true;
-            // TODO
+            var saveFile = SaveUtils.Load();
+            if (saveFile != null)
+            {
+                Debug.Log(saveFile.Data);
+            }
             IsPaused = false;
         }
     }

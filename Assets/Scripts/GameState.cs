@@ -130,11 +130,6 @@ namespace Assets.Scripts
             CostText.color = _cost > Gold ? InvalidColor : ValidCostColor;
         }
 
-        public static GameState GetGameState(GameObject gameObject)
-        {
-            return gameObject.scene.GetRootGameObjects().First(o => o.name == "Main Camera").GetComponent<GameState>();
-        }
-
         [UsedImplicitly]
         public void StartWave()
         {
@@ -280,18 +275,31 @@ namespace Assets.Scripts
         public void Save()
         {
             IsPaused = true;
-            SaveUtils.Save();
+
+            var saveFile = new SaveFile
+            {
+                Gold = Gold,
+                Lives = Lives
+            };
+            SaveUtils.Save(saveFile);
+
             IsPaused = false;
         }
 
         public void Load()
         {
             IsPaused = true;
+
             var saveFile = SaveUtils.Load();
             if (saveFile != null)
             {
-                Debug.Log(saveFile.Data);
+                Gold = saveFile.Gold;
+                Lives = saveFile.Lives;
+
+                UpdateGold(0);
+                UpdateLives(0);
             }
+
             IsPaused = false;
         }
     }

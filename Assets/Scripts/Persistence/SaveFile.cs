@@ -5,6 +5,7 @@ namespace Assets.Scripts.Persistence
     [Serializable]
     public class SaveFile
     {
-        public int Data;
+        public int Gold;
+        public int Lives;
     }
 }

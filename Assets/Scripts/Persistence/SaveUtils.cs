@@ -8,14 +8,12 @@ namespace Assets.Scripts.Persistence
         private static readonly string DirectoryPath = Application.persistentDataPath + "/Save";
         private static readonly string FilePath = DirectoryPath + "/save.dat";
 
-        public static void Save()
+        public static void Save(SaveFile saveFile)
         {
             if (!Directory.Exists(DirectoryPath))
             {
                 Directory.CreateDirectory(DirectoryPath);
             }
-
-            var saveFile = new SaveFile {Data = 1};
 
             var data = JsonUtility.ToJson(saveFile);
             using var writer = new StreamWriter(FilePath);

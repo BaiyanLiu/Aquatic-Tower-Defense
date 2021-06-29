@@ -67,6 +67,7 @@ namespace Assets.Scripts
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
         private int _cost;
+        private Snapshot _snapshot;
 
         [UsedImplicitly]
         private void Start()
@@ -80,6 +81,11 @@ namespace Assets.Scripts
             {
                 Load();
                 PlayerPrefs.SetInt(Settings.Load, 0);
+            }
+            else
+            {
+                _snapshot = new Snapshot();
+                UpdateSnapshot();
             }
 
             UpdateGold(0);
@@ -116,17 +122,6 @@ namespace Assets.Scripts
                 LivesLostText.enabled = _livesLostTimer > 0f;
             }
 
-            if (!IsWaveActive)
-            {
-                StartButtonText.text = "Start Wave " + (_currWave + 2);
-
-                if (_pathTiles.Any())
-                {
-                    _pathTiles.ForEach(Destroy);
-                    _pathTiles.Clear();
-                }
-            }
-
             CostText.color = _cost > Gold ? InvalidColor : ValidCostColor;
         }
 
@@ -145,9 +140,11 @@ namespace Assets.Scripts
                 if (_currWave >= 0)
                 {
                     _waves[_currWave % _waves.Length].OnCreateEnemy -= HandleCreateEnemy;
+                    _waves[_currWave % _waves.Length].OnWaveCleared -= HandleWaveCleared;
                 }
                 var wave = _waves[++_currWave % _waves.Length];
                 wave.OnCreateEnemy += HandleCreateEnemy;
+                wave.OnWaveCleared += HandleWaveCleared;
                 wave.StartWave(_currWave);
             }
         }
@@ -155,6 +152,17 @@ namespace Assets.Scripts
         private void HandleCreateEnemy(object sender, float e)
         {
             StartButtonText.text = $"Wave {_currWave + 1} - {Math.Round(e * 100)}%";
+        }
+
+        private void HandleWaveCleared(object sender, EventArgs e)
+        {
+            StartButtonText.text = "Start Wave " + (_currWave + 2);
+            if (_pathTiles.Any())
+            {
+                _pathTiles.ForEach(Destroy);
+                _pathTiles.Clear();
+            }
+            UpdateSnapshot();
         }
 
         public bool HasPath(Vector2 exclude)
@@ -275,14 +283,7 @@ namespace Assets.Scripts
         public void Save()
         {
             IsPaused = true;
-
-            var saveFile = new SaveFile
-            {
-                Gold = Gold,
-                Lives = Lives
-            };
-            SaveUtils.Save(saveFile);
-
+            SaveUtils.Save(_snapshot);
             IsPaused = false;
         }
 
@@ -290,17 +291,25 @@ namespace Assets.Scripts
         {
             IsPaused = true;
 
-            var saveFile = SaveUtils.Load();
-            if (saveFile != null)
+            var snapshot = SaveUtils.Load();
+            if (snapshot != null)
             {
-                Gold = saveFile.Gold;
-                Lives = saveFile.Lives;
+                Gold = snapshot.Gold;
+                Lives = snapshot.Lives;
 
                 UpdateGold(0);
                 UpdateLives(0);
+
+                _snapshot = snapshot;
             }
 
             IsPaused = false;
+        }
+
+        private void UpdateSnapshot()
+        {
+            _snapshot.Gold = Gold;
+            _snapshot.Lives = Lives;
         }
     }
 }

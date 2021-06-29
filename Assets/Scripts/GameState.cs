@@ -156,13 +156,18 @@ namespace Assets.Scripts
 
         private void HandleWaveCleared(object sender, EventArgs e)
         {
+            ResetWaveStatus();
+            UpdateSnapshot();
+        }
+
+        private void ResetWaveStatus()
+        {
             StartButtonText.text = "Start Wave " + (_currWave + 2);
             if (_pathTiles.Any())
             {
                 _pathTiles.ForEach(Destroy);
                 _pathTiles.Clear();
             }
-            UpdateSnapshot();
         }
 
         public bool HasPath(Vector2 exclude)
@@ -296,9 +301,18 @@ namespace Assets.Scripts
             {
                 Gold = snapshot.Gold;
                 Lives = snapshot.Lives;
-
                 UpdateGold(0);
                 UpdateLives(0);
+
+                if (IsWaveActive)
+                {
+                    var wave = _waves[_currWave % _waves.Length];
+                    wave.StopWave(true);
+                    wave.OnCreateEnemy -= HandleCreateEnemy;
+                    wave.OnWaveCleared -= HandleWaveCleared;
+                }
+                _currWave = snapshot.Wave;
+                ResetWaveStatus();
 
                 _snapshot = snapshot;
             }
@@ -310,6 +324,7 @@ namespace Assets.Scripts
         {
             _snapshot.Gold = Gold;
             _snapshot.Lives = Lives;
+            _snapshot.Wave = _currWave;
         }
     }
 }

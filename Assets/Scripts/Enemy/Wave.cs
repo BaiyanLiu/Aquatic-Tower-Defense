@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -16,7 +18,8 @@ namespace Assets.Scripts.Enemy
         private int _level;
         private float _createEnemyTimer;
         private int _currEnemy;
-        private int _activeEnemies;
+        private readonly List<GameObject> _activeEnemies = new List<GameObject>();
+        private bool _isForceStopped;
 
         [UsedImplicitly]
         private void Update()
@@ -30,7 +33,9 @@ namespace Assets.Scripts.Enemy
             if (_createEnemyTimer <= 0f)
             {
                 var enemy = Instantiate(Enemies[_currEnemy], GameState.Instance.CreatePosition.position, Quaternion.identity, GameState.Instance.EnemiesParent);
+                _activeEnemies.Add(enemy);
                 GameState.Instance.RegisterEnemy(enemy);
+
                 var enemyBase = enemy.GetComponent<EnemyBase>();
                 enemyBase.Level = _level;
                 enemyBase.OnDestroyed += HandleEnemyDestroyed;
@@ -39,15 +44,20 @@ namespace Assets.Scripts.Enemy
                 OnCreateEnemy?.Invoke(this, (float) ++_currEnemy / Enemies.Length);
                 if (_currEnemy == Enemies.Length)
                 {
-                    IsActive = false;
-                    _currEnemy = 0;
+                    StopWave();
                 }
             }
         }
 
         private void HandleEnemyDestroyed(object sender, GameObject e)
         {
-            if (--_activeEnemies == 0)
+            if (_isForceStopped)
+            {
+                return;
+            }
+
+            _activeEnemies.Remove(e);
+            if (!IsActive && !_activeEnemies.Any())
             {
                 OnWaveCleared?.Invoke(this, EventArgs.Empty);
             }
@@ -57,7 +67,21 @@ namespace Assets.Scripts.Enemy
         {
             IsActive = true;
             _level = level;
-            _activeEnemies = Enemies.Length;
+            _activeEnemies.Clear();
+        }
+
+        public void StopWave(bool force = false)
+        {
+            IsActive = false;
+            _currEnemy = 0;
+
+            _isForceStopped = force;
+            if (_isForceStopped)
+            {
+                _activeEnemies.ForEach(Destroy);
+                _activeEnemies.Clear();
+                _isForceStopped = false;
+            }
         }
     }
 }

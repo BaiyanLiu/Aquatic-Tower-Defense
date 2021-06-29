@@ -7,5 +7,6 @@ namespace Assets.Scripts.Persistence
     {
         public int Gold;
         public int Lives;
+        public int Wave;
     }
 }

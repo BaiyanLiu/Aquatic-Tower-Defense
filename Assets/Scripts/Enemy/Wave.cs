@@ -49,14 +49,14 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        private void HandleEnemyDestroyed(object sender, GameObject e)
+        private void HandleEnemyDestroyed(object sender, GameObject enemy)
         {
             if (_isForceStopped)
             {
                 return;
             }
 
-            _activeEnemies.Remove(e);
+            _activeEnemies.Remove(enemy);
             if (!IsActive && !_activeEnemies.Any())
             {
                 OnWaveCleared?.Invoke(this, EventArgs.Empty);

@@ -57,10 +57,17 @@ namespace Assets.Scripts.Screens
                 height += _inventoryTransform.rect.height + 5f;
                 Inventory.gameObject.SetActive(true);
 
-                SellButtonText.text = "Sell: " + Base.SellCost.Value;
-                SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
-                height += SellButton.rect.height + 5f;
-                SellButton.gameObject.SetActive(true);
+                if (!GameState.Instance.IsWaveActive)
+                {
+                    SellButtonText.text = "Sell: " + Base.SellCost.Value;
+                    SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
+                    height += SellButton.rect.height + 5f;
+                    SellButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    SellButton.gameObject.SetActive(false);
+                }
             }
             else
             {
@@ -110,7 +117,7 @@ namespace Assets.Scripts.Screens
 
         public void Sell()
         {
-            if (!GameState.Instance.IsBuilding && Target != null)
+            if (!GameState.Instance.IsBuilding && !GameState.Instance.IsWaveActive && Target != null)
             {
                 GameState.Instance.UpdateGold((int) Base.SellCost.Value);
                 Destroy(Target);

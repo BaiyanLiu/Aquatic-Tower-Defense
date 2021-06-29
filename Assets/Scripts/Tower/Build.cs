@@ -72,15 +72,15 @@ namespace Assets.Scripts.Tower
                 {
                     if (IsValid() && GameState.Instance.HasPath(_placeholder.transform.position))
                     {
-                        var tower = Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
-                        GameState.Instance.RegisterTower(tower);
-                        Destroy(_placeholder);
                         CurrentNameText.text = _name = null;
-
                         GameState.Instance.IsBuilding = false;
                         GameState.Instance.UpdateGold(-_cost);
                         GameState.Instance.UpdateCost(null);
                         TowerDetails.UpdateTarget(null, false);
+
+                        var tower = Instantiate(_tower, _placeholder.transform.position, Quaternion.identity);
+                        GameState.Instance.RegisterTower(tower);
+                        Destroy(_placeholder);
                     }
                 }
 

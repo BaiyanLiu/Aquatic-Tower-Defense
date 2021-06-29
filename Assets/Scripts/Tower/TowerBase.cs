@@ -5,6 +5,7 @@ using Assets.Scripts.Effect;
 using Assets.Scripts.Effect.Innate;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
+using Assets.Scripts.Persistence;
 using Assets.Scripts.Upgrade;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Tower
     {
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;
+        public event EventHandler<GameObject> OnDestroyed;
 
         public Attribute<float> Damage;
         public Attribute<float> Range;
@@ -60,6 +62,12 @@ namespace Assets.Scripts.Tower
             }
 
             UpdateStats();
+        }
+
+        [UsedImplicitly]
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this, transform.parent.gameObject);
         }
 
         public void EnemyAttacked(float damage)
@@ -140,6 +148,11 @@ namespace Assets.Scripts.Tower
             Items.RemoveAt(index);
             UpdateStats();
             OnItemRemoved?.Invoke(this, index);
+        }
+
+        public TowerSnapshot ToSnapshot()
+        {
+            return new TowerSnapshot();
         }
     }
 }

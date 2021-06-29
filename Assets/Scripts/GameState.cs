@@ -68,6 +68,7 @@ namespace Assets.Scripts
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
         private int _cost;
         private Snapshot _snapshot;
+        private readonly Dictionary<GameObject, TowerSnapshot> _towerSnapshot = new Dictionary<GameObject, TowerSnapshot>();
 
         [UsedImplicitly]
         private void Start()
@@ -212,9 +213,20 @@ namespace Assets.Scripts
 
         public void RegisterTower(GameObject tower)
         {
+            var towerBase = tower.GetComponentInChildren<TowerBase>();
+            _towerSnapshot.Add(tower, towerBase.ToSnapshot());
+            towerBase.OnDestroyed += HandleTowerDestroyed;
+            UpdateSnapshot();
+
             tower.GetComponentInChildren<Interaction>().OnClick += HandleTowerClick;
             tower.GetComponentInChildren<Interaction>().OnEnter += HandleTowerMouseEnter;
             tower.GetComponentInChildren<Interaction>().OnExit += HandleTowerMouseExit;
+        }
+
+        private void HandleTowerDestroyed(object sender, GameObject tower)
+        {
+            _towerSnapshot.Remove(tower);
+            UpdateSnapshot();
         }
 
         private void HandleTowerClick(object sender, GameObject tower)
@@ -325,6 +337,7 @@ namespace Assets.Scripts
             _snapshot.Gold = Gold;
             _snapshot.Lives = Lives;
             _snapshot.Wave = _currWave;
+            _snapshot.Towers = _towerSnapshot.Values.ToArray();
         }
     }
 }

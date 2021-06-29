@@ -152,7 +152,17 @@ namespace Assets.Scripts.Tower
 
         public TowerSnapshot ToSnapshot()
         {
-            return new TowerSnapshot();
+            return new TowerSnapshot
+            {
+                Name = Name,
+                Position = transform.position
+            };
+        }
+
+        public static GameObject FromSnapshot(TowerSnapshot snapshot)
+        {
+            var tower = Instantiate(GameState.Instance.TowerPrefabs[snapshot.Name], snapshot.Position, Quaternion.identity);
+            return tower;
         }
     }
 }

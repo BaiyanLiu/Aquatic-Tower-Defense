@@ -67,6 +67,9 @@ namespace Assets.Scripts
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
         private int _cost;
+
+        public readonly Dictionary<string, GameObject> TowerPrefabs = new Dictionary<string, GameObject>();
+        private bool _isLoading;
         private Snapshot _snapshot;
         private readonly Dictionary<GameObject, TowerSnapshot> _towerSnapshot = new Dictionary<GameObject, TowerSnapshot>();
 
@@ -297,6 +300,11 @@ namespace Assets.Scripts
             Inventory.RemoveItem(index);
         }
 
+        public void RegisterTowerPrefab(string towerName, GameObject prefab)
+        {
+            TowerPrefabs.Add(towerName, prefab);
+        }
+
         public void Save()
         {
             IsPaused = true;
@@ -311,6 +319,8 @@ namespace Assets.Scripts
             var snapshot = SaveUtils.Load();
             if (snapshot != null)
             {
+                _isLoading = true;
+
                 Gold = snapshot.Gold;
                 Lives = snapshot.Lives;
                 UpdateGold(0);
@@ -326,7 +336,21 @@ namespace Assets.Scripts
                 _currWave = snapshot.Wave;
                 ResetWaveStatus();
 
+                foreach (var tower in _towerSnapshot.Keys)
+                {
+                    Destroy(tower);
+                }
+                foreach (var tower in snapshot.Towers)
+                {
+                    var towerObject = TowerBase.FromSnapshot(tower);
+                    RegisterTower(towerObject);
+                }
+
+                TowerDetails.UpdateTarget(null, false);
+                EnemyDetails.UpdateTarget(null, false);
+
                 _snapshot = snapshot;
+                _isLoading = false;
             }
 
             IsPaused = false;
@@ -334,6 +358,11 @@ namespace Assets.Scripts
 
         private void UpdateSnapshot()
         {
+            if (_isLoading)
+            {
+                return;
+            }
+
             _snapshot.Gold = Gold;
             _snapshot.Lives = Lives;
             _snapshot.Wave = _currWave;

@@ -51,8 +51,11 @@ namespace Assets.Scripts.Tower
                 };
 
                 _buildMenuTowers.Add(buildMenuTower);
-                _buildMenuNames.Add(buildMenuTower.GetComponentInChildren<TowerBase>().Name);
+                var towerName = buildMenuTower.GetComponentInChildren<TowerBase>().Name;
+                _buildMenuNames.Add(towerName);
                 _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
+
+                GameState.Instance.RegisterTowerPrefab(towerName, Towers[i]);
             }
 
             UpdateBuildMenu();

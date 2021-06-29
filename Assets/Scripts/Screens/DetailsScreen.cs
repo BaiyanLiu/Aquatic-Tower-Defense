@@ -87,7 +87,7 @@ namespace Assets.Scripts.Screens
 
             if (target == Target && !isTemp && _isTemp)
             {
-                _isTemp = false;
+                _isTemp = target == null;
                 return;
             }
 

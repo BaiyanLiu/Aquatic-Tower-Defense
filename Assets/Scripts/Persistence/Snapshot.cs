@@ -9,5 +9,6 @@ namespace Assets.Scripts.Persistence
         public int Lives;
         public int Wave;
         public TowerSnapshot[] Towers;
+        public ItemSnapshot[] Items;
     }
 }

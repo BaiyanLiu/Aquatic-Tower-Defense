@@ -173,7 +173,7 @@ namespace Assets.Scripts.Tower
 
         public static GameObject FromSnapshot(TowerSnapshot snapshot)
         {
-            var tower = Instantiate(GameState.Instance.TowerPrefabs[snapshot.Name], snapshot.Position, Quaternion.identity);
+            var tower = Instantiate(GameState.Instance.TowersByName[snapshot.Name], snapshot.Position, Quaternion.identity);
 
             var towerBase = tower.GetComponentInChildren<TowerBase>();
             towerBase.Level = snapshot.Level;

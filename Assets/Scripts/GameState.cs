@@ -62,13 +62,15 @@ namespace Assets.Scripts
 
         private readonly Random _random = new Random();
 
+        public readonly Dictionary<string, GameObject> TowersByName = new Dictionary<string, GameObject>();
+        public readonly Dictionary<string, ItemBase> ItemsByName = new Dictionary<string, ItemBase>();
+
         private Wave[] _waves;
         private int _currWave = -1;
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
         private int _cost;
 
-        public readonly Dictionary<string, GameObject> TowerPrefabs = new Dictionary<string, GameObject>();
         private bool _isLoading;
         private Snapshot _snapshot;
         private readonly Dictionary<GameObject, TowerBase> _activeTowers = new Dictionary<GameObject, TowerBase>();
@@ -80,6 +82,11 @@ namespace Assets.Scripts
 
             IsPaused = false;
             _waves = WavesParent.GetComponentsInChildren<Wave>();
+
+            foreach (var item in ItemPool)
+            {
+                ItemsByName.Add(item.Name, item);
+            }
 
             if (PlayerPrefs.GetInt(Settings.Load) == 1)
             {
@@ -219,16 +226,23 @@ namespace Assets.Scripts
             var towerBase = tower.GetComponentInChildren<TowerBase>();
             _activeTowers.Add(tower, towerBase);
             towerBase.OnDestroyed += HandleTowerDestroyed;
+            towerBase.OnItemAdded += HandleTowerItemAdded;
             UpdateSnapshot();
 
-            tower.GetComponentInChildren<Interaction>().OnClick += HandleTowerClick;
-            tower.GetComponentInChildren<Interaction>().OnEnter += HandleTowerMouseEnter;
-            tower.GetComponentInChildren<Interaction>().OnExit += HandleTowerMouseExit;
+            var interaction = tower.GetComponentInChildren<Interaction>();
+            interaction.OnClick += HandleTowerClick;
+            interaction.OnEnter += HandleTowerMouseEnter;
+            interaction.OnExit += HandleTowerMouseExit;
         }
 
         private void HandleTowerDestroyed(object sender, GameObject tower)
         {
             _activeTowers.Remove(tower);
+            UpdateSnapshot();
+        }
+
+        private void HandleTowerItemAdded(object sender, ItemBase e)
+        {
             UpdateSnapshot();
         }
 
@@ -257,9 +271,10 @@ namespace Assets.Scripts
 
         public void RegisterEnemy(GameObject enemy)
         {
-            enemy.GetComponent<Interaction>().OnClick += HandleEnemyClick;
-            enemy.GetComponent<Interaction>().OnEnter += HandleEnemyMouseEnter;
-            enemy.GetComponent<Interaction>().OnExit += HandleEnemyMouseExit;
+            var interaction = enemy.GetComponent<Interaction>();
+            interaction.OnClick += HandleEnemyClick;
+            interaction.OnEnter += HandleEnemyMouseEnter;
+            interaction.OnExit += HandleEnemyMouseExit;
         }
 
         private void HandleEnemyClick(object sender, GameObject enemy)
@@ -283,7 +298,7 @@ namespace Assets.Scripts
             if (!IsInventoryFull && _random.NextDouble() <= enemy.ItemChance * towerItemChance / 100f)
             {
                 var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
-                item.Level = _currWave + 1;
+                item.UpdateLevel(_currWave + 1);
                 AddItem(item);
             }
         }
@@ -292,6 +307,7 @@ namespace Assets.Scripts
         {
             Items.Add(item);
             Inventory.AddItem(item);
+            UpdateSnapshot();
         }
 
         public void RemoveItem(int index)
@@ -300,9 +316,9 @@ namespace Assets.Scripts
             Inventory.RemoveItem(index);
         }
 
-        public void RegisterTowerPrefab(string towerName, GameObject prefab)
+        public void RegisterTowerForName(string towerName, GameObject prefab)
         {
-            TowerPrefabs.Add(towerName, prefab);
+            TowersByName.Add(towerName, prefab);
         }
 
         public void Save()
@@ -346,6 +362,13 @@ namespace Assets.Scripts
                     RegisterTower(towerObject);
                 }
 
+                Items.Clear();
+                Inventory.ResetItems();
+                foreach (var item in snapshot.Items)
+                {
+                    AddItem(ItemBase.FromSnapshot(item));
+                }
+
                 TowerDetails.UpdateTarget(null, false);
                 EnemyDetails.UpdateTarget(null, false);
 
@@ -358,7 +381,7 @@ namespace Assets.Scripts
 
         private void UpdateSnapshot()
         {
-            if (_isLoading)
+            if (_isLoading || IsWaveActive)
             {
                 return;
             }
@@ -367,6 +390,7 @@ namespace Assets.Scripts
             _snapshot.Lives = Lives;
             _snapshot.Wave = _currWave;
             _snapshot.Towers = _activeTowers.Keys.Select(tower => _activeTowers[tower].ToSnapshot()).ToArray();
+            _snapshot.Items = Items.Select(item => item.ToSnapshot()).ToArray();
         }
     }
 }

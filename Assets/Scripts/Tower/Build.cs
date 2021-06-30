@@ -55,7 +55,7 @@ namespace Assets.Scripts.Tower
                 _buildMenuNames.Add(towerName);
                 _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
 
-                GameState.Instance.RegisterTowerPrefab(towerName, Towers[i]);
+                GameState.Instance.RegisterTowerForName(towerName, Towers[i]);
             }
 
             UpdateBuildMenu();

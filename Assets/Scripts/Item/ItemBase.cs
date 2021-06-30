@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Persistence;
 using Assets.Scripts.Tower;
 using UnityEngine;
 
@@ -9,17 +10,16 @@ namespace Assets.Scripts.Item
     public sealed class ItemBase : MonoBehaviour, ICloneable
     {
         public string Name;
+        public int Level { get; private set; }
         public EffectBase[] Effects { get; set; }
         public TowerBase Tower { get; private set; }
 
-        public int Level
+        public void UpdateLevel(int level)
         {
-            set
+            Level = level;
+            foreach (var effect in Effects)
             {
-                foreach (var effect in Effects)
-                {
-                    effect.UpdateLevel(value);
-                }
+                effect.UpdateLevel(level);
             }
         }
 
@@ -43,6 +43,22 @@ namespace Assets.Scripts.Item
             }
             ((ItemBase) clone).Effects = effects;
             return clone;
+        }
+
+        public ItemSnapshot ToSnapshot()
+        {
+            return new ItemSnapshot
+            {
+                Name = Name,
+                Level = Level
+            };
+        }
+
+        public static ItemBase FromSnapshot(ItemSnapshot snapshot)
+        {
+            var item = (ItemBase) GameState.Instance.ItemsByName[snapshot.Name].Clone();
+            item.UpdateLevel(snapshot.Level);
+            return item;
         }
     }
 }

@@ -155,13 +155,29 @@ namespace Assets.Scripts.Tower
             return new TowerSnapshot
             {
                 Name = Name,
-                Position = transform.position
+                Position = transform.position,
+                Level = Level,
+                Experience = Experience,
+                ExperienceRequired = ExperienceRequired,
+                DamageDone = DamageDone,
+                Kills = Kills,
+                SellCost = SellCost
             };
         }
 
         public static GameObject FromSnapshot(TowerSnapshot snapshot)
         {
             var tower = Instantiate(GameState.Instance.TowerPrefabs[snapshot.Name], snapshot.Position, Quaternion.identity);
+
+            var towerBase = tower.GetComponentInChildren<TowerBase>();
+            towerBase.Level = snapshot.Level;
+            towerBase.Experience = snapshot.Experience;
+            towerBase.ExperienceRequired = snapshot.ExperienceRequired;
+            towerBase.DamageDone = snapshot.DamageDone;
+            towerBase.Kills = snapshot.Kills;
+            towerBase.SellCost.Base = snapshot.SellCost.Base;
+            towerBase.SellCost.Gain = snapshot.SellCost.Gain;
+
             return tower;
         }
     }

@@ -71,7 +71,7 @@ namespace Assets.Scripts
         public readonly Dictionary<string, GameObject> TowerPrefabs = new Dictionary<string, GameObject>();
         private bool _isLoading;
         private Snapshot _snapshot;
-        private readonly Dictionary<GameObject, TowerSnapshot> _towerSnapshot = new Dictionary<GameObject, TowerSnapshot>();
+        private readonly Dictionary<GameObject, TowerBase> _activeTowers = new Dictionary<GameObject, TowerBase>();
 
         [UsedImplicitly]
         private void Start()
@@ -217,7 +217,7 @@ namespace Assets.Scripts
         public void RegisterTower(GameObject tower)
         {
             var towerBase = tower.GetComponentInChildren<TowerBase>();
-            _towerSnapshot.Add(tower, towerBase.ToSnapshot());
+            _activeTowers.Add(tower, towerBase);
             towerBase.OnDestroyed += HandleTowerDestroyed;
             UpdateSnapshot();
 
@@ -228,7 +228,7 @@ namespace Assets.Scripts
 
         private void HandleTowerDestroyed(object sender, GameObject tower)
         {
-            _towerSnapshot.Remove(tower);
+            _activeTowers.Remove(tower);
             UpdateSnapshot();
         }
 
@@ -336,7 +336,7 @@ namespace Assets.Scripts
                 _currWave = snapshot.Wave;
                 ResetWaveStatus();
 
-                foreach (var tower in _towerSnapshot.Keys)
+                foreach (var tower in _activeTowers.Keys)
                 {
                     Destroy(tower);
                 }
@@ -366,7 +366,7 @@ namespace Assets.Scripts
             _snapshot.Gold = Gold;
             _snapshot.Lives = Lives;
             _snapshot.Wave = _currWave;
-            _snapshot.Towers = _towerSnapshot.Values.ToArray();
+            _snapshot.Towers = _activeTowers.Keys.Select(tower => _activeTowers[tower].ToSnapshot()).ToArray();
         }
     }
 }

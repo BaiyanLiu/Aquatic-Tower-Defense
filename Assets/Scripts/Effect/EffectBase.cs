@@ -23,11 +23,18 @@ namespace Assets.Scripts.Effect
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
 
+        public bool IsLoaded { private get; set; }
+
         private float _effectTimer;
 
         [UsedImplicitly]
         private void Start()
         {
+            if (IsLoaded)
+            {
+                return;
+            }
+
             Duration ??= new Attribute<float>();
             Frequency ??= new Attribute<float>();
             Amount ??= new Attribute<float>();

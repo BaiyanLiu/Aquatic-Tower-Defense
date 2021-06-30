@@ -42,6 +42,7 @@ namespace Assets.Scripts.Tower
         public UpgradeBase[] Upgrades { get; private set; }
 
         private CircleCollider2D _collider;
+        private bool _isLoaded;
 
         [UsedImplicitly]
         private void Start()
@@ -52,7 +53,12 @@ namespace Assets.Scripts.Tower
             SellCost.Gain = SellCost.Base / 10f;
 
             Effects.AddRange(GetComponents<EffectBase>());
-            Effects.ForEach(effect => effect.Tower = this);
+            Effects.ForEach(effect =>
+            {
+                effect.Tower = this;
+                effect.UpdateLevel(Level);
+                effect.IsLoaded = _isLoaded;
+            });
             AllEffects.AddRange(Effects);
 
             Upgrades = GetComponents<UpgradeBase>();
@@ -177,6 +183,7 @@ namespace Assets.Scripts.Tower
             towerBase.Kills = snapshot.Kills;
             towerBase.SellCost.Base = snapshot.SellCost.Base;
             towerBase.SellCost.Gain = snapshot.SellCost.Gain;
+            towerBase._isLoaded = true;
 
             return tower;
         }

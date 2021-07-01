@@ -15,5 +15,6 @@ namespace Assets.Scripts.Persistence
         public int Kills;
         public Attribute<float> SellCost;
         public ItemSnapshot[] Items;
+        public int[] Upgrades;
     }
 }

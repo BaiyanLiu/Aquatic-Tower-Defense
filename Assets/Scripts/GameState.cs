@@ -88,22 +88,14 @@ namespace Assets.Scripts
                 ItemsByName.Add(item.Name, item);
             }
 
-            if (PlayerPrefs.GetInt(Settings.Load) == 1)
-            {
-                Load();
-                PlayerPrefs.SetInt(Settings.Load, 0);
-            }
-            else
-            {
-                _snapshot = new Snapshot();
-                UpdateSnapshot();
-            }
-
             UpdateGold(0);
             UpdateCost(null);
             UpdateLives(0);
             LivesLostText.enabled = false;
             Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
+
+            _snapshot = new Snapshot();
+            UpdateSnapshot();
         }
 
         [UsedImplicitly]
@@ -112,6 +104,12 @@ namespace Assets.Scripts
             if (IsPaused)
             {
                 return;
+            }
+
+            if (PlayerPrefs.GetInt(Settings.Load) == 1)
+            {
+                Load();
+                PlayerPrefs.SetInt(Settings.Load, 0);
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -226,7 +224,6 @@ namespace Assets.Scripts
             var towerBase = tower.GetComponentInChildren<TowerBase>();
             _activeTowers.Add(tower, towerBase);
             towerBase.OnDestroyed += HandleTowerDestroyed;
-            towerBase.OnItemAdded += HandleTowerItemAdded;
             UpdateSnapshot();
 
             var interaction = tower.GetComponentInChildren<Interaction>();
@@ -238,11 +235,6 @@ namespace Assets.Scripts
         private void HandleTowerDestroyed(object sender, GameObject tower)
         {
             _activeTowers.Remove(tower);
-            UpdateSnapshot();
-        }
-
-        private void HandleTowerItemAdded(object sender, ItemBase e)
-        {
             UpdateSnapshot();
         }
 
@@ -378,7 +370,7 @@ namespace Assets.Scripts
             IsPaused = false;
         }
 
-        private void UpdateSnapshot()
+        public void UpdateSnapshot()
         {
             if (_isLoading || IsWaveActive)
             {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Assets.Scripts.Tower;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade
@@ -20,12 +21,25 @@ namespace Assets.Scripts.Upgrade
         protected virtual string AmountUnit => "";
         public virtual Color NameColor => Color.white;
         public TowerBase Tower { protected get; set; }
+        public int Level { get; set; } = -1;
+        public bool IsLoading { protected get; set; }
 
         private bool HasNextLevel => Cost.Length > Level + 1;
         public int? NextCost => HasNextLevel ? (int?) Cost[Level + 1] : null;
         public bool CanLevelUp => HasNextLevel && GameState.Instance.Gold >= Cost[Level + 1];
 
-        protected int Level = -1;
+        [UsedImplicitly]
+        private void Start()
+        {
+            OnStart();
+            if (Level >= 0 && IsLoading)
+            {
+                OnLevelUp();
+                IsLoading = false;
+            }
+        }
+
+        protected virtual void OnStart() {}
 
         public void LevelUp()
         {
@@ -39,6 +53,7 @@ namespace Assets.Scripts.Upgrade
             Level++;
             OnLevelUp();
             Tower.UpdateStats();
+            GameState.Instance.UpdateSnapshot();
         }
 
         protected virtual void OnLevelUp() {}

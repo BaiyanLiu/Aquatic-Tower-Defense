@@ -16,7 +16,6 @@ namespace Assets.Scripts.Upgrade.Effect
         protected override void OnLevelUp()
         {
             base.OnLevelUp();
-            Effect.Amount.Value = Amount[Level];
             Effect.Duration.Value = Duration[Level];
             Effect.Frequency.Value = Frequency[Level];
         }

@@ -10,7 +10,7 @@ namespace Assets.Scripts.Scenes
         public void Load()
         {
             PlayerPrefs.SetInt(Scenes.Settings.Load, 1);
-            SceneManager.LoadScene("Game");
+            SceneManager.UnloadSceneAsync("Game Over");
         }
 
         [UsedImplicitly]

@@ -43,14 +43,19 @@ namespace Assets.Scripts.Tower
 
         private CircleCollider2D _collider;
         private bool _isLoading;
+        private int[] _upgradeLevels;
 
         [UsedImplicitly]
         private void Start()
         {
             _collider = GetComponent<CircleCollider2D>();
 
-            SellCost.Value = SellCost.Base = Cost / 2f;
-            SellCost.Gain = SellCost.Base / 10f;
+            if (!_isLoading)
+            {
+                SellCost.Base = Cost / 2f;
+                SellCost.Gain = SellCost.Base / 10f;
+            }
+            SellCost.Value = SellCost.Base;
 
             Effects.AddRange(GetComponents<EffectBase>());
             Effects.ForEach(effect =>
@@ -62,9 +67,14 @@ namespace Assets.Scripts.Tower
             AllEffects.AddRange(Effects);
 
             Upgrades = GetComponents<UpgradeBase>();
-            foreach (var upgrade in Upgrades)
+            for (var i = 0; i < Upgrades.Length; i++)
             {
-                upgrade.Tower = this;
+                Upgrades[i].Tower = this;
+                if (_isLoading && _upgradeLevels.Any())
+                {
+                    Upgrades[i].Level = _upgradeLevels[i];
+                    Upgrades[i].IsLoading = true;
+                }
             }
 
             if (_isLoading)
@@ -154,6 +164,7 @@ namespace Assets.Scripts.Tower
             item.UpdateTower(this);
             UpdateStats();
             OnItemAdded?.Invoke(this, item);
+            GameState.Instance.UpdateSnapshot();
         }
 
         public void RemoveItem(int index)
@@ -177,15 +188,16 @@ namespace Assets.Scripts.Tower
                 DamageDone = DamageDone,
                 Kills = Kills,
                 SellCost = SellCost,
-                Items = Items.Select(item => item.ToSnapshot()).ToArray()
+                Items = Items.Select(item => item.ToSnapshot()).ToArray(),
+                Upgrades = Upgrades?.Select(upgrade => upgrade.Level).ToArray()
             };
         }
 
         public static GameObject FromSnapshot(TowerSnapshot snapshot)
         {
             var tower = Instantiate(GameState.Instance.TowersByName[snapshot.Name], snapshot.Position, Quaternion.identity);
-            var towerBase = tower.GetComponentInChildren<TowerBase>();
 
+            var towerBase = tower.GetComponentInChildren<TowerBase>();
             towerBase.Level = snapshot.Level;
             towerBase.Experience = snapshot.Experience;
             towerBase.ExperienceRequired = snapshot.ExperienceRequired;
@@ -200,7 +212,9 @@ namespace Assets.Scripts.Tower
                 towerBase.Items.Add(ItemBase.FromSnapshot(item));
             }
 
+            towerBase._upgradeLevels = snapshot.Upgrades;
             towerBase._isLoading = true;
+
             return tower;
         }
     }

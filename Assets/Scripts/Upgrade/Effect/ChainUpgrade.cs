@@ -15,8 +15,13 @@ namespace Assets.Scripts.Upgrade.Effect
         protected override void OnLevelUp()
         {
             base.OnLevelUp();
-            Effect.Amount.Value = Amount[Level];
             Effect.Range.Value = Range[Level];
+        }
+
+        protected override void InitForLoading()
+        {
+            base.InitForLoading();
+            Effect.Range = new Attribute<float>();
         }
 
         public override List<string> GetAmountDisplayText()

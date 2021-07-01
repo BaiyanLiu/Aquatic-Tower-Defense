@@ -1,5 +1,4 @@
 using Assets.Scripts.Effect;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade.Effect
@@ -10,22 +9,34 @@ namespace Assets.Scripts.Upgrade.Effect
 
         protected T Effect;
 
-        [UsedImplicitly]
-        private void Start()
+        protected override void OnStart()
         {
             Effect = gameObject.AddComponent<T>();
             Effect.Tower = Tower;
             Effect.IncludeGain = false;
+            Effect.IsLoading = IsLoading;
         }
 
         protected override void OnLevelUp()
         {
-            if (Level == 0)
+            if (Level == 0 || IsLoading)
             {
                 Tower.Effects.Add(Effect);
                 Tower.AllEffects.Add(Effect);
             }
+
+            if (IsLoading)
+            {
+                InitForLoading();
+            }
             Effect.Amount.Value = Amount[Level];
+        }
+
+        protected virtual void InitForLoading()
+        {
+            Effect.Duration = new Attribute<float>();
+            Effect.Frequency = new Attribute<float>();
+            Effect.Amount = new Attribute<float>();
         }
     }
 }

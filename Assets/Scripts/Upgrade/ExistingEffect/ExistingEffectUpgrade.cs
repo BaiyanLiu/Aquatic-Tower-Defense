@@ -1,5 +1,4 @@
 using Assets.Scripts.Effect;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Upgrade.ExistingEffect
@@ -10,8 +9,7 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
 
         protected T Effect;
 
-        [UsedImplicitly]
-        private void Start()
+        protected override void OnStart()
         {
             Effect = gameObject.GetComponent<T>();
         }
@@ -19,7 +17,7 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
         protected float GetDelta(float[] attribute)
         {
             var delta = attribute[Level];
-            if (Level > 0)
+            if (Level > 0 && !IsLoading)
             {
                 delta -= attribute[Level - 1];
             }

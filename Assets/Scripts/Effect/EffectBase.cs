@@ -23,14 +23,14 @@ namespace Assets.Scripts.Effect
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
 
-        public bool IsLoaded { private get; set; }
+        public bool IsLoading { private get; set; }
 
         private float _effectTimer;
 
         [UsedImplicitly]
         private void Start()
         {
-            if (IsLoaded)
+            if (IsLoading)
             {
                 return;
             }

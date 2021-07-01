@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -19,13 +18,23 @@ namespace Assets.Scripts.Enemy
         private float _createEnemyTimer;
         private int _currEnemy;
         private readonly List<GameObject> _activeEnemies = new List<GameObject>();
-        private bool _isForceStopped;
+        private bool _isCleared;
 
         [UsedImplicitly]
         private void Update()
         {
-            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver || !IsActive)
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver)
             {
+                return;
+            }
+
+            if (!IsActive)
+            {
+                if (!_isCleared && GameState.Instance.EnemiesParent.childCount == 0)
+                {
+                    OnWaveCleared?.Invoke(this, EventArgs.Empty);
+                    _isCleared = true;
+                }
                 return;
             }
 
@@ -51,36 +60,24 @@ namespace Assets.Scripts.Enemy
 
         private void HandleEnemyDestroyed(object sender, GameObject enemy)
         {
-            if (_isForceStopped)
-            {
-                return;
-            }
-
             _activeEnemies.Remove(enemy);
-            if (!IsActive && !_activeEnemies.Any())
-            {
-                OnWaveCleared?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         public void StartWave(int level)
         {
             IsActive = true;
             _level = level;
-            _activeEnemies.Clear();
+            _isCleared = false;
         }
 
         public void StopWave(bool force = false)
         {
             IsActive = false;
             _currEnemy = 0;
-
-            _isForceStopped = force;
-            if (_isForceStopped)
+            if (force)
             {
                 _activeEnemies.ForEach(Destroy);
-                _activeEnemies.Clear();
-                _isForceStopped = false;
+                _isCleared = true;
             }
         }
     }

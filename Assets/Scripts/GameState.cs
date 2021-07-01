@@ -345,9 +345,9 @@ namespace Assets.Scripts
                 if (IsWaveActive)
                 {
                     var wave = _waves[_currWave % _waves.Length];
-                    wave.StopWave(true);
                     wave.OnCreateEnemy -= HandleCreateEnemy;
                     wave.OnWaveCleared -= HandleWaveCleared;
+                    wave.StopWave(true);
                 }
                 _currWave = snapshot.Wave;
                 ResetWaveStatus();
@@ -358,8 +358,7 @@ namespace Assets.Scripts
                 }
                 foreach (var tower in snapshot.Towers)
                 {
-                    var towerObject = TowerBase.FromSnapshot(tower);
-                    RegisterTower(towerObject);
+                    RegisterTower(TowerBase.FromSnapshot(tower));
                 }
 
                 Items.Clear();

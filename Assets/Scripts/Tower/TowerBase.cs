@@ -42,7 +42,7 @@ namespace Assets.Scripts.Tower
         public UpgradeBase[] Upgrades { get; private set; }
 
         private CircleCollider2D _collider;
-        private bool _isLoaded;
+        private bool _isLoading;
 
         [UsedImplicitly]
         private void Start()
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Tower
             {
                 effect.Tower = this;
                 effect.UpdateLevel(Level);
-                effect.IsLoaded = _isLoaded;
+                effect.IsLoading = _isLoading;
             });
             AllEffects.AddRange(Effects);
 
@@ -65,6 +65,15 @@ namespace Assets.Scripts.Tower
             foreach (var upgrade in Upgrades)
             {
                 upgrade.Tower = this;
+            }
+
+            if (_isLoading)
+            {
+                Items.ForEach(item =>
+                {
+                    AllEffects.AddRange(item.Effects);
+                    item.UpdateTower(this);
+                });
             }
 
             UpdateStats();
@@ -167,15 +176,16 @@ namespace Assets.Scripts.Tower
                 ExperienceRequired = ExperienceRequired,
                 DamageDone = DamageDone,
                 Kills = Kills,
-                SellCost = SellCost
+                SellCost = SellCost,
+                Items = Items.Select(item => item.ToSnapshot()).ToArray()
             };
         }
 
         public static GameObject FromSnapshot(TowerSnapshot snapshot)
         {
             var tower = Instantiate(GameState.Instance.TowersByName[snapshot.Name], snapshot.Position, Quaternion.identity);
-
             var towerBase = tower.GetComponentInChildren<TowerBase>();
+
             towerBase.Level = snapshot.Level;
             towerBase.Experience = snapshot.Experience;
             towerBase.ExperienceRequired = snapshot.ExperienceRequired;
@@ -183,8 +193,14 @@ namespace Assets.Scripts.Tower
             towerBase.Kills = snapshot.Kills;
             towerBase.SellCost.Base = snapshot.SellCost.Base;
             towerBase.SellCost.Gain = snapshot.SellCost.Gain;
-            towerBase._isLoaded = true;
 
+            towerBase.Items.Clear();
+            foreach (var item in snapshot.Items)
+            {
+                towerBase.Items.Add(ItemBase.FromSnapshot(item));
+            }
+
+            towerBase._isLoading = true;
             return tower;
         }
     }

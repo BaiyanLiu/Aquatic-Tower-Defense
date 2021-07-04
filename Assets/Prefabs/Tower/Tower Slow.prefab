@@ -136,7 +136,7 @@ MonoBehaviour:
     Gain: 0.03
   DamageType: 1
   Cost: 15
-  Name: Slow Tower
+  Name: Ice Pillar
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

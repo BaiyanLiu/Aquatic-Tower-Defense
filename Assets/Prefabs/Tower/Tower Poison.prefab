@@ -135,7 +135,7 @@ MonoBehaviour:
     Gain: 0.05
   DamageType: 1
   Cost: 20
-  Name: Poison Tower
+  Name: Toxin Shooter
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

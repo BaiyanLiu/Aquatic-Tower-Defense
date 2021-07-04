@@ -139,7 +139,7 @@ MonoBehaviour:
     Gain: 0.05
   DamageType: 1
   Cost: 15
-  Name: Normal Tower
+  Name: Spear Thrower
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

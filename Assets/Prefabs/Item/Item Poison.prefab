@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5e6eb6cd3ab1c8b45b04404f73d34ebc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb537c817bafea04bbcfd8b44aa679f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f3d65da8e7eab4aa5dc0341edeeda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Poison Item
+  Name: Venom Coating
 --- !u!114 &1677608606791418646
 MonoBehaviour:
   m_ObjectHideFlags: 0

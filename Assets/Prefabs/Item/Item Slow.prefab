@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f3d65da8e7eab4aa5dc0341edeeda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Slow Item
+  Name: Icy Core
 --- !u!114 &2270541289457918212
 MonoBehaviour:
   m_ObjectHideFlags: 0

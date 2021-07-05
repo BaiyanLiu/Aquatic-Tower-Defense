@@ -134,7 +134,7 @@ MonoBehaviour:
     Gain: 0.1
   DamageType: 0
   Cost: 15
-  Name: Rapid Spear Thrower
+  Name: Rock Thrower
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

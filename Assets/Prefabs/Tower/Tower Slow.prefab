@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce9c6f72e5c562e469840d0d782be367, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 911234c710527e54491a749c837608ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
     Gain: 0.03
   DamageType: 1
   Cost: 15
-  Name: Ice Pillar
+  Name: Net Launcher
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

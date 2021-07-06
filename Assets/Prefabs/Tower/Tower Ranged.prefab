@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9378c1276c8164394db785de35b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: 9019b83f187510a4ba2f975e70cd073d, type: 3}
   Amount:
   - 10
   - 20
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ea24f7d3a6ace44bc799686cad86da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: 9019b83f187510a4ba2f975e70cd073d, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: d085016dde0203e449fee7e0c8681a3d, type: 3}
   Amount:
   - -0.2
   - -0.3
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb41254602322949a608df31e9350c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: d085016dde0203e449fee7e0c8681a3d, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
   Amount:
   - 0.1
   - 0.2
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583b66c83d4b52040868cb110b8200e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 8749316955921980939, guid: 1ffb778c4c870ad40968dec4da7f7504, type: 3}
+  Icon: {fileID: 8749316955921980939, guid: c5b064613b3778f41be2bcbac0280d10, type: 3}
   Amount:
   - 110
   - 120

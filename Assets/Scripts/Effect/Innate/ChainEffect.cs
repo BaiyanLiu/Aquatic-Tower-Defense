@@ -7,7 +7,7 @@ namespace Assets.Scripts.Effect.Innate
     {
         public Attribute<float> Range;
 
-        public override string Name => "Chain Effect";
+        public override string Name => "Chain Attack";
         protected override string AmountName => "Damage";
         public override Color StatusColor => new Color32(255, 242, 0, 255);
 

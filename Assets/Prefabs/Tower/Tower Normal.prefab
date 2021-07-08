@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9378c1276c8164394db785de35b01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Sharpened Edges
   Icon: {fileID: 8749316955921980939, guid: 9019b83f187510a4ba2f975e70cd073d, type: 3}
   Amount:
   - 10
@@ -184,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0638a73f8e6ce4cb306f450e8b53c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Heightened Senses
   Icon: {fileID: 8749316955921980939, guid: 5138ccd23d77ae84496b598832d81c5b, type: 3}
   Amount:
   - 1.5
@@ -202,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ea24f7d3a6ace44bc799686cad86da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Quickness
   Icon: {fileID: 8749316955921980939, guid: d085016dde0203e449fee7e0c8681a3d, type: 3}
   Amount:
   - -0.1
@@ -220,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb41254602322949a608df31e9350c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Aerodynamics
   Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
   Amount:
   - 0.1
@@ -238,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583b66c83d4b52040868cb110b8200e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Recycled Materials
   Icon: {fileID: 8749316955921980939, guid: c5b064613b3778f41be2bcbac0280d10, type: 3}
   Amount:
   - 110
@@ -256,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a281a32ce755f4aba4b1b94857a49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Faster Learning
   Icon: {fileID: 8749316955921980939, guid: 1ffb778c4c870ad40968dec4da7f7504, type: 3}
   Amount:
   - 110

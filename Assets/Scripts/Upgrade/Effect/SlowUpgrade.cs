@@ -9,8 +9,6 @@ namespace Assets.Scripts.Upgrade.Effect
     {
         public float[] Duration;
 
-        public override string Name => "Slow Upgrade";
-
         protected override void OnLevelUp()
         {
             base.OnLevelUp();

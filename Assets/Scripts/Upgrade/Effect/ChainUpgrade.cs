@@ -9,7 +9,6 @@ namespace Assets.Scripts.Upgrade.Effect
     {
         public float[] Range;
 
-        public override string Name => "Chain Upgrade";
         protected override string AmountName => "Damage";
 
         protected override void OnLevelUp()

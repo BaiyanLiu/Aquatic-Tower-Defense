@@ -9,8 +9,7 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
     {
         public float[] Duration;
         public float[] Frequency;
-
-        public override string Name => "Poison Upgrade";
+        
         protected override string AmountName => "Damage";
 
         protected override void OnLevelUp()

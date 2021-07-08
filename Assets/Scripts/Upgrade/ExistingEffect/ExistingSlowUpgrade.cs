@@ -8,9 +8,7 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
     public sealed class ExistingSlowUpgrade : ExistingEffectUpgrade<SlowEffect>
     {
         public float[] Duration;
-
-        public override string Name => "Slow Upgrade";
-
+        
         protected override void OnLevelUp()
         {
             var delta = GetDelta(Amount);

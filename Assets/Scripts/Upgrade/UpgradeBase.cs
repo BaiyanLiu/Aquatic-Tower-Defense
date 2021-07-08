@@ -12,11 +12,11 @@ namespace Assets.Scripts.Upgrade
         private const string NextColor = "#fff200ff";
         private const string FutureColor = "#808080ff";
 
+        public string Name;
         public GameObject Icon;
         public float[] Amount;
         public int[] Cost;
 
-        public abstract string Name { get; }
         protected virtual string AmountName => "Amount";
         protected virtual string AmountUnit => "";
         public virtual Color NameColor => Color.white;

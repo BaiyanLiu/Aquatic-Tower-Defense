@@ -170,7 +170,7 @@ MonoBehaviour:
   Gold: 10
   Lives: 1
   ItemChance: 0.1
-  Name: Normal Enemy
+  Name: Crab Warrior
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

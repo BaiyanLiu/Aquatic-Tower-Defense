@@ -170,7 +170,7 @@ MonoBehaviour:
   Gold: 8
   Lives: 1
   ItemChance: 0.1
-  Name: Fast Enemy
+  Name: Salmon Scout
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

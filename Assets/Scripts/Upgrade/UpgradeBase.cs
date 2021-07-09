@@ -53,7 +53,6 @@ namespace Assets.Scripts.Upgrade
             Level++;
             OnLevelUp();
             Tower.UpdateStats();
-            GameState.Instance.UpdateSnapshot();
         }
 
         protected virtual void OnLevelUp() {}

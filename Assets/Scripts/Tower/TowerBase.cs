@@ -164,7 +164,6 @@ namespace Assets.Scripts.Tower
             item.UpdateTower(this);
             UpdateStats();
             OnItemAdded?.Invoke(this, item);
-            GameState.Instance.UpdateSnapshot();
         }
 
         public void RemoveItem(int index)

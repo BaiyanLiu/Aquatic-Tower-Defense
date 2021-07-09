@@ -224,7 +224,6 @@ namespace Assets.Scripts
             var towerBase = tower.GetComponentInChildren<TowerBase>();
             _activeTowers.Add(tower, towerBase);
             towerBase.OnDestroyed += HandleTowerDestroyed;
-            UpdateSnapshot();
 
             var interaction = tower.GetComponentInChildren<Interaction>();
             interaction.OnClick += HandleTowerClick;
@@ -235,7 +234,6 @@ namespace Assets.Scripts
         private void HandleTowerDestroyed(object sender, GameObject tower)
         {
             _activeTowers.Remove(tower);
-            UpdateSnapshot();
         }
 
         private void HandleTowerClick(object sender, GameObject tower)
@@ -299,7 +297,6 @@ namespace Assets.Scripts
         {
             Items.Add(item);
             Inventory.AddItem(item);
-            UpdateSnapshot();
         }
 
         public void RemoveItem(int index)
@@ -316,6 +313,7 @@ namespace Assets.Scripts
         public void Save()
         {
             IsPaused = true;
+            UpdateSnapshot();
             SaveUtils.Save(_snapshot);
             IsPaused = false;
         }
@@ -370,7 +368,7 @@ namespace Assets.Scripts
             IsPaused = false;
         }
 
-        public void UpdateSnapshot()
+        private void UpdateSnapshot()
         {
             if (_isLoading || IsWaveActive)
             {

@@ -19,12 +19,12 @@ namespace Assets.Scripts.Tower
         private GameObject _tower;
         private GameObject _placeholder;
         private string _name;
-        private SpriteRenderer[] _spriteRenderers;
+        private SpriteRenderer _spriteRenderer;
         private int _cost;
 
         private readonly List<GameObject> _buildMenuTowers = new List<GameObject>();
         private readonly List<string> _buildMenuNames = new List<string>();
-        private readonly List<SpriteRenderer[]> _buildMenuSpriteRenderers = new List<SpriteRenderer[]>();
+        private readonly List<SpriteRenderer> _buildMenuSpriteRenderers = new List<SpriteRenderer>();
         private Vector2 _buildMenuScale;
         private Vector2 _buildMenuInitialPosition;
         private string _prevName;
@@ -53,7 +53,7 @@ namespace Assets.Scripts.Tower
                 _buildMenuTowers.Add(buildMenuTower);
                 var towerName = buildMenuTower.GetComponentInChildren<TowerBase>().Name;
                 _buildMenuNames.Add(towerName);
-                _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentsInChildren<SpriteRenderer>());
+                _buildMenuSpriteRenderers.Add(buildMenuTower.GetComponentInChildren<SpriteRenderer>());
 
                 GameState.Instance.RegisterTowerForName(towerName, Towers[i]);
             }
@@ -88,10 +88,7 @@ namespace Assets.Scripts.Tower
                 }
 
                 _placeholder.transform.position = GetMousePosition();
-                foreach (var spriteRenderer in _spriteRenderers)
-                {
-                    spriteRenderer.color = IsValid() ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
-                }
+                _spriteRenderer.color = IsValid() ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
             }
 
             UpdateBuildMenu();
@@ -111,7 +108,7 @@ namespace Assets.Scripts.Tower
                 _placeholder = CreatePlaceholder(tower, GetMousePosition());
                 _placeholder.GetComponentInChildren<BoxCollider2D>().enabled = false;
                 _name = _placeholder.GetComponentInChildren<TowerBase>().Name;
-                _spriteRenderers = _placeholder.GetComponentsInChildren<SpriteRenderer>();
+                _spriteRenderer = _placeholder.GetComponentInChildren<SpriteRenderer>();
 
                 GameState.Instance.IsBuilding = true;
                 _cost = _placeholder.GetComponentInChildren<TowerBase>().Cost;
@@ -183,10 +180,7 @@ namespace Assets.Scripts.Tower
                     color = GameState.Instance.ValidColor;
                 }
 
-                foreach (var spriteRenderer in _buildMenuSpriteRenderers[i])
-                {
-                    spriteRenderer.color = color;
-                }
+                _buildMenuSpriteRenderers[i].color = color;
             }
         }
     }

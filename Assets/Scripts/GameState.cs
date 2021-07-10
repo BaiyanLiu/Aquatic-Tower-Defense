@@ -36,10 +36,6 @@ namespace Assets.Scripts
         public Text LivesLostText;
         public Text StartButtonText;
 
-        public Color ValidColor;
-        public Color ValidCostColor;
-        public Color InvalidColor;
-        
         public GameObject PathTile;
         public TowerDetails TowerDetails;
         public EnemyDetails EnemyDetails;
@@ -131,7 +127,7 @@ namespace Assets.Scripts
                 LivesLostText.enabled = _livesLostTimer > 0f;
             }
 
-            CostText.color = _cost > Gold ? InvalidColor : ValidCostColor;
+            CostText.color = _cost > Gold ? Colors.Instance.Red : Colors.Instance.Yellow;
         }
 
         [UsedImplicitly]

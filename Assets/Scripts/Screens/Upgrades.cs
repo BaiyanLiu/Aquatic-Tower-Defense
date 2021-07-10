@@ -40,7 +40,7 @@ namespace Assets.Scripts.Screens
         {
             if (_current != null && _spriteRenderer != null)
             {
-                _spriteRenderer.color = _current.CanLevelUp ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
+                _spriteRenderer.color = _current.CanLevelUp ? Colors.Instance.Green : Colors.Instance.Red;
             }
         }
 

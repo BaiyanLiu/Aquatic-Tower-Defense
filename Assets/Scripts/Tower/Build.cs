@@ -88,7 +88,7 @@ namespace Assets.Scripts.Tower
                 }
 
                 _placeholder.transform.position = GetMousePosition();
-                _spriteRenderer.color = IsValid() ? GameState.Instance.ValidColor : GameState.Instance.InvalidColor;
+                _spriteRenderer.color = IsValid() ? Colors.Instance.Green : Colors.Instance.Red;
             }
 
             UpdateBuildMenu();
@@ -177,7 +177,7 @@ namespace Assets.Scripts.Tower
                 {
                     CurrentNameText.rectTransform.anchoredPosition = new Vector2((_buildMenuScale.x + 10f) * (i + 1), 0f);
                     position.x += _prevNameWidth + 10f;
-                    color = GameState.Instance.ValidColor;
+                    color = Colors.Instance.Green;
                 }
 
                 _buildMenuSpriteRenderers[i].color = color;

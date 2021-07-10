@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 3770581399031461661}
   - component: {fileID: 8057701512907499071}
   - component: {fileID: 1367282223715270173}
+  - component: {fileID: 7886005524932533452}
   - component: {fileID: 1583916240522351212}
   m_Layer: 30
   m_Name: Base
@@ -378,6 +379,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7886005524932533452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581399031461660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4898fe9af5c7f4cbded71d8dc67d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tower: {fileID: 8005896541765222222}
 --- !u!114 &1583916240522351212
 MonoBehaviour:
   m_ObjectHideFlags: 0

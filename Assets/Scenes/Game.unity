@@ -1865,6 +1865,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1903,9 +1904,9 @@ MonoBehaviour:
   LivesText: {fileID: 300703131}
   LivesLostText: {fileID: 252397908}
   StartButtonText: {fileID: 249134126}
-  ValidColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
-  ValidCostColor: {r: 1, g: 0.9490196, b: 0, a: 1}
-  InvalidColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
+  Green: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
+  Yellow: {r: 1, g: 0.9490196, b: 0, a: 1}
+  Red: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
   PathTile: {fileID: 7906944779217144928, guid: 3a5ec8a6730c4f9438b2d2be25efab15, type: 3}
   TowerDetails: {fileID: 341568269}
   EnemyDetails: {fileID: 1897920592}
@@ -1973,6 +1974,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294fc186a9cf7444cb5db4705bb66650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Green: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
+  Yellow: {r: 1, g: 0.9490196, b: 0, a: 1}
+  Red: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
 --- !u!1 &529185524
 GameObject:
   m_ObjectHideFlags: 0

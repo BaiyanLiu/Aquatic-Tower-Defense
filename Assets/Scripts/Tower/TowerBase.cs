@@ -16,6 +16,7 @@ namespace Assets.Scripts.Tower
     {
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;
+        public event EventHandler OnLevelUp; 
         public event EventHandler<GameObject> OnDestroyed;
 
         public Attribute<float> Damage;
@@ -128,6 +129,7 @@ namespace Assets.Scripts.Tower
                 }
 
                 UpdateStats();
+                OnLevelUp?.Invoke(this, EventArgs.Empty);
             }
         }
 

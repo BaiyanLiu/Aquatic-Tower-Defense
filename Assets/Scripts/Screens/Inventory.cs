@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Item;
 using Assets.Scripts.Scenes;
 using Assets.Scripts.Tower;
@@ -82,9 +83,12 @@ namespace Assets.Scripts.Screens
             itemObject.Effects = item.Effects;
             UpdateItemPosition(itemObject.gameObject, _items.Count, Vector2.zero);
             itemObject.transform.localScale = _scale;
-            itemObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
+            foreach (var spriteRenderer in itemObject.GetComponentsInChildren<SpriteRenderer>())
+            {
+                spriteRenderer.sortingOrder = _sortingOrder;
+            }
 
-            var interaction = itemObject.GetComponent<Interaction>();
+            var interaction = itemObject.GetComponentInChildren<Interaction>();
             interaction.OnClick += HandleItemClick;
             interaction.OnEnter += HandleItemMouseEnter;
             interaction.OnExit += HandleItemMouseExit;
@@ -144,12 +148,12 @@ namespace Assets.Scripts.Screens
 
         private void HandleItemClick(object sender, GameObject item)
         {
-            ItemDetails.UpdateTarget(item, false);
+            ItemDetails.UpdateTarget(item.transform.parent.gameObject, false);
         }
 
         private void HandleItemMouseEnter(object sender, GameObject item)
         {
-            ItemDetails.UpdateTarget(item);
+            ItemDetails.UpdateTarget(item.transform.parent.gameObject);
         }
 
         private void HandleItemMouseExit(object sender, EventArgs e)

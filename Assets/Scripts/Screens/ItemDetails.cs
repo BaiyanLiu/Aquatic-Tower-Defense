@@ -23,7 +23,7 @@ namespace Assets.Scripts.Screens
 
         protected override void OnSelected()
         {
-            _spriteRenderer = Target.GetComponent<SpriteRenderer>();
+            _spriteRenderer = Target.GetComponentInChildren<SpriteRenderer>();
             _spriteRenderer.color = GameState.Instance.ValidColor;
         }
     }

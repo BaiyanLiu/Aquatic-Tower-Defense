@@ -60,14 +60,17 @@ namespace Assets.Scripts.Screens
                 var upgradeObject = Instantiate(upgrade.Icon, Vector2.zero, Quaternion.identity, UpgradesParent);
                 upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -100f);
                 upgradeObject.transform.localScale = _scale;
-                upgradeObject.GetComponent<SpriteRenderer>().sortingOrder = _sortingOrder;
+                foreach (var spriteRenderer in upgradeObject.GetComponentsInChildren<SpriteRenderer>())
+                {
+                    spriteRenderer.sortingOrder = _sortingOrder;
+                }
 
-                var interaction = upgradeObject.GetComponent<Interaction>();
+                var interaction = upgradeObject.GetComponentInChildren<Interaction>();
                 interaction.OnClick += HandleUpgradeClick;
                 interaction.OnEnter += (sender, o) =>
                 {
                     _current = upgrade;
-                    _spriteRenderer = o.GetComponent<SpriteRenderer>();
+                    _spriteRenderer = o.GetComponentInChildren<SpriteRenderer>();
                     GameState.Instance.UpdateCost(upgrade.NextCost);
                     UpgradeDetails.UpdateTarget(upgradeObject, true, upgrade);
                 };

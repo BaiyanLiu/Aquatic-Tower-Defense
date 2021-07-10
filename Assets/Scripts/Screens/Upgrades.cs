@@ -18,6 +18,7 @@ namespace Assets.Scripts.Screens
 
         private UpgradeBase _current;
         private SpriteRenderer _spriteRenderer;
+        private LevelIndicator _levelIndicator;
 
         [UsedImplicitly]
         private void Start()
@@ -64,6 +65,7 @@ namespace Assets.Scripts.Screens
                 {
                     spriteRenderer.sortingOrder = _sortingOrder;
                 }
+                upgradeObject.GetComponentInChildren<LevelIndicator>().Upgrade = upgrade;
 
                 var interaction = upgradeObject.GetComponentInChildren<Interaction>();
                 interaction.OnClick += HandleUpgradeClick;
@@ -71,6 +73,7 @@ namespace Assets.Scripts.Screens
                 {
                     _current = upgrade;
                     _spriteRenderer = o.GetComponentInChildren<SpriteRenderer>();
+                    _levelIndicator = o.GetComponentInChildren<LevelIndicator>();
                     GameState.Instance.UpdateCost(upgrade.NextCost);
                     UpgradeDetails.UpdateTarget(upgradeObject, true, upgrade);
                 };
@@ -89,7 +92,7 @@ namespace Assets.Scripts.Screens
         private void HandleUpgradeMouseExit(object sender, EventArgs e)
         {
             _current = null;
-            _spriteRenderer.color = Color.white;
+            _levelIndicator.UpdateColor();
             GameState.Instance.UpdateCost(null);
             UpgradeDetails.UpdateTarget(null);
         }

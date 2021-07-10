@@ -1,34 +1,24 @@
 using System;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public sealed class LevelIndicator : MonoBehaviour
+    [UsedImplicitly]
+    public sealed class LevelIndicator : LevelIndicatorBase 
     {
         public TowerBase Tower;
 
-        private SpriteRenderer _spriteRenderer;
-        private Color _delta;
+        protected override int Level => Tower.Level - 1;
+        protected override int MaxLevel => 10;
 
-        [UsedImplicitly]
-        private void Start()
+        protected override void OnStart()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _delta = (Colors.Instance.Yellow - Color.white) / 9;
-
             Tower.OnLevelUp += HandleTowerLevelUp;
-            UpdateColor();
         }
 
         private void HandleTowerLevelUp(object sender, EventArgs e)
         {
             UpdateColor();
-        }
-
-        private void UpdateColor()
-        {
-            _spriteRenderer.color = Color.white + _delta * (Tower.Level - 1);
         }
     }
 }

@@ -16,6 +16,5 @@ namespace Assets.Scripts
         {
             Instance = this;
         }
-
     }
 }

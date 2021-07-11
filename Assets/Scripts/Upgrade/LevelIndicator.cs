@@ -8,6 +8,6 @@ namespace Assets.Scripts.Upgrade
         public UpgradeBase Upgrade { private get; set; }
 
         protected override int Level => Upgrade.Level + 1;
-        protected override int MaxLevel => 3;
+        protected override int MaxLevel => Upgrade.Cost.Length;
     }
 }

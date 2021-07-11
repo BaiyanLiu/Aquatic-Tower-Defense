@@ -9,7 +9,7 @@ namespace Assets.Scripts.Tower
         public TowerBase Tower;
 
         protected override int Level => Tower.Level - 1;
-        protected override int MaxLevel => 10;
+        protected override int MaxLevel => 9;
 
         protected override void OnStart()
         {

@@ -9,6 +9,7 @@ namespace Assets.Scripts
 
         public Color Green;
         public Color Yellow;
+        public Color Orange;
         public Color Red;
 
         [UsedImplicitly]

@@ -1985,6 +1985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Green: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
   Yellow: {r: 1, g: 0.9490196, b: 0, a: 1}
+  Orange: {r: 1, g: 0.49803922, b: 0.15294118, a: 1}
   Red: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
 --- !u!1 &529185524
 GameObject:

@@ -15,7 +15,7 @@ namespace Assets.Scripts
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _delta = (Colors.Instance.Yellow - Color.white) / (MaxLevel - 1);
+            _delta = (Colors.Instance.Orange - Color.white) / MaxLevel;
             UpdateColor();
             OnStart();
         }

@@ -281,11 +281,15 @@ namespace Assets.Scripts
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
         {
             var towerItemChance = tower.AllEffects.OfType<ItemChanceEffect>().Select(effect => effect.Amount.Value).Prepend(100f).Max();
-            if (!IsInventoryFull && _random.NextDouble() <= enemy.ItemChance * towerItemChance / 100f)
+            while (!IsInventoryFull && enemy.ItemChance > 0f)
             {
-                var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
-                item.UpdateLevel(_currWave + 1);
-                AddItem(item);
+                if (_random.NextDouble() <= enemy.ItemChance * towerItemChance / 100f)
+                {
+                    var item = (ItemBase) ItemPool[_random.Next(ItemPool.Length)].Clone();
+                    item.UpdateLevel(_currWave + 1 + enemy.ItemLevelBonus);
+                    AddItem(item);
+                }
+                enemy.ItemChance -= 1f;
             }
         }
 

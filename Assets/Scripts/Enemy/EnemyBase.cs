@@ -22,6 +22,7 @@ namespace Assets.Scripts.Enemy
         public int Gold;
         public int Lives;
         public float ItemChance;
+        public int ItemLevelBonus = 0;
         public string Name;
 
         public float Health { get; private set; }

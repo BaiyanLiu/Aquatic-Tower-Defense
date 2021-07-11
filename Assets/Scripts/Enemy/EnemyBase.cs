@@ -46,7 +46,7 @@ namespace Assets.Scripts.Enemy
         [UsedImplicitly]
         private void Start()
         {
-            _animator = GetComponent<Animator>();
+            _animator = GetComponentInChildren<Animator>();
             _healthBar = transform.Find("Status").Find("Health").Find("Fill");
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
         }

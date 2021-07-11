@@ -17,7 +17,7 @@ namespace Assets.Scripts.Enemy
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
+            _animator = GetComponentInChildren<Animator>();
             _base = GetComponent<EnemyBase>();
         }
 

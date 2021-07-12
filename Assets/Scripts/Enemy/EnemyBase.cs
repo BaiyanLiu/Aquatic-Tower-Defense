@@ -21,17 +21,22 @@ namespace Assets.Scripts.Enemy
         public int Experience;
         public int Gold;
         public int Lives;
-        public float ItemChance;
-        public int ItemLevelBonus = 0;
         public string Name;
+
+        public int Splits;
+
+        public float ItemChance;
+        public int ItemLevelBonus;
 
         public float Health { get; private set; }
         public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
 
+        private int _level;
         public int Level
         {
             set
             {
+                _level = value;
                 MaxHealth.Value = (MaxHealth.Base + MaxHealth.Gain * value) * PlayerPrefs.GetInt(Settings.Health) / 100f;
                 Armor.Value = Armor.Base + Armor.Gain * value;
                 Health = MaxHealth.Value;
@@ -50,6 +55,7 @@ namespace Assets.Scripts.Enemy
             _animator = GetComponentInChildren<Animator>();
             _healthBar = transform.Find("Status").Find("Health").Find("Fill");
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
+            UpdateHealth(0f);
         }
 
         [UsedImplicitly]
@@ -114,6 +120,27 @@ namespace Assets.Scripts.Enemy
                 _healthBar.localScale = new Vector2(Math.Max(Health / MaxHealth.Value, 0f), 1f);
                 if (Health <= 0f)
                 {
+
+                    if (Splits > 1)
+                    {
+                        var distX = CalcSplitDist(_animator.GetFloat("DirX"));
+                        var distY = CalcSplitDist(_animator.GetFloat("DirY"));
+
+                        for (var i = 0; i < Splits; i++)
+                        {
+                            var enemy = Instantiate(gameObject, transform.position + new Vector3(distX * i, distY * i, 0f), Quaternion.identity, transform.parent);
+                            enemy.transform.localScale /= 1.5f;
+                            enemy.GetComponentInChildren<Move>().CurrWaypoint = GetComponentInChildren<Move>().CurrWaypoint;
+
+                            var enemyBase = enemy.GetComponent<EnemyBase>();
+                            enemyBase.MaxHealth.Base /= 2f;
+                            enemyBase.Level = _level;
+                            enemyBase.Splits /= 2;
+
+                            GameState.Instance.RegisterEnemy(enemy);
+                        }
+                    }
+
                     OnDie?.Invoke(this, gameObject);
                     GameState.Instance.UpdateGold(Gold);
                     _animator.SetBool("Dead", true);
@@ -150,6 +177,19 @@ namespace Assets.Scripts.Enemy
                 },
                 _ => 1f
             };
+        }
+
+        private static float CalcSplitDist(float dir)
+        {
+            if (dir > 0.1f)
+            {
+                return -0.1f;
+            }
+            else if (dir < -0.1f)
+            {
+                return 0.1f;
+            }
+            return 0f;
         }
     }
 }

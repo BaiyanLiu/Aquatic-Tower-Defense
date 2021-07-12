@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -12,12 +11,11 @@ namespace Assets.Scripts.Enemy
 
         public GameObject[] Enemies;
 
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; set; }
 
         private int _level;
         private float _createEnemyTimer;
         private int _currEnemy;
-        private readonly List<GameObject> _activeEnemies = new List<GameObject>();
         private bool _isCleared;
 
         [UsedImplicitly]
@@ -42,43 +40,26 @@ namespace Assets.Scripts.Enemy
             if (_createEnemyTimer <= 0f)
             {
                 var enemy = Instantiate(Enemies[_currEnemy], GameState.Instance.CreatePosition.position, Quaternion.identity, GameState.Instance.EnemiesParent);
-                _activeEnemies.Add(enemy);
+                enemy.GetComponent<EnemyBase>().Level = _level;
                 GameState.Instance.RegisterEnemy(enemy);
-
-                var enemyBase = enemy.GetComponent<EnemyBase>();
-                enemyBase.Level = _level;
-                enemyBase.OnDestroyed += HandleEnemyDestroyed;
-                _createEnemyTimer = 1f;
-
                 OnCreateEnemy?.Invoke(this, (float) ++_currEnemy / Enemies.Length);
+
                 if (_currEnemy == Enemies.Length)
                 {
-                    StopWave();
+                    IsActive = false;
+                    return;
                 }
-            }
-        }
 
-        private void HandleEnemyDestroyed(object sender, GameObject enemy)
-        {
-            _activeEnemies.Remove(enemy);
+                _createEnemyTimer = 1f;
+            }
         }
 
         public void StartWave(int level)
         {
             IsActive = true;
             _level = level;
-            _isCleared = false;
-        }
-
-        public void StopWave(bool force = false)
-        {
-            IsActive = false;
             _currEnemy = 0;
-            if (force)
-            {
-                _activeEnemies.ForEach(Destroy);
-                _isCleared = true;
-            }
+            _isCleared = false;
         }
     }
 }

@@ -337,7 +337,12 @@ namespace Assets.Scripts
                     var wave = _waves[_currWave % _waves.Length];
                     wave.OnCreateEnemy -= HandleCreateEnemy;
                     wave.OnWaveCleared -= HandleWaveCleared;
-                    wave.StopWave(true);
+                    wave.IsActive = false;
+
+                    foreach (Transform enemy in EnemiesParent)
+                    {
+                        Destroy(enemy.gameObject);
+                    }
                 }
                 _currWave = snapshot.Wave;
                 ResetWaveStatus();

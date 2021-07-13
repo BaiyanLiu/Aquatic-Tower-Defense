@@ -61,7 +61,7 @@ namespace Assets.Scripts.Tower
             Effects.AddRange(GetComponents<EffectBase>());
             Effects.ForEach(effect =>
             {
-                effect.Tower = this;
+                effect.Source = this;
                 effect.UpdateLevel(Level);
                 effect.IsLoading = _isLoading;
             });

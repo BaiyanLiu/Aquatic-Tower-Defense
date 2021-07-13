@@ -28,7 +28,7 @@ namespace Assets.Scripts.Item
             Tower = tower;
             foreach (var effect in Effects)
             {
-                effect.Tower = tower;
+                effect.Source = tower;
             }
         }
 

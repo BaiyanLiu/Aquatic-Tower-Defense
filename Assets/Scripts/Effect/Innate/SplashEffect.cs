@@ -6,6 +6,6 @@ namespace Assets.Scripts.Effect.Innate
     {
         public override string Name => "Splash";
         protected override string AmountName => "Range";
-        public override Color StatusColor => new Color32(237, 28, 36, 255);
+        public override Color StatusColor => Colors.Instance.Red;
     }
 }

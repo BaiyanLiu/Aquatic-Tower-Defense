@@ -12,7 +12,7 @@ namespace Assets.Scripts.Upgrade.Effect
         protected override void OnStart()
         {
             Effect = gameObject.AddComponent<T>();
-            Effect.Tower = Tower;
+            Effect.Source = Tower;
             Effect.IncludeGain = false;
             Effect.IsLoading = IsLoading;
         }

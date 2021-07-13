@@ -739,7 +739,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!1 &287112991
 GameObject:
@@ -1259,7 +1259,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 41
   m_TargetDisplay: 0
 --- !u!1 &387829205
 GameObject:
@@ -1359,7 +1359,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_TargetDisplay: 0
 --- !u!1 &403613159
 GameObject:
@@ -1622,7 +1622,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 30
   m_TargetDisplay: 0
 --- !u!1 &473831037
 GameObject:
@@ -1722,7 +1722,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_TargetDisplay: 0
 --- !u!1 &482237446
 GameObject:
@@ -1989,6 +1989,7 @@ MonoBehaviour:
   Yellow: {r: 1, g: 0.9490196, b: 0, a: 1}
   Orange: {r: 1, g: 0.49803922, b: 0.15294118, a: 1}
   Red: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
+  Blue: {r: 0, g: 0.63529414, b: 0.9098039, a: 1}
 --- !u!1 &529185524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,7 +2356,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 51
   m_TargetDisplay: 0
 --- !u!1001 &634977512
 PrefabInstance:
@@ -2918,7 +2919,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 50
   m_TargetDisplay: 0
 --- !u!1 &736228456
 GameObject:
@@ -3169,7 +3170,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 40
   m_TargetDisplay: 0
 --- !u!1 &801912093
 GameObject:
@@ -3926,7 +3927,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!1 &984788686
 GameObject:
@@ -4312,7 +4313,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 31
   m_TargetDisplay: 0
 --- !u!1 &1057852443
 GameObject:
@@ -4870,7 +4871,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 31
   m_TargetDisplay: 0
 --- !u!1 &1290526190
 GameObject:
@@ -7264,7 +7265,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 30
   m_TargetDisplay: 0
 --- !u!1 &1633327967
 GameObject:
@@ -7613,7 +7614,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_TargetDisplay: 0
 --- !u!1 &1678920731
 GameObject:
@@ -8076,7 +8077,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &1897920590
 GameObject:

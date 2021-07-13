@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Item;
-using Assets.Scripts.Tower;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace Assets.Scripts.Effect
         public Attribute<float> Frequency;
         public Attribute<float> Amount;
 
-        public TowerBase Tower { get; set; }
+        public MonoBehaviour Source { get; set; }
         public ItemBase Item { get; set; }
         public bool IncludeGain { get; set; } = true;
 
@@ -97,12 +96,12 @@ namespace Assets.Scripts.Effect
             if (ReferenceEquals(x, y)) return true;
             if (x is null) return false;
             if (y is null) return false;
-            return x.GetType() == y.GetType() && Equals(x.Tower, y.Tower);
+            return x.GetType() == y.GetType() && Equals(x.Source, y.Source);
         }
 
         public int GetHashCode(EffectBase obj)
         {
-            return obj.Tower != null ? obj.Tower.GetHashCode() : 0;
+            return (obj.GetType().GetHashCode() * 397) ^ (obj.Source != null ? obj.Source.GetHashCode() : 0);
         }
     }
 }

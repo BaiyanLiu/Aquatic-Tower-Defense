@@ -11,6 +11,7 @@ namespace Assets.Scripts
         public Color Yellow;
         public Color Orange;
         public Color Red;
+        public Color Blue;
 
         [UsedImplicitly]
         private void Start()

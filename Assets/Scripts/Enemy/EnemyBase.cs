@@ -80,10 +80,11 @@ namespace Assets.Scripts.Enemy
                 {
                     if (effect is PoisonEffect)
                     {
-                        effect.Tower.EnemyAttacked(Math.Min(effect.Amount.Value, Health));
+                        var tower = (TowerBase) effect.Source;
+                        tower.EnemyAttacked(Math.Min(effect.Amount.Value, Health));
                         if (UpdateHealth(-effect.Amount.Value))
                         {
-                            effect.Tower.EnemyKilled(this);
+                            tower.EnemyKilled(this);
                         }
                     }
                 }

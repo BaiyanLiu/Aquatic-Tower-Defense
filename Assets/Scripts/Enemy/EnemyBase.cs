@@ -24,6 +24,7 @@ namespace Assets.Scripts.Enemy
         public string Name;
 
         public int Splits;
+        private float _splitHealth;
 
         public float ItemChance;
         public int ItemLevelBonus;
@@ -40,6 +41,10 @@ namespace Assets.Scripts.Enemy
                 MaxHealth.Value = (MaxHealth.Base + MaxHealth.Gain * value) * PlayerPrefs.GetInt(Settings.Health) / 100f;
                 Armor.Value = Armor.Base + Armor.Gain * value;
                 Health = MaxHealth.Value;
+                if (Splits > 0)
+                {
+                    _splitHealth = Health / Splits;
+                }
             }
         }
 
@@ -116,31 +121,28 @@ namespace Assets.Scripts.Enemy
         {
             if (Health > 0f)
             {
-                Health += delta;
+                var oldHealth = Health;
+                var newHealth = Health + delta;
+
+                if (Splits > 1 && Math.Ceiling(oldHealth / _splitHealth) > Math.Ceiling(newHealth / _splitHealth))
+                {
+                    var enemy = Instantiate(gameObject, transform.position, Quaternion.identity, transform.parent);
+                    enemy.transform.localScale /= 1.5f;
+                    enemy.GetComponentInChildren<Move>().CurrWaypoint = GetComponentInChildren<Move>().CurrWaypoint;
+
+                    var enemyBase = enemy.GetComponent<EnemyBase>();
+                    enemyBase.MaxHealth.Base /= Splits * 2;
+                    enemyBase.Speed *= 1.5f;
+                    enemyBase.Splits /= 2;
+                    enemyBase.Level = _level;
+
+                    GameState.Instance.RegisterEnemy(enemy);
+                }
+
+                Health = newHealth;
                 _healthBar.localScale = new Vector2(Math.Max(Health / MaxHealth.Value, 0f), 1f);
                 if (Health <= 0f)
                 {
-
-                    if (Splits > 1)
-                    {
-                        var distX = CalcSplitDist(_animator.GetFloat("DirX"));
-                        var distY = CalcSplitDist(_animator.GetFloat("DirY"));
-
-                        for (var i = 0; i < Splits; i++)
-                        {
-                            var enemy = Instantiate(gameObject, transform.position + new Vector3(distX * i, distY * i, 0f), Quaternion.identity, transform.parent);
-                            enemy.transform.localScale /= 1.5f;
-                            enemy.GetComponentInChildren<Move>().CurrWaypoint = GetComponentInChildren<Move>().CurrWaypoint;
-
-                            var enemyBase = enemy.GetComponent<EnemyBase>();
-                            enemyBase.MaxHealth.Base /= 2f;
-                            enemyBase.Level = _level;
-                            enemyBase.Splits /= 2;
-
-                            GameState.Instance.RegisterEnemy(enemy);
-                        }
-                    }
-
                     OnDie?.Invoke(this, gameObject);
                     GameState.Instance.UpdateGold(Gold);
                     _animator.SetBool("Dead", true);
@@ -177,19 +179,6 @@ namespace Assets.Scripts.Enemy
                 },
                 _ => 1f
             };
-        }
-
-        private static float CalcSplitDist(float dir)
-        {
-            if (dir > 0.1f)
-            {
-                return -0.1f;
-            }
-            else if (dir < -0.1f)
-            {
-                return 0.1f;
-            }
-            return 0f;
         }
     }
 }

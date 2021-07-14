@@ -58,12 +58,16 @@ namespace Assets.Scripts.Tower
             {
                 _enemies.Add(collision.gameObject);
                 _target = _enemies.First();
-                collision.gameObject.GetComponent<EnemyBase>().OnDie += (sender, args) =>
-                {
-                    _enemies.Remove(args);
-                    _target = _enemies.FirstOrDefault();
-                };
+
+                var enemy = collision.gameObject.GetComponent<EnemyBase>();
+                enemy.OnDie += HandleRemoveEnemy;
+                enemy.OnDestroyed += HandleRemoveEnemy;
             }
+        }
+
+        private void HandleRemoveEnemy(object sender, GameObject enemy)
+        {
+            RemoveEnemy(enemy);
         }
 
         [UsedImplicitly]
@@ -71,9 +75,14 @@ namespace Assets.Scripts.Tower
         {
             if (collision.name.StartsWith("Enemy"))
             {
-                _enemies.Remove(collision.gameObject);
-                _target = _enemies.FirstOrDefault();
+                RemoveEnemy(collision.gameObject);
             }
+        }
+
+        private void RemoveEnemy(GameObject enemy)
+        {
+            _enemies.Remove(enemy);
+            _target = _enemies.FirstOrDefault();
         }
     }
 }

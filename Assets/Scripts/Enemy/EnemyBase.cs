@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Area;
 using Assets.Scripts.Scenes;
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
@@ -8,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public sealed class EnemyBase : MonoBehaviour
+    public sealed class EnemyBase : MonoBehaviour, IHasEffect
     {
         public event EventHandler<GameObject> OnDie;
         public event EventHandler<GameObject> OnDestroyed;
@@ -30,7 +32,8 @@ namespace Assets.Scripts.Enemy
         public int ItemLevelBonus;
 
         public float Health { get; private set; }
-        public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
+        public List<EffectBase> Effects { get; } = new List<EffectBase>();
+        public HashSet<EffectBase> AllEffects { get; } = new HashSet<EffectBase>();
 
         private int _level;
         public int Level
@@ -48,7 +51,14 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        private float DamageReduction => (100f - Armor.Value) / 100f;
+        private float DamageReduction
+        {
+            get
+            {
+                var armorAmount = AllEffects.OfType<AreaArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+                return (100f - Armor.Value - armorAmount) / 100f;
+            }
+        }
 
         private Animator _animator;
         private Transform _healthBar;
@@ -62,13 +72,14 @@ namespace Assets.Scripts.Enemy
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
             UpdateHealth(0f);
 
-            Effects.UnionWith(GetComponents<EffectBase>());
+            Effects.AddRange(GetComponents<EffectBase>());
             foreach (var effect in Effects)
             {
                 effect.Source = this;
-                effect.UpdateLevel(_level);
                 effect.IncludeGain = false;
+                effect.UpdateLevel(_level);
             }
+            AllEffects.UnionWith(Effects);
         }
 
         [UsedImplicitly]
@@ -79,10 +90,10 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            Effects.RemoveWhere(effect => effect.Frequency.Value > 0f && (effect.Duration.Value -= Time.deltaTime) <= 0f);
+            AllEffects.RemoveWhere(effect => !effect.IsConstant && (effect.Duration.Value -= Time.deltaTime) <= 0f);
 
             var statusColors = new SortedDictionary<string, Color>();
-            foreach (var effect in Effects)
+            foreach (var effect in AllEffects)
             {
                 if (effect.UpdateTimer(Time.deltaTime))
                 {
@@ -120,7 +131,7 @@ namespace Assets.Scripts.Enemy
 
         public bool OnAttacked(float damage, TowerBase tower, List<EffectBase> effects)
         {
-            Effects.UnionWith(effects);
+            AllEffects.UnionWith(effects);
             var healthDelta = damage * DamageReduction * DamageTypeReduction(tower.DamageType);
             tower.EnemyAttacked(Math.Min(healthDelta, Health));
             return UpdateHealth(-healthDelta);
@@ -188,6 +199,16 @@ namespace Assets.Scripts.Enemy
                 },
                 _ => 1f
             };
+        }
+
+        public void AddEffect(EffectBase effect)
+        {
+            AllEffects.Add(effect);
+        }
+
+        public void RemoveEffect(EffectBase effect)
+        {
+            AllEffects.Remove(effect);
         }
     }
 }

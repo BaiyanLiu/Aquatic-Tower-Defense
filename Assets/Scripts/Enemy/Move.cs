@@ -29,7 +29,7 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            var slowAmount = _base.Effects.OfType<SlowEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+            var slowAmount = _base.AllEffects.OfType<SlowEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
             var p = Vector2.MoveTowards(transform.position, GameState.Instance.Path[CurrWaypoint], _base.Speed * (1 - slowAmount));
             _rigidbody.MovePosition(p);
 

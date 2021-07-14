@@ -21,6 +21,7 @@ namespace Assets.Scripts.Effect
         protected virtual string AmountUnit => "";
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
+        public virtual bool IsConstant => false;
 
         public bool IsLoading { private get; set; }
 

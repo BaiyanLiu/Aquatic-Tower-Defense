@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
 using UnityEngine;

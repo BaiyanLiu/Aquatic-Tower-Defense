@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,8 @@ namespace Assets.Scripts.Screens
         public Text LivesText;
         public Text ItemChanceText;
         public Text ArmorTypeText;
+
+        protected override EffectBase[] TargetEffects => Base.Effects.ToArray();
 
         protected override float OnUpdate(float height)
         {

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: 4451e79f8c7b368449ba8f400c662243, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9490196, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -116,9 +116,10 @@ GameObject:
   - component: {fileID: 8430441423056619184}
   - component: {fileID: 8430441423056619187}
   - component: {fileID: 8430441423056619186}
+  - component: {fileID: 5737850677926257019}
   - component: {fileID: 3329846002015028738}
   m_Layer: 29
-  m_Name: Enemy Normal
+  m_Name: Enemy Buffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,8 +191,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth:
-    Base: 100
-    Gain: 10
+    Base: 80
+    Gain: 8
   Armor:
     Base: 1
     Gain: 0.3
@@ -216,6 +217,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6836a3ca4c76e3640bd33d9437235216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5737850677926257019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430441423056619189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381d5d3ca71eb4049b645585fe73a946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration:
+    Base: 0
+    Gain: 0
+  Frequency:
+    Base: 0
+    Gain: 0
+  Amount:
+    Base: 5
+    Gain: 0.5
+  Range:
+    Base: 2
+    Gain: 0.2
 --- !u!114 &3329846002015028738
 MonoBehaviour:
   m_ObjectHideFlags: 0

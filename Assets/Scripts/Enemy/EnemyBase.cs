@@ -61,6 +61,14 @@ namespace Assets.Scripts.Enemy
             _healthBar = transform.Find("Status").Find("Health").Find("Fill");
             _statusIndicators = transform.Find("Status").Find("Indicators").GetComponentsInChildren<SpriteRenderer>();
             UpdateHealth(0f);
+
+            Effects.UnionWith(GetComponents<EffectBase>());
+            foreach (var effect in Effects)
+            {
+                effect.Source = this;
+                effect.UpdateLevel(_level);
+                effect.IncludeGain = false;
+            }
         }
 
         [UsedImplicitly]
@@ -71,7 +79,7 @@ namespace Assets.Scripts.Enemy
                 return;
             }
 
-            Effects.RemoveWhere(effect => (effect.Duration.Value -= Time.deltaTime) <= 0f);
+            Effects.RemoveWhere(effect => effect.Frequency.Value > 0f && (effect.Duration.Value -= Time.deltaTime) <= 0f);
 
             var statusColors = new SortedDictionary<string, Color>();
             foreach (var effect in Effects)

@@ -77,9 +77,10 @@ namespace Assets.Scripts.Effect
             return new List<string> {FormatDisplayText(AmountName, Amount)};
         }
 
-        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute)
+        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute, bool includeUnit = true)
         {
-            return $"{attributeName}: {attribute.Value}{AmountUnit}" + (IncludeGain ? $" (+{attribute.Gain}{AmountUnit})" : "");
+            var unit = includeUnit ? AmountUnit : "";
+            return $"{attributeName}: {attribute.Value}{unit}" + (IncludeGain ? $" (+{attribute.Gain}{unit})" : "");
         }
 
         public virtual object Clone()

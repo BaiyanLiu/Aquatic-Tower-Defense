@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public abstract class EnemyAreaEffect : AreaEffect<EnemyBase>
+    public abstract class EnemyAreaEffect<T> : AreaEffect<T> where T : IHasEffect
     {
-        private readonly List<EnemyBase> _targets = new List<EnemyBase>();
+        private readonly List<T> _targets = new List<T>();
 
         protected override void OnStart()
         {
@@ -21,12 +21,12 @@ namespace Assets.Scripts.Effect.Area
             _targets.ForEach(target => target.RemoveEffect(this));
         }
 
-        protected override void OnTargetEnter(EnemyBase target)
+        protected override void OnTargetEnter(T target)
         {
             _targets.Add(target);
         }
 
-        protected override void OnTargetExit(EnemyBase target)
+        protected override void OnTargetExit(T target)
         {
             _targets.Remove(target);
         }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Assets.Scripts.Effect.Innate;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace Assets.Scripts.Effect.Area
         protected override void OnStart()
         {
             Range ??= new Attribute<float>();
-            Collider.radius = Range.Value;
+            Collider.radius = Range.Value = Range.Base;
         }
 
         public override void LevelUp()
@@ -35,13 +34,13 @@ namespace Assets.Scripts.Effect.Area
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Add(FormatDisplayText("Range", Range));
+            amountDisplayText.Add(FormatDisplayText("Range", Range, false));
             return amountDisplayText;
         }
 
         public override object Clone()
         {
-            var clone = (ChainEffect) base.Clone();
+            var clone = (AreaEffect<T>) base.Clone();
             clone.Range = (Attribute<float>) Range.Clone();
             return clone;
         }

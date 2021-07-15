@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Effect;
+using Assets.Scripts.Effect.Area;
 using Assets.Scripts.Effect.Innate;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Tower
 {
-    public sealed class TowerBase : MonoBehaviour, IHasItems
+    public sealed class TowerBase : MonoBehaviour, IHasItems, IHasEffect
     {
         public event EventHandler<ItemBase> OnItemAdded;
         public event EventHandler<int> OnItemRemoved;
@@ -153,6 +154,9 @@ namespace Assets.Scripts.Tower
             {
                 upgrade.Apply();
             }
+                
+            var damageAmount = AllEffects.OfType<EnemyTowerDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
+            Damage.Value *= 1f + damageAmount / 100f;
 
             SellCost.Value = (float) Math.Round(SellCost.Value);
 
@@ -217,6 +221,18 @@ namespace Assets.Scripts.Tower
             towerBase._isLoading = true;
 
             return tower;
+        }
+
+        public void AddEffect(EffectBase effect)
+        {
+            AllEffects.Add(effect);
+            UpdateStats();
+        }
+
+        public void RemoveEffect(EffectBase effect)
+        {
+            AllEffects.Remove(effect);
+            UpdateStats();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Assets.Scripts.Enemy
         {
             get
             {
-                var armorAmount = AllEffects.OfType<AreaArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+                var armorAmount = AllEffects.OfType<EnemyArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
                 return (100f - Armor.Value - armorAmount) / 100f;
             }
         }
@@ -77,7 +77,8 @@ namespace Assets.Scripts.Enemy
             {
                 effect.Source = this;
                 effect.IncludeGain = false;
-                effect.UpdateLevel(_level);
+                effect.UpdateLevel(_level + 1);
+                effect.IsLoading = true;
             }
             AllEffects.UnionWith(Effects);
         }

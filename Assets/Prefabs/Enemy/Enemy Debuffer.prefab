@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: 4451e79f8c7b368449ba8f400c662243, type: 3}
-  m_Color: {r: 1, g: 0.9490196, b: 0, a: 1}
+  m_Color: {r: 0.6392157, g: 0.28627452, b: 0.6431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -116,10 +116,10 @@ GameObject:
   - component: {fileID: 8430441423056619184}
   - component: {fileID: 8430441423056619187}
   - component: {fileID: 8430441423056619186}
-  - component: {fileID: 5737850677926257019}
+  - component: {fileID: 4391846836630800174}
   - component: {fileID: 3329846002015028738}
   m_Layer: 29
-  m_Name: Enemy Buffer
+  m_Name: Enemy Debuffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   Experience: 10
   Gold: 10
   Lives: 1
-  Name: Cuttlefish Inspirer
+  Name: Electric Eel
   Splits: 0
   ItemChance: 0.1
   ItemLevelBonus: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6836a3ca4c76e3640bd33d9437235216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5737850677926257019
+--- !u!114 &4391846836630800174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8430441423056619189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83ccd0c4b35bda409ab8321d8fb7c99, type: 3}
+  m_Script: {fileID: 11500000, guid: 3be809dc80aeec34d858939403eb44bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Duration:
@@ -237,11 +237,11 @@ MonoBehaviour:
     Base: 0
     Gain: 0
   Amount:
-    Base: 10
-    Gain: 1
+    Base: -10
+    Gain: -1
   Range:
-    Base: 3
-    Gain: 0.3
+    Base: 1
+    Gain: 0.1
   Collider: {fileID: 4434856799614273922}
 --- !u!114 &3329846002015028738
 MonoBehaviour:

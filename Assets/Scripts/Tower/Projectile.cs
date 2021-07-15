@@ -74,7 +74,7 @@ namespace Assets.Scripts.Tower
                     }
                 }
 
-                var effects = _tower.AllEffects.Where(effect => !effect.IsInnate).Select(effect => (EffectBase) effect.Clone()).ToList();
+                var effects = _tower.AllEffects.Where(effect => !effect.IsInnate && effect.Source == _tower).Select(effect => (EffectBase) effect.Clone()).ToList();
                 foreach (var enemy in enemies.Where(enemy => enemy.OnAttacked(_damage, _tower, effects)))
                 {
                     _tower.EnemyKilled(enemy);

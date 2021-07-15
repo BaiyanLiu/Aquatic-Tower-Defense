@@ -161,6 +161,11 @@ namespace Assets.Scripts
 
         private void HandleWaveCleared(object sender, EventArgs e)
         {
+            foreach (var tower in _activeTowers.Values)
+            {
+                tower.UpdateExperience(20);
+            }
+            UpdateGold(50);
             ResetWaveStatus();
             UpdateSnapshot();
         }

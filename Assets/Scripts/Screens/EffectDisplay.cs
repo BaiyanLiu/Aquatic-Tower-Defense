@@ -18,8 +18,8 @@ namespace Assets.Scripts.Screens
             NameText.color = effect.StatusColor;
             var height = NameText.rectTransform.rect.height;
 
-            height = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, 0f, height, effect.FormatDisplayText("Duration", effect.Duration));
-            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, 0f, height, effect.FormatDisplayText("Frequency", effect.Frequency));
+            height = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, 0f, height, effect.FormatDisplayText("Duration", effect.Duration, false));
+            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, 0f, height, effect.FormatDisplayText("Frequency", effect.Frequency, false));
 
             using var amountDisplayText = effect.GetAmountDisplayText().GetEnumerator();
             height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 0f, currentHeight, amountDisplayText.Current));

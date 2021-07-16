@@ -98,14 +98,18 @@ namespace Assets.Scripts.Enemy
             {
                 if (effect.UpdateTimer(Time.deltaTime))
                 {
-                    if (effect is PoisonEffect)
+                    var damage = effect switch
                     {
-                        var tower = (TowerBase) effect.Source;
-                        tower.EnemyAttacked(Math.Min(effect.Amount.Value, Health));
-                        if (UpdateHealth(-effect.Amount.Value))
-                        {
-                            tower.EnemyKilled(this);
-                        }
+                        PoisonEffect _ => effect.Amount.Value,
+                        BleedEffect _ => Health * effect.Amount.Value / 100f,
+                        _ => 0f
+                    };
+
+                    var tower = (TowerBase) effect.Source;
+                    tower.EnemyAttacked(Math.Min(damage, Health));
+                    if (UpdateHealth(-damage))
+                    {
+                        tower.EnemyKilled(this);
                     }
                 }
                 statusColors[effect.Name] = effect.StatusColor;

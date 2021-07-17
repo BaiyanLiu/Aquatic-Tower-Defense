@@ -199,7 +199,7 @@ MonoBehaviour:
     Gain: 0
   DamageType: 1
   Cost: 30
-  Name: Motivation Shouter
+  Name: Motivator
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0

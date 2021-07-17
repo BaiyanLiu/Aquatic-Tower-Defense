@@ -1464,7 +1464,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 21
+  m_SortingOrder: 41
   m_TargetDisplay: 0
 --- !u!1 &403613159
 GameObject:
@@ -5036,7 +5036,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 31
+  m_SortingOrder: 51
   m_TargetDisplay: 0
 --- !u!1 &1290526190
 GameObject:
@@ -5166,6 +5166,7 @@ MonoBehaviour:
   - {fileID: 3770581399121130389, guid: 6ddca706fe672fe4b8e3f4b900af8347, type: 3}
   - {fileID: 3770581399121130389, guid: 3ac716c82dfc0db47a2958fd5a93e836, type: 3}
   - {fileID: 3770581399121130389, guid: 880364d3579677a41a88fdd0a7495c40, type: 3}
+  - {fileID: 3770581399121130389, guid: f2c063268cbb04747b55ffc95c7d7795, type: 3}
   BuildMenu: {fileID: 1074200169}
   TowerDetails: {fileID: 341568269}
   CurrentNameText: {fileID: 1801079223}
@@ -7476,7 +7477,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 30
+  m_SortingOrder: 50
   m_TargetDisplay: 0
 --- !u!1 &1633327967
 GameObject:

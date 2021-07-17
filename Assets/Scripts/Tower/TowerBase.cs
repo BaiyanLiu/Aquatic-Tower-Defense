@@ -38,7 +38,7 @@ namespace Assets.Scripts.Tower
         public Attribute<float> SellCost { get; } = new Attribute<float>();
 
         public List<EffectBase> Effects { get; } = new List<EffectBase>();
-        public List<EffectBase> AllEffects { get; } = new List<EffectBase>();
+        public HashSet<EffectBase> AllEffects { get; } = new HashSet<EffectBase>();
         public List<ItemBase> Items { get; } = new List<ItemBase>();
         public bool IsInventoryFull => Items.Count == 6;
         public UpgradeBase[] Upgrades { get; private set; }
@@ -66,7 +66,7 @@ namespace Assets.Scripts.Tower
                 effect.UpdateLevel(Level);
                 effect.IsLoading = _isLoading;
             });
-            AllEffects.AddRange(Effects);
+            AllEffects.UnionWith(Effects);
 
             Upgrades = GetComponents<UpgradeBase>();
             for (var i = 0; i < Upgrades.Length; i++)
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Tower
             {
                 Items.ForEach(item =>
                 {
-                    AllEffects.AddRange(item.Effects);
+                    AllEffects.UnionWith(item.Effects);
                     item.UpdateTower(this);
                 });
             }
@@ -155,8 +155,11 @@ namespace Assets.Scripts.Tower
                 upgrade.Apply();
             }
                 
-            var damageAmount = AllEffects.OfType<EnemyTowerDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
+            var damageAmount = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
             Damage.Value *= 1f + damageAmount / 100f;
+
+            var attackSpeedAmount = AllEffects.OfType<AreaAttackSpeedEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+            AttackSpeed.Value /= 1f + attackSpeedAmount / 100f;
 
             SellCost.Value = (float) Math.Round(SellCost.Value);
 
@@ -166,7 +169,7 @@ namespace Assets.Scripts.Tower
         public void AddItem(ItemBase item)
         {
             Items.Add(item);
-            AllEffects.AddRange(item.Effects);
+            AllEffects.UnionWith(item.Effects);
             item.UpdateTower(this);
             UpdateStats();
             OnItemAdded?.Invoke(this, item);
@@ -175,7 +178,7 @@ namespace Assets.Scripts.Tower
         public void RemoveItem(int index)
         {
             Items[index].UpdateTower(null);
-            AllEffects.RemoveAll(effect => effect.Item == Items[index]);
+            AllEffects.RemoveWhere(effect => effect.Item == Items[index]);
             Items.RemoveAt(index);
             UpdateStats();
             OnItemRemoved?.Invoke(this, index);

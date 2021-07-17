@@ -30,6 +30,8 @@ namespace Assets.Scripts.Effect
         [UsedImplicitly]
         private void Start()
         {
+            BeforeStart();
+
             if (IsLoading)
             {
                 return;
@@ -44,6 +46,8 @@ namespace Assets.Scripts.Effect
             Amount.Value = Amount.Base;
             OnStart();
         }
+
+        protected virtual void BeforeStart() {}
 
         protected virtual void OnStart() {}
 

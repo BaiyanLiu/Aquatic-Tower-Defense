@@ -55,7 +55,7 @@ namespace Assets.Scripts.Enemy
         {
             get
             {
-                var armorAmount = AllEffects.OfType<EnemyArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+                var armorAmount = AllEffects.OfType<AreaArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
                 return (100f - Armor.Value - armorAmount) / 100f;
             }
         }
@@ -96,7 +96,7 @@ namespace Assets.Scripts.Enemy
             var statusColors = new SortedDictionary<string, Color>();
             foreach (var effect in AllEffects)
             {
-                if (effect.UpdateTimer(Time.deltaTime))
+                if (effect.UpdateTimer(Time.deltaTime) && effect.Source is TowerBase tower)
                 {
                     var damage = effect switch
                     {
@@ -105,7 +105,6 @@ namespace Assets.Scripts.Enemy
                         _ => 0f
                     };
 
-                    var tower = (TowerBase) effect.Source;
                     tower.EnemyAttacked(Math.Min(damage, Health));
                     if (UpdateHealth(-damage))
                     {

@@ -130,7 +130,11 @@ namespace Assets.Scripts.Tower
         {
             var placeholder = Instantiate(tower, position, Quaternion.identity, parent);
             placeholder.GetComponentInChildren<BoxCollider2D>().isTrigger = true;
-            placeholder.GetComponentInChildren<CircleCollider2D>().enabled = false;
+            foreach (var circleCollider in placeholder.GetComponentsInChildren<CircleCollider2D>())
+            {
+                circleCollider.enabled = false;
+            }
+            placeholder.GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             placeholder.GetComponentInChildren<Attack>().enabled = false;
             return placeholder;
         }

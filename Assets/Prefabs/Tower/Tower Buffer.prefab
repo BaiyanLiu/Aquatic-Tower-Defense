@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1135970162863796813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8768208834987620551}
+  - component: {fileID: 7524039067410541560}
+  m_Layer: 2
+  m_Name: Effect Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8768208834987620551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135970162863796813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3770581398949360469}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7524039067410541560
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135970162863796813}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &3770581398949360468
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,16 +58,10 @@ GameObject:
   - component: {fileID: 3770581398949360469}
   - component: {fileID: 3770581398949360470}
   - component: {fileID: 1296629577744321635}
-  - component: {fileID: 147651551839324577}
+  - component: {fileID: 7612008066619094430}
   - component: {fileID: 8005896541765222222}
   - component: {fileID: 4473937607893684439}
-  - component: {fileID: 3927289101254364998}
-  - component: {fileID: 8627544082476853557}
-  - component: {fileID: 8451658658167431494}
-  - component: {fileID: 1378209806385018255}
-  - component: {fileID: 4389433452198248231}
-  - component: {fileID: 8226097238999077675}
-  - component: {fileID: 2324685188523859300}
+  - component: {fileID: 4446671131706319831}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -38,7 +79,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8768208834987620551}
   m_Father: {fileID: 3770581399121130390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -83,8 +125,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f2686375bc298741962822349e7254f, type: 3}
-  m_Color: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b9af39a1a2b1c3d49aa919b54ca635fc, type: 3}
+  m_Color: {r: 1, g: 0.49803922, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +152,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &147651551839324577
+--- !u!50 &7612008066619094430
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -144,20 +186,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage:
-    Base: 30
-    Gain: 5
+    Base: 0
+    Gain: 0
   Range:
-    Base: 1.5
-    Gain: 2
+    Base: 0
+    Gain: 0
   AttackSpeed:
-    Base: 1
-    Gain: -0.1
+    Base: 0
+    Gain: 0
   ProjectileSpeed:
-    Base: 0.3
-    Gain: 0.03
-  DamageType: 2
-  Cost: 20
-  Name: Bomb Thrower
+    Base: 0
+    Gain: 0
+  DamageType: 1
+  Cost: 30
+  Name: Motivation Shouter
 --- !u!114 &4473937607893684439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,14 +207,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 351c40bcc715aa34cb6158bb7474b73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 3878951531377574658, guid: 221584714f6527a4d862017dd7ac69f6, type: 3}
-  ProjectileColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
---- !u!114 &3927289101254364998
+  ProjectileColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &4446671131706319831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +223,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3770581398949360468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a44fdafb57b0b46a9208b8c1d7a649, type: 3}
+  m_Script: {fileID: 11500000, guid: 92da6a0e05a77f840bdc085ca67d10f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Duration:
@@ -191,122 +233,12 @@ MonoBehaviour:
     Base: 0
     Gain: 0
   Amount:
-    Base: 1.5
-    Gain: 0.2
---- !u!114 &8627544082476853557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d9378c1276c8164394db785de35b01a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Shrapnel
-  Icon: {fileID: 8749316955921980939, guid: 9019b83f187510a4ba2f975e70cd073d, type: 3}
-  Amount:
-  - 10
-  - 20
-  - 30
-  Cost: 0a0000000f00000014000000
---- !u!114 &8451658658167431494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0638a73f8e6ce4cb306f450e8b53c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Heightened Senses
-  Icon: {fileID: 8749316955921980939, guid: 5138ccd23d77ae84496b598832d81c5b, type: 3}
-  Amount:
-  - 0.5
-  - 1
-  - 1.5
-  Cost: 0f0000001400000019000000
---- !u!114 &1378209806385018255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ea24f7d3a6ace44bc799686cad86da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Quickness
-  Icon: {fileID: 8749316955921980939, guid: d085016dde0203e449fee7e0c8681a3d, type: 3}
-  Amount:
-  - -0.1
-  - -0.2
-  - -0.3
-  Cost: 14000000190000001e000000
---- !u!114 &4389433452198248231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb41254602322949a608df31e9350c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Aerodynamics
-  Icon: {fileID: 8749316955921980939, guid: 0431b1986af3c48429f9cf96069c5cf1, type: 3}
-  Amount:
-  - 0.05
-  - 0.1
-  - 0.15
-  Cost: 050000000a0000000f000000
---- !u!114 &8226097238999077675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a281a32ce755f4aba4b1b94857a49e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Faster Learning
-  Icon: {fileID: 8749316955921980939, guid: 1ffb778c4c870ad40968dec4da7f7504, type: 3}
-  Amount:
-  - 110
-  - 120
-  - 130
-  Cost: 0a0000000f00000014000000
---- !u!114 &2324685188523859300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770581398949360468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3af29a7ed21444da700918ef17a20c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Larger Explosion
-  Icon: {fileID: 8749316955921980939, guid: 16f4216e0f56f024b9b762a7783277db, type: 3}
-  Amount:
-  - 0.5
-  - 1
-  - 1.5
-  Cost: 140000001e00000028000000
+    Base: 10
+    Gain: 1
+  Range:
+    Base: 3
+    Gain: 0.3
+  Collider: {fileID: 7524039067410541560}
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3770581399121130390}
   m_Layer: 30
-  m_Name: Tower Splash
+  m_Name: Tower Buffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

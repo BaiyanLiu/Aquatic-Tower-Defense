@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public sealed class EnemyTowerDamageEffect : EnemyAreaEffect<TowerBase>
+    public sealed class AreaDamageEffect : AreaEffect<TowerBase>
     {
         public override string Name => "Electric Shock";
         protected override string AmountName => "Damage";

@@ -148,7 +148,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8430441423056619189}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -200,8 +200,10 @@ MonoBehaviour:
   Experience: 8
   Gold: 8
   Lives: 1
-  ItemChance: 0.1
   Name: Salmon Scout
+  Splits: 0
+  ItemChance: 0.1
+  ItemLevelBonus: 0
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -148,7 +148,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8430441423056619189}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -200,9 +200,10 @@ MonoBehaviour:
   Experience: 200
   Gold: 200
   Lives: 5
+  Name: Orca Leader
+  Splits: 0
   ItemChance: 2.5
   ItemLevelBonus: 5
-  Name: Orca Leader
 --- !u!114 &8430441423056619186
 MonoBehaviour:
   m_ObjectHideFlags: 0

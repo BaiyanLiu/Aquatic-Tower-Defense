@@ -92,6 +92,23 @@ namespace Assets.Scripts.Tower
         }
 
         [UsedImplicitly]
+        private void Update()
+        {
+            if (GameState.Instance.IsPaused || GameState.Instance.IsGameOver)
+            {
+                return;
+            }
+
+            foreach (var effect in AllEffects.Where(effect => effect.UpdateTimer(Time.deltaTime)))
+            {
+                if (GameState.Instance.IsWaveActive && effect is ExperienceTrickleEffect)
+                {
+                    UpdateExperience((int) effect.Amount.Value);
+                }
+            }
+        }
+
+        [UsedImplicitly]
         private void OnDestroy()
         {
             OnDestroyed?.Invoke(this, transform.parent.gameObject);
@@ -154,9 +171,11 @@ namespace Assets.Scripts.Tower
             {
                 upgrade.Apply();
             }
-                
-            var damageDecreaseAmount = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
-            Damage.Value *= 1f + damageDecreaseAmount / 100f;
+
+            var damageAmounts = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).ToArray();
+            var damageIncreaseAmount = damageAmounts.Where(amount => amount > 0f).Prepend(0f).Max();
+            var damageDecreaseAmount = damageAmounts.Where(amount => amount < 0f).Prepend(0f).Min();
+            Damage.Value *= 1f + (damageIncreaseAmount + damageDecreaseAmount) / 100f;
 
             var attackSpeedIncreaseAmount = AllEffects.OfType<AreaAttackSpeedEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
             AttackSpeed.Value /= 1f + attackSpeedIncreaseAmount / 100f;

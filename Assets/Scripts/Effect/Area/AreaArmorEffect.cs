@@ -5,8 +5,9 @@ namespace Assets.Scripts.Effect.Area
 {
     public sealed class AreaArmorEffect : AreaEffect<EnemyBase>
     {
-        public override string Name => Amount.Base > 0f ? "Armor Chant" : "Tremble";
+        public bool IsIncrease;
+        public override string Name => IsIncrease ? "Armor Chant" : "Tremble";
         protected override string AmountName => "Armor";
-        public override Color StatusColor => Amount.Base > 0f ? Colors.Instance.Yellow : Colors.Instance.Purple;
+        public override Color StatusColor => IsIncrease ? Colors.Instance.Yellow : Colors.Instance.Purple;
     }
 }

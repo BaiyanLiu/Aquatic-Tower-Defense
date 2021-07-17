@@ -243,6 +243,7 @@ MonoBehaviour:
     Base: 3
     Gain: 0.3
   Collider: {fileID: 4434856799614273922}
+  IsIncrease: 1
 --- !u!114 &3329846002015028738
 MonoBehaviour:
   m_ObjectHideFlags: 0

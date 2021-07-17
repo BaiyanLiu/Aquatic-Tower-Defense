@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 1301290080611682111}
   - component: {fileID: 8199907682141333081}
   - component: {fileID: 1575639559358581314}
+  - component: {fileID: 7889455781598770809}
+  - component: {fileID: 4385066599583076513}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -187,7 +189,7 @@ MonoBehaviour:
     Gain: 0.5
   Frequency:
     Base: 1
-    Gain: 0.1
+    Gain: -0.1
   Amount:
     Base: 1
     Gain: 0.1
@@ -267,6 +269,52 @@ MonoBehaviour:
   - 0.2
   - 0.3
   Cost: 050000000a0000000f000000
+--- !u!114 &7889455781598770809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ec6bda436cea4409ab69e92fd83bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Shrapnel
+  Icon: {fileID: 8749316955921980939, guid: 16f4216e0f56f024b9b762a7783277db, type: 3}
+  Amount:
+  - 0.5
+  - 1
+  - 1.5
+  Cost: 1e0000002800000032000000
+--- !u!114 &4385066599583076513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abcfdb23d570f8409d3198a19e2a57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Serrated Blades
+  Icon: {fileID: 8749316955921980939, guid: f10e4466fba4dd449b0ace386feca7bc, type: 3}
+  Amount:
+  - 0.15
+  - 0.3
+  - 0.45
+  Cost: 140000001e00000028000000
+  Duration:
+  - 0.5
+  - 1
+  - 1.5
+  Frequency:
+  - -0.05
+  - -0.1
+  - -0.15
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0

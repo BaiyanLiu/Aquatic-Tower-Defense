@@ -68,7 +68,7 @@ namespace Assets.Scripts.Upgrade
 
         public virtual void OnApply() {}
 
-        public string FormatDisplayText<T>(string amountName, T[] amount, bool isCost)
+        public string FormatDisplayText<T>(string amountName, T[] amount, bool includeUnit = true)
         {
             var amountSb = new StringBuilder();
             for (var i = 0; i < amount.Length; i++)
@@ -91,14 +91,15 @@ namespace Assets.Scripts.Upgrade
                 {
                     amountSb.Append(" / ");
                 }
-                amountSb.Append($"<color={color}>{amount[i]}{(isCost ? "" : AmountUnit)}</color>");
+                var unit = includeUnit ? AmountUnit : "";
+                amountSb.Append($"<color={color}>{amount[i]}{unit}</color>");
             }
             return $"{amountName}: {amountSb}";
         }
 
         public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount, false)};
+            return new List<string> {FormatDisplayText(AmountName, Amount)};
         }
     }
 }

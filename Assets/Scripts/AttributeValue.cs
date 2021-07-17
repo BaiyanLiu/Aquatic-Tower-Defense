@@ -3,12 +3,12 @@ using System;
 namespace Assets.Scripts
 {
     [Serializable]
-    public class Attribute<T> : ICloneable
+    public class AttributeValue : ICloneable
     {
-        public T Base;
-        public T Gain;
+        public float Base;
+        public float Gain;
 
-        public T Value { get; set; }
+        public float Value { get; set; }
 
         public object Clone()
         {

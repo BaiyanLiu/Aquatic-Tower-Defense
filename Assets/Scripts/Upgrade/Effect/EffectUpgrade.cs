@@ -34,9 +34,9 @@ namespace Assets.Scripts.Upgrade.Effect
 
         protected virtual void InitForLoading()
         {
-            Effect.Duration = new Attribute<float>();
-            Effect.Frequency = new Attribute<float>();
-            Effect.Amount = new Attribute<float>();
+            Effect.Duration = new AttributeValue();
+            Effect.Frequency = new AttributeValue();
+            Effect.Amount = new AttributeValue();
         }
     }
 }

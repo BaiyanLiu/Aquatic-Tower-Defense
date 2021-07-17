@@ -40,7 +40,16 @@ namespace Assets.Scripts.Tower
 
             for (var i = 0; i < Towers.Length; i++)
             {
-                var keyCode = KeyCode.Alpha1 + i;
+                var keyCode = KeyCode.None;
+                if (i < 9)
+                {
+                    keyCode = KeyCode.Alpha1 + i;
+                }
+                else if (i == 9)
+                {
+                    keyCode = KeyCode.Alpha0;
+                }
+
                 _towers[keyCode] = Towers[i];
 
                 var buildMenuTower = CreatePlaceholder(Towers[i], Vector2.zero, BuildMenu.transform);

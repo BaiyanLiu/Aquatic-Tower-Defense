@@ -8,9 +8,9 @@ namespace Assets.Scripts.Effect
 {
     public abstract class EffectBase : MonoBehaviour, ICloneable, IEqualityComparer<EffectBase>
     {
-        public Attribute<float> Duration;
-        public Attribute<float> Frequency;
-        public Attribute<float> Amount;
+        public AttributeValue Duration;
+        public AttributeValue Frequency;
+        public AttributeValue Amount;
 
         public MonoBehaviour Source { get; set; }
         public ItemBase Item { get; set; }
@@ -37,9 +37,9 @@ namespace Assets.Scripts.Effect
                 return;
             }
 
-            Duration ??= new Attribute<float>();
-            Frequency ??= new Attribute<float>();
-            Amount ??= new Attribute<float>();
+            Duration ??= new AttributeValue();
+            Frequency ??= new AttributeValue();
+            Amount ??= new AttributeValue();
 
             Duration.Value = Duration.Base;
             Frequency.Value = Frequency.Base;
@@ -81,19 +81,20 @@ namespace Assets.Scripts.Effect
             return new List<string> {FormatDisplayText(AmountName, Amount)};
         }
 
-        public string FormatDisplayText<T>(string attributeName, Attribute<T> attribute, bool includeUnit = true)
+        public string FormatDisplayText(string attributeName, AttributeValue attribute, bool includeUnit = true)
         {
+            var sign = attribute.Gain > 0f ? "+" : "";
             var unit = includeUnit ? AmountUnit : "";
-            return $"{attributeName}: {attribute.Value}{unit}" + (IncludeGain ? $" (+{attribute.Gain}{unit})" : "");
+            return $"{attributeName}: {attribute.Value}{unit}" + (IncludeGain ? $" ({sign}{attribute.Gain}{unit})" : "");
         }
 
         public virtual object Clone()
         {
             var clone = (EffectBase) MemberwiseClone();
             clone._effectTimer = Frequency.Value;
-            clone.Duration = (Attribute<float>) Duration.Clone();
-            clone.Frequency = (Attribute<float>) Frequency.Clone();
-            clone.Amount = (Attribute<float>) Amount.Clone();
+            clone.Duration = (AttributeValue) Duration.Clone();
+            clone.Frequency = (AttributeValue) Frequency.Clone();
+            clone.Amount = (AttributeValue) Amount.Clone();
             return clone;
         }
 

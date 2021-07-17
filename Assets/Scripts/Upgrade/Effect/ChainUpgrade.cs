@@ -20,7 +20,7 @@ namespace Assets.Scripts.Upgrade.Effect
         protected override void InitForLoading()
         {
             base.InitForLoading();
-            Effect.Range = new Attribute<float>();
+            Effect.Range = new AttributeValue();
         }
 
         public override List<string> GetAmountDisplayText()

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Effect.Area
 {
     public abstract class AreaEffect<T> : EffectBase where T : IHasEffect
     {
-        public Attribute<float> Range;
+        public AttributeValue Range;
         public CircleCollider2D Collider;
 
         public override bool IsConstant => true;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Effect.Area
 
         protected override void OnStart()
         {
-            Range ??= new Attribute<float>();
+            Range ??= new AttributeValue();
             Collider.radius = Range.Value = Range.Base;
         }
 
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Effect.Area
         public override object Clone()
         {
             var clone = (AreaEffect<T>) base.Clone();
-            clone.Range = (Attribute<float>) Range.Clone();
+            clone.Range = (AttributeValue) Range.Clone();
             return clone;
         }
 

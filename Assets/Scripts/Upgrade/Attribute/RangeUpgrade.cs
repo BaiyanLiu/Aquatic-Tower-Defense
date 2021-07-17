@@ -6,6 +6,6 @@ namespace Assets.Scripts.Upgrade.Attribute
     public sealed class RangeUpgrade : AttributeUpgrade
     {
         protected override string AmountName => "Range";
-        protected override Attribute<float> Attribute => Tower.Range;
+        protected override AttributeValue Attribute => Tower.Range;
     }
 }

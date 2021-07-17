@@ -15,8 +15,8 @@ namespace Assets.Scripts.Enemy
         public event EventHandler<GameObject> OnDie;
         public event EventHandler<GameObject> OnDestroyed;
 
-        public Attribute<float> MaxHealth;
-        public Attribute<float> Armor;
+        public AttributeValue MaxHealth;
+        public AttributeValue Armor;
 
         public float Speed;
         public ArmorType ArmorType;
@@ -55,8 +55,10 @@ namespace Assets.Scripts.Enemy
         {
             get
             {
-                var armorAmount = AllEffects.OfType<AreaArmorEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
-                return (100f - Armor.Value - armorAmount) / 100f;
+                var armorAmounts = AllEffects.OfType<AreaArmorEffect>().Select(effect => effect.Amount.Value).ToArray();
+                var armorIncreaseAmount = armorAmounts.Where(amount => amount > 0f).Prepend(0f).Max();
+                var armorDecreaseAmount = armorAmounts.Where(amount => amount < 0f).Prepend(0f).Min();
+                return (100f - Armor.Value - armorIncreaseAmount - armorDecreaseAmount) / 100f;
             }
         }
 

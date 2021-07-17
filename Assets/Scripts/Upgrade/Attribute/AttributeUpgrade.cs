@@ -2,7 +2,7 @@ namespace Assets.Scripts.Upgrade.Attribute
 {
     public abstract class AttributeUpgrade : UpgradeBase
     {
-        protected abstract Attribute<float> Attribute { get; }
+        protected abstract AttributeValue Attribute { get; }
 
         public sealed override void OnApply()
         {

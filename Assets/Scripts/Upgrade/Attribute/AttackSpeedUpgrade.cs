@@ -6,6 +6,6 @@ namespace Assets.Scripts.Upgrade.Attribute
     public sealed class AttackSpeedUpgrade : AttributeUpgrade
     {
         protected override string AmountName => "A. Speed";
-        protected override Attribute<float> Attribute => Tower.AttackSpeed;
+        protected override AttributeValue Attribute => Tower.AttackSpeed;
     }
 }

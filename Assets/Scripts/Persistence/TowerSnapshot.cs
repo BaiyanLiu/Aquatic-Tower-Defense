@@ -13,7 +13,7 @@ namespace Assets.Scripts.Persistence
         public int ExperienceRequired;
         public float DamageDone;
         public int Kills;
-        public Attribute<float> SellCost;
+        public AttributeValue SellCost;
         public ItemSnapshot[] Items;
         public int[] Upgrades;
     }

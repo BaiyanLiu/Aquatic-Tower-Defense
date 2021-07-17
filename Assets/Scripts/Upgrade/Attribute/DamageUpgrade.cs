@@ -6,6 +6,6 @@ namespace Assets.Scripts.Upgrade.Attribute
     public sealed class DamageUpgrade : AttributeUpgrade
     {
         protected override string AmountName => "Damage";
-        protected override Attribute<float> Attribute => Tower.Damage;
+        protected override AttributeValue Attribute => Tower.Damage;
     }
 }

@@ -5,7 +5,7 @@ namespace Assets.Scripts.Effect.Innate
 {
     public sealed class ChainEffect : InnateEffect
     {
-        public Attribute<float> Range;
+        public AttributeValue Range;
 
         public override string Name => "Chain Attack";
         protected override string AmountName => "Damage";
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Effect.Innate
 
         protected override void OnStart()
         {
-            Range ??= new Attribute<float>();
+            Range ??= new AttributeValue();
             Range.Value = Range.Base;
         }
 
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Effect.Innate
         public override object Clone()
         {
             var clone = (ChainEffect) base.Clone();
-            clone.Range = (Attribute<float>) Range.Clone();
+            clone.Range = (AttributeValue) Range.Clone();
             return clone;
         }
     }

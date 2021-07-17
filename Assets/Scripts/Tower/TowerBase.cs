@@ -20,10 +20,10 @@ namespace Assets.Scripts.Tower
         public event EventHandler OnLevelUp; 
         public event EventHandler<GameObject> OnDestroyed;
 
-        public Attribute<float> Damage;
-        public Attribute<float> Range;
-        public Attribute<float> AttackSpeed;
-        public Attribute<float> ProjectileSpeed;
+        public AttributeValue Damage;
+        public AttributeValue Range;
+        public AttributeValue AttackSpeed;
+        public AttributeValue ProjectileSpeed;
 
         public DamageType DamageType;
         public int Cost;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Tower
 
         public float DamageDone { get; set; }
         public int Kills { get; set; }
-        public Attribute<float> SellCost { get; } = new Attribute<float>();
+        public AttributeValue SellCost { get; } = new AttributeValue();
 
         public List<EffectBase> Effects { get; } = new List<EffectBase>();
         public HashSet<EffectBase> AllEffects { get; } = new HashSet<EffectBase>();
@@ -155,11 +155,11 @@ namespace Assets.Scripts.Tower
                 upgrade.Apply();
             }
                 
-            var damageAmount = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
-            Damage.Value *= 1f + damageAmount / 100f;
+            var damageDecreaseAmount = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Min();
+            Damage.Value *= 1f + damageDecreaseAmount / 100f;
 
-            var attackSpeedAmount = AllEffects.OfType<AreaAttackSpeedEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
-            AttackSpeed.Value /= 1f + attackSpeedAmount / 100f;
+            var attackSpeedIncreaseAmount = AllEffects.OfType<AreaAttackSpeedEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
+            AttackSpeed.Value /= 1f + attackSpeedIncreaseAmount / 100f;
 
             SellCost.Value = (float) Math.Round(SellCost.Value);
 

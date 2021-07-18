@@ -70,7 +70,7 @@ namespace Assets.Scripts.Tower
                     var hits = Physics2D.OverlapCircleAll(transform.position, splashEffect.Amount.Value, 1 << 29);
                     foreach (var hit in hits)
                     {
-                        enemies.Add(hit.gameObject.GetComponent<EnemyBase>());
+                        enemies.Add(hit.GetComponent<EnemyBase>());
                     }
                 }
 

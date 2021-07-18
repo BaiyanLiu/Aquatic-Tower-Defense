@@ -1,9 +1,8 @@
-using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public sealed class AreaAttackSpeedEffect : AreaEffect<TowerBase>
+    public sealed class AreaAttackSpeedEffect : AreaTowerEffect
     {
         public override string Name => "Motivation";
         protected override string AmountName => "A. Speed";

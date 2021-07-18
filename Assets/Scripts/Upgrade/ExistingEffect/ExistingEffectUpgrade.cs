@@ -11,7 +11,7 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
 
         protected override void OnStart()
         {
-            Effect = gameObject.GetComponent<T>();
+            Effect = GetComponent<T>();
         }
 
         protected float GetDelta(float[] attribute)

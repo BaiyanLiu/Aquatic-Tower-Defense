@@ -64,6 +64,8 @@ GameObject:
   - component: {fileID: 5066867013238346339}
   - component: {fileID: 2511036226925449313}
   - component: {fileID: 725692515289634774}
+  - component: {fileID: 3954028546082362890}
+  - component: {fileID: 1831247719138389620}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -83,6 +85,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8768208834987620551}
+  - {fileID: 330874419230209023}
   m_Father: {fileID: 3770581399121130390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,6 +287,53 @@ MonoBehaviour:
   - 5
   - 4.5
   - 4
+--- !u!114 &3954028546082362890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0029a0377269a7745adf677d3be8c6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Fearsome Prescense
+  Icon: {fileID: 8749316955921980939, guid: 9062e7f345baa884196ac4458382c156, type: 3}
+  Amount:
+  - 0.3
+  - 0.4
+  - 0.5
+  Cost: 190000001e00000023000000
+  Range:
+  - 2
+  - 2.5
+  - 3
+  Collider: {fileID: 6999184883746137671}
+--- !u!114 &1831247719138389620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770581398949360468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26c11154d5bd2f4e9b8740b6a740feb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Piercing Words
+  Icon: {fileID: 8749316955921980939, guid: 5016f8eda1a2c2f4dbf74c68bcf37a9d, type: 3}
+  Amount:
+  - -2
+  - -4
+  - -6
+  Cost: 140000001e00000028000000
+  Range:
+  - 0.5
+  - 1
+  - 1.5
 --- !u!1 &3770581399031461660
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,3 +503,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7448711010035581090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330874419230209023}
+  - component: {fileID: 6999184883746137671}
+  m_Layer: 2
+  m_Name: Upgrade Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &330874419230209023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448711010035581090}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3770581398949360469}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6999184883746137671
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448711010035581090}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1

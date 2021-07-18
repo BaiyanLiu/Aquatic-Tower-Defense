@@ -1,9 +1,8 @@
-using Assets.Scripts.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public sealed class AreaDamageEffect : AreaEffect<TowerBase>
+    public sealed class AreaDamageEffect : AreaTowerEffect
     {
         public bool IsIncrease;
         public override string Name => IsIncrease ? "Empower" : "Electric Shock";

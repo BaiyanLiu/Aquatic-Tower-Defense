@@ -59,7 +59,7 @@ namespace Assets.Scripts.Tower
                 _enemies.Add(collision.gameObject);
                 _target = _enemies.First();
 
-                var enemy = collision.gameObject.GetComponent<EnemyBase>();
+                var enemy = collision.GetComponent<EnemyBase>();
                 enemy.OnDie += HandleRemoveEnemy;
                 enemy.OnDestroyed += HandleRemoveEnemy;
             }

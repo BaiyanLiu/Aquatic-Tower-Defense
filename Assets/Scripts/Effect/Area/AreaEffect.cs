@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public abstract class AreaEffect<T> : EffectBase where T : IHasEffect
+    public abstract class AreaEffect : EffectBase
     {
         public AttributeValue Range;
         public CircleCollider2D Collider;
 
         public override bool IsConstant => true;
 
-        private readonly ISet<T> _targets = new HashSet<T>();
+        private readonly ISet<IHasEffect> _targets = new HashSet<IHasEffect>();
 
         protected override void BeforeStart()
         {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Effect.Area
             }
         }
 
-        protected void HandleSourceDestroyed(object sender, GameObject source)
+        private void HandleSourceDestroyed(object sender, GameObject source)
         {
             foreach (var target in _targets)
             {
@@ -40,21 +40,35 @@ namespace Assets.Scripts.Effect.Area
         protected override void OnStart()
         {
             Range ??= new AttributeValue();
-            Collider.radius = Range.Value = Range.Base;
+            UpdateRange(Range.Base);
         }
 
         public override void LevelUp()
         {
             base.LevelUp();
-            Range.Value += Range.Gain;
-            Collider.radius = Range.Value;
+            UpdateRange(Range.Value + Range.Gain);
         }
 
         public override void UpdateLevel(int level)
         {
             base.UpdateLevel(level);
-            Range.Value = Range.Base + Range.Gain * (level - 1);
-            Collider.radius = Range.Value;
+            UpdateRange(Range.Base + Range.Gain * (level - 1));
+        }
+
+        public void UpdateAmount(float amount)
+        {
+            Amount.Value = amount;
+            foreach (var target in _targets)
+            {
+                RefreshEffect(target);
+            }
+        }
+
+        protected virtual void RefreshEffect(IHasEffect target) {}
+
+        public void UpdateRange(float range)
+        {
+            Collider.radius = Range.Value = range;
         }
 
         public override List<string> GetAmountDisplayText()
@@ -66,7 +80,7 @@ namespace Assets.Scripts.Effect.Area
 
         public override object Clone()
         {
-            var clone = (AreaEffect<T>) base.Clone();
+            var clone = (AreaEffect) base.Clone();
             clone.Range = (AttributeValue) Range.Clone();
             return clone;
         }
@@ -74,12 +88,7 @@ namespace Assets.Scripts.Effect.Area
         [UsedImplicitly]
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!IsInCollider(collision))
-            {
-                return;
-            }
-
-            var target = collision.gameObject.GetComponent<T>();
+            var target = GetValidTarget(collision, true);
             if (target != null)
             {
                 _targets.Add(target);
@@ -90,12 +99,7 @@ namespace Assets.Scripts.Effect.Area
         [UsedImplicitly]
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (IsInCollider(collision))
-            {
-                return;
-            }
-
-            var target = collision.gameObject.GetComponent<T>();
+            var target = GetValidTarget(collision, false);
             if (target != null)
             {
                 _targets.Remove(target);
@@ -103,11 +107,23 @@ namespace Assets.Scripts.Effect.Area
             }
         }
 
-        private bool IsInCollider(Collider2D collision)
+        private IHasEffect GetValidTarget(Collider2D collision, bool isEnter)
         {
+            if (collision.GetComponent<Interaction>() == null)
+            {
+                return null;
+            }
+
             var hitColliders = new List<Collider2D>();
             collision.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
-            return hitColliders.Contains(Collider);
+            if (hitColliders.Contains(Collider) != isEnter)
+            {
+                return null;
+            }
+
+            return GetTargetFromCollision(collision);
         }
+
+        protected abstract IHasEffect GetTargetFromCollision(Collider2D collision);
     }
 }

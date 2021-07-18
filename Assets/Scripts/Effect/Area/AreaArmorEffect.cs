@@ -1,9 +1,8 @@
-using Assets.Scripts.Enemy;
 using UnityEngine;
 
 namespace Assets.Scripts.Effect.Area
 {
-    public sealed class AreaArmorEffect : AreaEffect<EnemyBase>
+    public sealed class AreaArmorEffect : EnemyAreaEffect
     {
         public bool IsIncrease;
         public override string Name => IsIncrease ? "Armor Chant" : "Tremble";

@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Effect.Area;
 using Assets.Scripts.Effect.Innate;
+using Assets.Scripts.Effect.Innate.Attribute;
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Item;
 using Assets.Scripts.Persistence;
@@ -159,23 +160,10 @@ namespace Assets.Scripts.Tower
             ProjectileSpeed.Value = ProjectileSpeed.Base + ProjectileSpeed.Gain * (Level - 1);
             SellCost.Value = SellCost.Base + SellCost.Gain * (Level - 1);
 
-            foreach (var effect in Items.SelectMany(item => item.Effects))
+            var attributeEffects = Items.SelectMany(item => item.Effects).OfType<AttributeEffect>().ToArray();
+            foreach (var effect in attributeEffects.Where(effect => !effect.IsMultiply))
             {
-                switch (effect)
-                {
-                    case DamageEffect _:
-                        Damage.Value += effect.Amount.Value;
-                        break;
-                    case AttackSpeedEffect _:
-                        AttackSpeed.Value += effect.Amount.Value;
-                        break;
-                    case RangeEffect _:
-                        Range.Value += effect.Amount.Value;
-                        break;
-                    case ProjectileSpeedEffect _:
-                        ProjectileSpeed.Value += effect.Amount.Value;
-                        break;
-                }
+                effect.GetAttribute(this).Value += effect.Amount.Value;
             }
 
             foreach (var upgrade in Upgrades)
@@ -190,6 +178,11 @@ namespace Assets.Scripts.Tower
 
             var attackSpeedIncreaseAmount = AllEffects.OfType<AreaAttackSpeedEffect>().Select(effect => effect.Amount.Value).Prepend(0f).Max();
             AttackSpeed.Value /= 1f + attackSpeedIncreaseAmount / 100f;
+
+            foreach (var effect in attributeEffects.Where(effect => effect.IsMultiply))
+            {
+                effect.GetAttribute(this).Value *= effect.Amount.Value;
+            }
 
             SellCost.Value = (float) Math.Round(SellCost.Value);
 

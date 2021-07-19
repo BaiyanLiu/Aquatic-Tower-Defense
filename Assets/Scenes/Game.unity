@@ -2016,8 +2016,11 @@ MonoBehaviour:
   EnemyDetails: {fileID: 1897920592}
   Inventory: {fileID: 1659512927}
   ItemPool:
-  - {fileID: 7877031837133017287, guid: 29145b80a3a266046b747dd8b6e2b9dd, type: 3}
   - {fileID: 5972207438792254837, guid: c093207afe06cf14cb8d1df08cb3b86c, type: 3}
+  - {fileID: 5972207438792254837, guid: ce7c81774a8ae184895d25c7ed1f0609, type: 3}
+  - {fileID: 5972207438792254837, guid: 87776bd62de8314428be3482e470434d, type: 3}
+  - {fileID: 5972207438792254837, guid: 81a5b9abfca9378478a4dca3f4c31275, type: 3}
+  - {fileID: 7877031837133017287, guid: 29145b80a3a266046b747dd8b6e2b9dd, type: 3}
   - {fileID: 7955365884930663909, guid: 5bc4a93604aa5ff4f889c80d75a8583e, type: 3}
   - {fileID: 2320243201657445213, guid: df39044d39846e14fa4aa459167d9030, type: 3}
   - {fileID: 548244849276001037, guid: 64ab7ad33af1d2e47aa6915ff944fff6, type: 3}

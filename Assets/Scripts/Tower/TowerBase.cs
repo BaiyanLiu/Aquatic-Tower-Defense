@@ -161,9 +161,20 @@ namespace Assets.Scripts.Tower
 
             foreach (var effect in Items.SelectMany(item => item.Effects))
             {
-                if (effect is DamageEffect)
+                switch (effect)
                 {
-                    Damage.Value += effect.Amount.Value;
+                    case DamageEffect _:
+                        Damage.Value += effect.Amount.Value;
+                        break;
+                    case AttackSpeedEffect _:
+                        AttackSpeed.Value += effect.Amount.Value;
+                        break;
+                    case RangeEffect _:
+                        Range.Value += effect.Amount.Value;
+                        break;
+                    case ProjectileSpeedEffect _:
+                        ProjectileSpeed.Value += effect.Amount.Value;
+                        break;
                 }
             }
 

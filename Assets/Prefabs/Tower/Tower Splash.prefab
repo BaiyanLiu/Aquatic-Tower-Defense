@@ -148,7 +148,7 @@ MonoBehaviour:
     Gain: 5
   Range:
     Base: 1.5
-    Gain: 2
+    Gain: 0.2
   AttackSpeed:
     Base: 1
     Gain: -0.1

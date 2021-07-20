@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5457509088951664837}
   - component: {fileID: 5972207438792254837}
-  - component: {fileID: 5471004237554252297}
+  - component: {fileID: 2268905599836689590}
   m_Layer: 0
-  m_Name: Item Projectile Speed Multiply
+  m_Name: Item Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f3d65da8e7eab4aa5dc0341edeeda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Aerodynamic Design+
---- !u!114 &5471004237554252297
+  Name: Scavenging
+--- !u!114 &2268905599836689590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3993564470477678873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f89d912b6ef101c48aa2ebca01f4a9a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d68981c6880b4445b9eeb0d19e8ef20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Duration:
@@ -191,7 +191,6 @@ MonoBehaviour:
   Amount:
     Base: 110
     Gain: 10
-  IsMultiply: 1
 --- !u!1 &7867245850171613725
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,8 +263,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c33a36f71a468a45ba3ded12dd6ad59, type: 3}
-  m_Color: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e59dd4a199c6e5540b8a96b90cdccc9a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

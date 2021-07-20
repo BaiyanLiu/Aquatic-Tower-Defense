@@ -185,9 +185,14 @@ namespace Assets.Scripts
             return PathingHelper.ShortestPath(StartPosition.position, EndPosition.position, exclude).Count > 0;
         }
 
-        public void UpdateGold(int delta)
+        public void UpdateGold(int delta, TowerBase tower = null)
         {
-            Gold += delta;
+            var goldAmount = 100f;
+            if (tower != null)
+            {
+                goldAmount = tower.AllEffects.OfType<GoldEffect>().Select(effect => effect.Amount.Value).Prepend(100f).Max();
+            }
+            Gold += (int) (delta * goldAmount / 100f);
             GoldText.text = "G: " + Gold;
         }
 
@@ -285,6 +290,8 @@ namespace Assets.Scripts
 
         public void EnemyKilled(TowerBase tower, EnemyBase enemy)
         {
+            UpdateGold(enemy.Gold, tower);
+
             var towerItemChance = tower.AllEffects.OfType<ItemChanceEffect>().Select(effect => effect.Amount.Value).Prepend(100f).Max();
             while (!IsInventoryFull && enemy.ItemChance > 0f)
             {

@@ -170,7 +170,6 @@ namespace Assets.Scripts.Enemy
                 if (Health <= 0f)
                 {
                     OnDie?.Invoke(this, gameObject);
-                    GameState.Instance.UpdateGold(Gold);
                     _animator.SetBool("Dead", true);
                     return true;
                 }

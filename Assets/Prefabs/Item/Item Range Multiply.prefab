@@ -189,8 +189,8 @@ MonoBehaviour:
     Base: 0
     Gain: 0
   Amount:
-    Base: 1.1
-    Gain: 0.1
+    Base: 110
+    Gain: 10
   IsMultiply: 1
 --- !u!1 &7867245850171613725
 GameObject:

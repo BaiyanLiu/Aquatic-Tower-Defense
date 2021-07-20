@@ -102,9 +102,18 @@ namespace Assets.Scripts.Tower
 
             foreach (var effect in AllEffects.Where(effect => effect.UpdateTimer(Time.deltaTime)))
             {
-                if (GameState.Instance.IsWaveActive && effect is ExperienceTrickleEffect)
+                if (GameState.Instance.IsWaveActive)
                 {
-                    UpdateExperience((int) effect.Amount.Value);
+                    switch (effect)
+                    {
+                        case ExperienceTrickleEffect _:
+                            UpdateExperience((int) effect.Amount.Value);
+                            break;
+                        case GoldTrickleEffect _:
+                            GameState.Instance.UpdateGold((int) effect.Amount.Value, this);
+                            break;
+                    }
+                    
                 }
             }
         }
@@ -163,7 +172,7 @@ namespace Assets.Scripts.Tower
             var attributeEffects = Items.SelectMany(item => item.Effects).OfType<AttributeEffect>().ToArray();
             foreach (var effect in attributeEffects.Where(effect => !effect.IsMultiply))
             {
-                effect.GetAttribute(this).Value += effect.Amount.Value;
+                effect.Apply();
             }
 
             foreach (var upgrade in Upgrades)
@@ -181,7 +190,7 @@ namespace Assets.Scripts.Tower
 
             foreach (var effect in attributeEffects.Where(effect => effect.IsMultiply))
             {
-                effect.GetAttribute(this).Value *= effect.Amount.Value;
+                effect.Apply();
             }
 
             SellCost.Value = (float) Math.Round(SellCost.Value);

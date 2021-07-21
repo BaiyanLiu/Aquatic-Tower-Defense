@@ -59,7 +59,7 @@ namespace Assets.Scripts.Screens
             foreach (var upgrade in upgrades)
             {
                 var upgradeObject = Instantiate(upgrade.Icon, Vector2.zero, Quaternion.identity, UpgradesParent);
-                upgradeObject.transform.localPosition = new Vector3(_upgrades.Count % 6 * _positionOffset, 0f, -100f);
+                upgradeObject.transform.localPosition = new Vector2(_upgrades.Count % 6 * _positionOffset, 0f);
                 upgradeObject.transform.localScale = _scale;
                 foreach (var spriteRenderer in upgradeObject.GetComponentsInChildren<SpriteRenderer>())
                 {

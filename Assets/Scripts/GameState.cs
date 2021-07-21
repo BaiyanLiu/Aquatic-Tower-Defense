@@ -40,6 +40,7 @@ namespace Assets.Scripts
         public TowerDetails TowerDetails;
         public EnemyDetails EnemyDetails;
         public Inventory Inventory;
+        public WavePreview WavePreview;
 
         public ItemBase[] ItemPool;
 
@@ -89,6 +90,7 @@ namespace Assets.Scripts
             UpdateLives(0);
             LivesLostText.enabled = false;
             Inventory.GetComponent<RectTransform>().anchoredPosition = new Vector2(PlayerPrefs.GetFloat(Settings.InventoryX), PlayerPrefs.GetFloat(Settings.InventoryY));
+            ResetWaveStatus();
 
             _snapshot = new Snapshot();
             UpdateSnapshot();
@@ -151,6 +153,7 @@ namespace Assets.Scripts
                 wave.OnCreateEnemy += HandleCreateEnemy;
                 wave.OnWaveCleared += HandleWaveCleared;
                 wave.StartWave(_currWave);
+                WavePreview.UpdateWave(null, -1);
             }
         }
 
@@ -178,6 +181,7 @@ namespace Assets.Scripts
                 _pathTiles.ForEach(Destroy);
                 _pathTiles.Clear();
             }
+            WavePreview.UpdateWave(_waves[(_currWave + 1) % _waves.Length], _currWave + 1);
         }
 
         public bool HasPath(Vector2 exclude)

@@ -180,7 +180,10 @@ namespace Assets.Scripts.Tower
                 upgrade.Apply();
             }
 
-            var damageAmounts = AllEffects.OfType<AreaDamageEffect>().Select(effect => effect.Amount.Value).ToArray();
+            var damageAmounts = AllEffects.OfType<AreaDamageEffect>()
+                .Where(effect => effect.Amount != null)
+                .Select(effect => effect.Amount.Value)
+                .ToArray();
             var damageIncreaseAmount = damageAmounts.Where(amount => amount > 0f).Prepend(0f).Max();
             var damageDecreaseAmount = damageAmounts.Where(amount => amount < 0f).Prepend(0f).Min();
             Damage.Value *= 1f + (damageIncreaseAmount + damageDecreaseAmount) / 100f;

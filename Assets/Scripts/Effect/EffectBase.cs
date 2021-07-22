@@ -68,7 +68,7 @@ namespace Assets.Scripts.Effect
         public bool UpdateTimer(float deltaTime)
         {
             _effectTimer -= deltaTime;
-            if (_effectTimer <= 0f)
+            if (_effectTimer <= 0f && Frequency != null)
             {
                 _effectTimer = Frequency.Value;
                 return true;

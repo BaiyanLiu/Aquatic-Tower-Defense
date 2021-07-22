@@ -354,6 +354,7 @@ namespace Assets.Scripts
                     wave.OnCreateEnemy -= HandleCreateEnemy;
                     wave.OnWaveCleared -= HandleWaveCleared;
                     wave.IsActive = false;
+                    WavePreview.UpdateWave(null, -1);
 
                     foreach (Transform enemy in EnemiesParent)
                     {

@@ -191,6 +191,7 @@ MonoBehaviour:
   Amount:
     Base: -0.05
     Gain: -0.01
+  IsMultiply: 0
 --- !u!1 &7867245850171613725
 GameObject:
   m_ObjectHideFlags: 0

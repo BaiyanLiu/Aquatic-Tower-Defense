@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0029a0377269a7745adf677d3be8c6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Fearsome Prescense
+  Name: Chilling Presence
   Icon: {fileID: 8749316955921980939, guid: 9062e7f345baa884196ac4458382c156, type: 3}
   Amount:
   - 0.3

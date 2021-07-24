@@ -197,7 +197,7 @@ namespace Assets.Scripts
                 goldAmount = tower.AllEffects.OfType<GoldEffect>().Select(effect => effect.Amount.Value).Prepend(100f).Max();
             }
             Gold += (int) (delta * goldAmount / 100f);
-            GoldText.text = "G: " + Gold;
+            GoldText.text = Gold.ToString();
         }
 
         public void UpdateCost(int? cost)
@@ -216,7 +216,7 @@ namespace Assets.Scripts
         public void UpdateLives(int delta)
         {
             Lives += delta;
-            LivesText.text = "L: " + Lives;
+            LivesText.text = Lives.ToString();
             if (delta != 0)
             {
                 LivesLostText.text = Convert.ToString(delta);

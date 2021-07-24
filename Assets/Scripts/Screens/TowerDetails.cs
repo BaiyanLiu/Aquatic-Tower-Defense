@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Item;
 using Assets.Scripts.Tower;
@@ -38,14 +39,14 @@ namespace Assets.Scripts.Screens
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
-            LevelText.text = $"Level: {Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
-            DamageText.text = $"Damage: {Base.Damage.Value} (+{Base.Damage.Gain})";
-            RangeText.text = $"Range: {Base.Range.Value} (+{Base.Range.Gain})";
-            AttackSpeedText.text = $"A. Speed: {Base.AttackSpeed.Value} ({Base.AttackSpeed.Gain})";
-            ProjectileSpeedText.text = $"P. Speed: {Base.ProjectileSpeed.Value} (+{Base.ProjectileSpeed.Gain})";
-            DamageDoneText.text = "Dmg Done: " + Math.Round(Base.DamageDone);
-            KillsText.text = "Kills: " + Base.Kills;
-            DamageTypeText.text = "Damage Type: " + Base.DamageType;
+            LevelText.text = $"{Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
+            DamageText.text = $"{Math.Round(Base.Damage.Value, 2)} (+{Base.Damage.Gain})";
+            RangeText.text = $"{Math.Round(Base.Range.Value, 2)} (+{Base.Range.Gain})";
+            AttackSpeedText.text = $"{Math.Round(Base.AttackSpeed.Value, 2)} ({Base.AttackSpeed.Gain})";
+            ProjectileSpeedText.text = $"{Math.Round(Base.ProjectileSpeed.Value, 2)} (+{Base.ProjectileSpeed.Gain})";
+            DamageDoneText.text = Math.Round(Base.DamageDone).ToString(CultureInfo.InvariantCulture);
+            KillsText.text = Base.Kills.ToString();
+            DamageTypeText.text = Base.DamageType.ToString();
 
             if (!GameState.Instance.IsBuilding)
             {

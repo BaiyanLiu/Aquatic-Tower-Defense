@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Assets.Scripts.Effect;
 using Assets.Scripts.Enemy;
 using UnityEngine;
@@ -22,14 +23,14 @@ namespace Assets.Scripts.Screens
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
-            HealthText.text = $"Health : {Math.Max(0, Math.Ceiling(Base.Health))}/{Base.MaxHealth.Value}";
-            ArmorText.text = "Armor: " + Base.Armor.Value;
-            SpeedText.text = "Speed: " + Base.Speed;
-            ExperienceText.text = "Experience: " + Base.Experience;
-            GoldText.text = "Gold: " + Base.Gold;
-            LivesText.text = "Lives: " + Base.Lives;
-            ItemChanceText.text = $"Item Chance: {Base.ItemChance * 100}%";
-            ArmorTypeText.text = "Armor Type: " + Base.ArmorType;
+            HealthText.text = $"{Math.Max(0, Math.Ceiling(Base.Health))}/{Base.MaxHealth.Value}";
+            ArmorText.text = Base.Armor.Value.ToString(CultureInfo.InvariantCulture);
+            SpeedText.text = Base.Speed.ToString(CultureInfo.InvariantCulture);
+            ExperienceText.text = Base.Experience.ToString();
+            GoldText.text = Base.Gold.ToString();
+            LivesText.text =Base.Lives.ToString();
+            ItemChanceText.text = Base.ItemChance * 100 + "%";
+            ArmorTypeText.text = Base.ArmorType.ToString();
             return height;
         }
 

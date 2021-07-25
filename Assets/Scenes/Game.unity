@@ -1928,7 +1928,6 @@ MonoBehaviour:
   - {fileID: 5972207438792254837, guid: bbb717cb083293d4d9279b4af6867abe, type: 3}
   - {fileID: 5972207438792254837, guid: f083151730a817b4c80105e312405b3d, type: 3}
   Icons:
-  - {fileID: 21300000, guid: 3fad3c38300c91a41bc29cb4f9c6ee31, type: 3}
   - {fileID: 21300000, guid: bc348df3aee428b408ae2f04548abf77, type: 3}
   - {fileID: 21300000, guid: bf2632ed5ef01c045a109aa31bad317b, type: 3}
   - {fileID: 21300000, guid: 2caba0905f3dc0d45bf10b28b3e05d25, type: 3}

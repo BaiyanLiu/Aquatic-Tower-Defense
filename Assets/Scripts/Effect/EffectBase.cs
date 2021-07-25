@@ -17,8 +17,8 @@ namespace Assets.Scripts.Effect
         public bool IncludeGain { get; set; } = true;
 
         public abstract string Name { get; }
-        protected virtual string AmountName => "Amount";
         protected virtual string AmountUnit => "";
+        protected abstract Sprite AmountIcon { get; }
         public virtual Color StatusColor => Color.white;
         public virtual bool IsInnate => false;
         public virtual bool IsConstant => false;
@@ -78,14 +78,19 @@ namespace Assets.Scripts.Effect
 
         public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount)};
+            return new List<string> {FormatDisplayText(Amount)};
         }
 
-        public string FormatDisplayText(string attributeName, AttributeValue attribute, bool includeUnit = true)
+        public string FormatDisplayText(AttributeValue attribute, bool includeUnit = true)
         {
             var sign = attribute.Gain > 0f ? "+" : "";
             var unit = includeUnit ? AmountUnit : "";
             return $"{attribute.Value}{unit}" + (IncludeGain ? $" ({sign}{attribute.Gain}{unit})" : "");
+        }
+
+        public virtual List<Sprite> GetAmountIcon()
+        {
+            return new List<Sprite> {AmountIcon};
         }
 
         public virtual object Clone()

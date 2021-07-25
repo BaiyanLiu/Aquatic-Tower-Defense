@@ -1,5 +1,6 @@
 using Assets.Scripts.Tower;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Assets.Scripts.Effect.Innate.Attribute
 {
@@ -7,6 +8,7 @@ namespace Assets.Scripts.Effect.Innate.Attribute
     public sealed class AttackSpeedEffect : AttributeEffect
     {
         public override string Name => "A. Speed Increase";
+        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Stopwatch"];
 
         protected override AttributeValue GetAttribute(TowerBase tower)
         {

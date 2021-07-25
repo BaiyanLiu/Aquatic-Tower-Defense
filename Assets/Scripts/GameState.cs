@@ -43,6 +43,7 @@ namespace Assets.Scripts
         public WavePreview WavePreview;
 
         public ItemBase[] ItemPool;
+        public Sprite[] Icons;
 
         public bool IsPaused { get; set; }
         public bool IsBuilding { get; set; }
@@ -61,13 +62,14 @@ namespace Assets.Scripts
 
         public readonly Dictionary<string, GameObject> TowersByName = new Dictionary<string, GameObject>();
         public readonly Dictionary<string, ItemBase> ItemsByName = new Dictionary<string, ItemBase>();
+        public readonly Dictionary<string, Sprite> IconsByName = new Dictionary<string, Sprite>();
 
         private Wave[] _waves;
         private int _currWave = -1;
         private float _livesLostTimer;
         private readonly List<GameObject> _pathTiles = new List<GameObject>();
         private int _cost;
-
+        
         private bool _isLoading;
         private Snapshot _snapshot;
         private readonly Dictionary<GameObject, TowerBase> _activeTowers = new Dictionary<GameObject, TowerBase>();
@@ -83,6 +85,10 @@ namespace Assets.Scripts
             foreach (var item in ItemPool)
             {
                 ItemsByName.Add(item.Name, item);
+            }
+            foreach (var icon in Icons)
+            {
+                IconsByName.Add(icon.name, icon);
             }
 
             UpdateGold(0);

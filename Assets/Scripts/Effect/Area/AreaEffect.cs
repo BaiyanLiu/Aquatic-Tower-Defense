@@ -74,8 +74,15 @@ namespace Assets.Scripts.Effect.Area
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Add(FormatDisplayText("Range", Range, false));
+            amountDisplayText.Add(FormatDisplayText(Range, false));
             return amountDisplayText;
+        }
+
+        public override List<Sprite> GetAmountIcon()
+        {
+            var amountIcon = base.GetAmountIcon();
+            amountIcon.Add(GameState.Instance.IconsByName["Icon_Signal_Stream"]);
+            return amountIcon;
         }
 
         public override object Clone()

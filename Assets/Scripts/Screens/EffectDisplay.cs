@@ -1,5 +1,6 @@
 using System.Linq;
 using Assets.Scripts.Effect;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,19 +13,30 @@ namespace Assets.Scripts.Screens
         public Text FrequencyText;
         public Text[] AmountTexts;
 
+        [UsedImplicitly]
+        private void Start()
+        {
+            var parent = transform.parent;
+            var canvas = parent.GetComponentInParent<Canvas>();
+            foreach (var spriteRenderer in parent.GetComponentsInChildren<SpriteRenderer>())
+            {
+                spriteRenderer.sortingOrder = canvas.sortingOrder;
+            }
+        }
+
         public float UpdateEffect(EffectBase effect)
         {
             NameText.text = effect.Name;
             NameText.color = effect.StatusColor;
-            var height = NameText.rectTransform.rect.height;
+            var position = new Vector2(0f, NameText.rectTransform.rect.height);
 
-            height = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, 0f, height, effect.FormatDisplayText("Duration", effect.Duration, false));
-            height = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, 0f, height, effect.FormatDisplayText("Frequency", effect.Frequency, false));
-
+            position = ScreenUtils.UpdateText(DurationText, effect.Duration.Value > 0f, position, effect.FormatDisplayText("Duration", effect.Duration, false));
+            position = ScreenUtils.UpdateText(FrequencyText, effect.Frequency.Value > 0f, position, effect.FormatDisplayText("Frequency", effect.Frequency, false));
+            
             using var amountDisplayText = effect.GetAmountDisplayText().GetEnumerator();
-            height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 0f, currentHeight, amountDisplayText.Current));
+            position = AmountTexts.Aggregate(position, (currentPosition, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), currentPosition, amountDisplayText.Current));
 
-            return height;
+            return ScreenUtils.NextPosition(AmountTexts.Last(), position).y;
         }
     }
 }

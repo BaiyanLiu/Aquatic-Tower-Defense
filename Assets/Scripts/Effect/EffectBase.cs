@@ -85,7 +85,7 @@ namespace Assets.Scripts.Effect
         {
             var sign = attribute.Gain > 0f ? "+" : "";
             var unit = includeUnit ? AmountUnit : "";
-            return $"{attributeName}: {attribute.Value}{unit}" + (IncludeGain ? $" ({sign}{attribute.Gain}{unit})" : "");
+            return $"{attribute.Value}{unit}" + (IncludeGain ? $" ({sign}{attribute.Gain}{unit})" : "");
         }
 
         public virtual object Clone()

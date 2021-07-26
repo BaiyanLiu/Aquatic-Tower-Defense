@@ -19,26 +19,24 @@ namespace Assets.Scripts.Screens
             return y;
         }
 
-        internal static Vector2 UpdateText(Text text, bool isEnabled, Vector2 position, string textValue)
+        internal static Vector2 UpdateText(IconText text, bool isEnabled, Vector2 position, string textValue)
         {
-            var parent = text.transform.parent;
-            parent.gameObject.SetActive(isEnabled);
+            text.gameObject.SetActive(isEnabled);
             if (isEnabled)
             {
-                parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(position.x, -(position.y + Margin));
-                text.text = textValue;
-                return NextPosition(text, position);
+                var transform = text.GetComponent<RectTransform>();
+                transform.anchoredPosition = new Vector2(position.x, -(position.y + Margin));
+                text.Text.text = textValue;
+                return NextPosition(transform, position);
             }
             return position;
         }
 
-        internal static Vector2 NextPosition(Text text, Vector2 position)
+        internal static Vector2 NextPosition(RectTransform transform, Vector2 position)
         {
-            var parent = text.transform.parent;
-            var maxWidth = parent.parent.GetComponent<RectTransform>().rect.width;
-            var parentRect = parent.GetComponent<RectTransform>().rect;
-            var nextColumn = NextColumn(parentRect, position);
-            return nextColumn.x >= maxWidth ? NextRow(parentRect, position) : nextColumn;
+            var maxWidth = transform.parent.GetComponent<RectTransform>().rect.width;
+            var nextColumn = NextColumn(transform.rect, position);
+            return nextColumn.x >= maxWidth ? NextRow(transform.rect, position) : nextColumn;
         }
 
         private static Vector2 NextColumn(Rect rect, Vector2 position)

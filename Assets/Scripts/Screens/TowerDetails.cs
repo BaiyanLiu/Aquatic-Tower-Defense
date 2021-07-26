@@ -10,14 +10,14 @@ namespace Assets.Scripts.Screens
 {
     public sealed class TowerDetails : DetailsScreen<TowerBase>
     {
-        public Text LevelText;
-        public Text DamageText;
-        public Text RangeText;
-        public Text AttackSpeedText;
-        public Text ProjectileSpeedText;
-        public Text DamageDoneText;
-        public Text KillsText;
-        public Text DamageTypeText;
+        public IconText Level;
+        public IconText Damage;
+        public IconText Range;
+        public IconText AttackSpeed;
+        public IconText ProjectileSpeed;
+        public IconText DamageDone;
+        public IconText Kills;
+        public IconText DamageType;
 
         public Upgrades Upgrades;
         public Inventory Inventory;
@@ -39,14 +39,14 @@ namespace Assets.Scripts.Screens
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
-            LevelText.text = $"{Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
-            DamageText.text = $"{Math.Round(Base.Damage.Value, 2)} (+{Base.Damage.Gain})";
-            RangeText.text = $"{Math.Round(Base.Range.Value, 2)} (+{Base.Range.Gain})";
-            AttackSpeedText.text = $"{Math.Round(Base.AttackSpeed.Value, 2)} ({Base.AttackSpeed.Gain})";
-            ProjectileSpeedText.text = $"{Math.Round(Base.ProjectileSpeed.Value, 2)} (+{Base.ProjectileSpeed.Gain})";
-            DamageDoneText.text = Math.Round(Base.DamageDone).ToString(CultureInfo.InvariantCulture);
-            KillsText.text = Base.Kills.ToString();
-            DamageTypeText.text = Base.DamageType.ToString();
+            Level.Text.text = $"{Base.Level} ({Base.Experience}/{Base.ExperienceRequired})";
+            Damage.Text.text = $"{Math.Round(Base.Damage.Value, 2)} (+{Base.Damage.Gain})";
+            Range.Text.text = $"{Math.Round(Base.Range.Value, 2)} (+{Base.Range.Gain})";
+            AttackSpeed.Text.text = $"{Math.Round(Base.AttackSpeed.Value, 2)} ({Base.AttackSpeed.Gain})";
+            ProjectileSpeed.Text.text = $"{Math.Round(Base.ProjectileSpeed.Value, 2)} (+{Base.ProjectileSpeed.Gain})";
+            DamageDone.Text.text = Math.Round(Base.DamageDone).ToString(CultureInfo.InvariantCulture);
+            Kills.Text.text = Base.Kills.ToString();
+            DamageType.Text.text = Base.DamageType.ToString();
 
             if (!GameState.Instance.IsBuilding)
             {

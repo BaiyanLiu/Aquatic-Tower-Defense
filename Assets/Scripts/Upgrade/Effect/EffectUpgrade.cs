@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using UnityEngine;
 
@@ -37,6 +38,11 @@ namespace Assets.Scripts.Upgrade.Effect
             Effect.Duration = new AttributeValue();
             Effect.Frequency = new AttributeValue();
             Effect.Amount = new AttributeValue();
+        }
+
+        public override List<Sprite> GetAmountIcon()
+        {
+            return Effect.GetAmountIcon();
         }
     }
 }

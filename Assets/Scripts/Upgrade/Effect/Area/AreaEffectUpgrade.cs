@@ -30,7 +30,7 @@ namespace Assets.Scripts.Upgrade.Effect.Area
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Add(FormatDisplayText("Range", Range, false));
+            amountDisplayText.Add(FormatDisplayText(Range, false));
             return amountDisplayText;
         }
     }

@@ -6,8 +6,6 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
     [UsedImplicitly]
     public sealed class ExistingSplashUpgrade : ExistingEffectUpgrade<SplashEffect>
     {
-        protected override string AmountName => "Range";
-
         protected override void OnLevelUp()
         {
             var delta = GetDelta(Amount);

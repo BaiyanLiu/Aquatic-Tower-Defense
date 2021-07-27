@@ -8,7 +8,7 @@ namespace Assets.Scripts.Effect.Innate.Attribute
     public sealed class AttackSpeedEffect : AttributeEffect
     {
         public override string Name => "A. Speed Increase";
-        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Stopwatch"];
+        protected override Sprite AmountIcon => Icons.AttackSpeed;
 
         protected override AttributeValue GetAttribute(TowerBase tower)
         {

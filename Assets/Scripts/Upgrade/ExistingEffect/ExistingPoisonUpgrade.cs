@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Assets.Scripts.Upgrade.ExistingEffect
 {
@@ -10,8 +11,6 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
         public float[] Duration;
         public float[] Frequency;
         
-        protected override string AmountName => "Damage";
-
         protected override void OnLevelUp()
         {
             var delta = GetDelta(Amount);
@@ -30,9 +29,17 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Insert(0, FormatDisplayText("Duration", Duration, false));
-            amountDisplayText.Insert(1, FormatDisplayText("Frequency", Frequency, false));
+            amountDisplayText.Insert(0, FormatDisplayText(Duration, false));
+            amountDisplayText.Insert(1, FormatDisplayText(Frequency, false));
             return amountDisplayText;
+        }
+
+        public override List<Sprite> GetAmountIcon()
+        {
+            var amountIcon = base.GetAmountIcon();
+            amountIcon.Insert(0, Icons.Duration);
+            amountIcon.Insert(1, Icons.Frequency);
+            return amountIcon;
         }
     }
 }

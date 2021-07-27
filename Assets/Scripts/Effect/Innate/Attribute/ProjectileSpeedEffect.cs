@@ -8,7 +8,7 @@ namespace Assets.Scripts.Effect.Innate.Attribute
     public sealed class ProjectileSpeedEffect : AttributeEffect
     {
         public override string Name => "P. Speed Increase";
-        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Wind"];
+        protected override Sprite AmountIcon => Icons.ProjectileSpeed;
 
         protected override AttributeValue GetAttribute(TowerBase tower)
         {

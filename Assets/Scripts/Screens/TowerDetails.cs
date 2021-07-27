@@ -50,19 +50,19 @@ namespace Assets.Scripts.Screens
 
             if (!GameState.Instance.IsBuilding)
             {
-                _upgradesTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
-                height += _inventoryTransform.rect.height + 5f;
+                _upgradesTransform.anchoredPosition = new Vector2(ScreenUtils.Margin, -(InitialHeight + height));
+                height += _inventoryTransform.rect.height + ScreenUtils.Margin;
                 Upgrades.gameObject.SetActive(true);
 
-                _inventoryTransform.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
-                height += _inventoryTransform.rect.height + 5f;
+                _inventoryTransform.anchoredPosition = new Vector2(ScreenUtils.Margin, -(InitialHeight + height));
+                height += _inventoryTransform.rect.height + ScreenUtils.Margin;
                 Inventory.gameObject.SetActive(true);
 
                 if (!GameState.Instance.IsWaveActive)
                 {
                     SellButtonText.text = "Sell: " + Base.SellCost.Value;
-                    SellButton.anchoredPosition = new Vector2(5f, -(InitialHeight + height));
-                    height += SellButton.rect.height + 5f;
+                    SellButton.anchoredPosition = new Vector2(ScreenUtils.Margin, -(InitialHeight + height));
+                    height += SellButton.rect.height + ScreenUtils.Margin;
                     SellButton.gameObject.SetActive(true);
                 }
                 else

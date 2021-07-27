@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Assets.Scripts.Upgrade.ExistingEffect
 {
@@ -23,8 +24,15 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Insert(0, FormatDisplayText("Duration", Duration, false));
+            amountDisplayText.Insert(0, FormatDisplayText(Duration, false));
             return amountDisplayText;
+        }
+
+        public override List<Sprite> GetAmountIcon()
+        {
+            var amountIcon = base.GetAmountIcon();
+            amountIcon.Insert(0, Icons.Duration);
+            return amountIcon;
         }
     }
 }

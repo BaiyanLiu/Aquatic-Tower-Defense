@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Effect;
 using UnityEngine;
 
@@ -22,6 +23,11 @@ namespace Assets.Scripts.Upgrade.ExistingEffect
                 delta -= attribute[Level - 1];
             }
             return delta;
+        }
+
+        public override List<Sprite> GetAmountIcon()
+        {
+            return Effect.GetAmountIcon();
         }
     }
 }

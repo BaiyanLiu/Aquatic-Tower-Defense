@@ -60,7 +60,7 @@ namespace Assets.Scripts.Screens
                 if (i < TargetEffects.Length)
                 {
                     _effectTransforms[i].anchoredPosition = new Vector2(0f, -height);
-                    height += _effectDisplays[i].UpdateEffect(TargetEffects[i]) + 5f;
+                    height += _effectDisplays[i].UpdateEffect(TargetEffects[i]) + ScreenUtils.Margin;
                     _effects[i].SetActive(true);
                 }
                 else

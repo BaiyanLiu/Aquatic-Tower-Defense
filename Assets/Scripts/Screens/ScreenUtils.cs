@@ -1,31 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Screens
 {
     internal static class ScreenUtils
     {
-        private const float Margin = 5f;
+        public const float Margin = 5f;
 
-        internal static float UpdateText(Text text, bool isEnabled, float x, float y, string textValue)
-        {
-            if (isEnabled)
-            {
-                text.rectTransform.anchoredPosition = new Vector2(x, -(y + Margin));
-                text.text = textValue;
-                return y + text.rectTransform.rect.height + Margin;
-            }
-            text.text = null;
-            return y;
-        }
-
-        internal static Vector2 UpdateText(IconText text, bool isEnabled, Vector2 position, string textValue)
+        internal static Vector2 UpdateText(IconText text, bool isEnabled, Vector2 position, string textValue, float xOffset = 0f)
         {
             text.gameObject.SetActive(isEnabled);
             if (isEnabled)
             {
                 var transform = text.GetComponent<RectTransform>();
-                transform.anchoredPosition = new Vector2(position.x, -(position.y + Margin));
+                transform.anchoredPosition = new Vector2(position.x + xOffset, -(position.y + Margin));
                 text.Text.text = textValue;
                 return NextPosition(transform, position);
             }
@@ -36,7 +23,7 @@ namespace Assets.Scripts.Screens
         {
             var maxWidth = transform.parent.GetComponent<RectTransform>().rect.width;
             var nextColumn = NextColumn(transform.rect, position);
-            return nextColumn.x >= maxWidth ? NextRow(transform.rect, position) : nextColumn;
+            return nextColumn.x + transform.rect.width > maxWidth ? NextRow(transform.rect, position) : nextColumn;
         }
 
         private static Vector2 NextColumn(Rect rect, Vector2 position)

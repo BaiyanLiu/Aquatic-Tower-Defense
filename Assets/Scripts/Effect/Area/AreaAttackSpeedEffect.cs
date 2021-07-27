@@ -6,7 +6,7 @@ namespace Assets.Scripts.Effect.Area
     {
         public override string Name => "Motivation";
         protected override string AmountUnit => "%";
-        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Stopwatch"];
+        protected override Sprite AmountIcon => Icons.AttackSpeed;
         public override Color StatusColor => Colors.Instance.Orange;
     }
 }

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Effect.Innate.Attribute
     public sealed class RangeEffect : AttributeEffect
     {
         public override string Name => "Range Increase";
-        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Radar"];
+        protected override Sprite AmountIcon => Icons.Range;
 
         protected override AttributeValue GetAttribute(TowerBase tower)
         {

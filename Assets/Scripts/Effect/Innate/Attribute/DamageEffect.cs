@@ -8,7 +8,7 @@ namespace Assets.Scripts.Effect.Innate.Attribute
     public sealed class DamageEffect : AttributeEffect
     {
         public override string Name => "Damage Increase";
-        protected override Sprite AmountIcon => GameState.Instance.IconsByName["Icon_Swords"];
+        protected override Sprite AmountIcon => Icons.Damage;
 
         protected override AttributeValue GetAttribute(TowerBase tower)
         {

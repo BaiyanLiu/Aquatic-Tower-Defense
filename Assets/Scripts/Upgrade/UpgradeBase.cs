@@ -17,7 +17,6 @@ namespace Assets.Scripts.Upgrade
         public float[] Amount;
         public int[] Cost;
 
-        protected virtual string AmountName => "Amount";
         protected virtual string AmountUnit => "";
         public virtual Color NameColor => Color.white;
         public TowerBase Tower { protected get; set; }
@@ -68,7 +67,7 @@ namespace Assets.Scripts.Upgrade
 
         public virtual void OnApply() {}
 
-        public string FormatDisplayText<T>(string amountName, T[] amount, bool includeUnit = true)
+        public string FormatDisplayText<T>(T[] amount, bool includeUnit = true)
         {
             var amountSb = new StringBuilder();
             for (var i = 0; i < amount.Length; i++)
@@ -94,12 +93,14 @@ namespace Assets.Scripts.Upgrade
                 var unit = includeUnit ? AmountUnit : "";
                 amountSb.Append($"<color={color}>{amount[i]}{unit}</color>");
             }
-            return $"{amountName}: {amountSb}";
+            return amountSb.ToString();
         }
 
         public virtual List<string> GetAmountDisplayText()
         {
-            return new List<string> {FormatDisplayText(AmountName, Amount)};
+            return new List<string> {FormatDisplayText(Amount)};
         }
+
+        public abstract List<Sprite> GetAmountIcon();
     }
 }

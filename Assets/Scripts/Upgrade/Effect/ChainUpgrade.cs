@@ -9,8 +9,6 @@ namespace Assets.Scripts.Upgrade.Effect
     {
         public float[] Range;
 
-        protected override string AmountName => "Damage";
-
         protected override void OnLevelUp()
         {
             base.OnLevelUp();
@@ -26,7 +24,7 @@ namespace Assets.Scripts.Upgrade.Effect
         public override List<string> GetAmountDisplayText()
         {
             var amountDisplayText = base.GetAmountDisplayText();
-            amountDisplayText.Add(FormatDisplayText("Range", Range, false));
+            amountDisplayText.Add(FormatDisplayText(Range, false));
             return amountDisplayText;
         }
     }

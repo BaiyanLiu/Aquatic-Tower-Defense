@@ -1,25 +1,32 @@
 using System.Linq;
 using Assets.Scripts.Upgrade;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace Assets.Scripts.Screens
 {
     public sealed class UpgradeDetails : DetailsScreen<UpgradeBase>
     {
-        public Text CostText;
-        public Text[] AmountTexts;
+        public IconText Cost;
+        public IconText[] Amounts;
 
         protected override float OnUpdate(float height)
         {
             NameText.text = Base.Name;
             NameText.color = Base.NameColor;
-            height += NameText.rectTransform.rect.height + 5f;
-            height = ScreenUtils.UpdateText(CostText, true, 5f, height, Base.FormatDisplayText("Cost", Base.Cost, false));
+            var position = new Vector2(0f, height + NameText.rectTransform.rect.height + ScreenUtils.Margin);
+
+            position = ScreenUtils.UpdateText(Cost, true, position, Base.FormatDisplayText(Base.Cost, false), ScreenUtils.Margin);
 
             using var amountDisplayText = Base.GetAmountDisplayText().GetEnumerator();
-            height = AmountTexts.Aggregate(height, (currentHeight, amountText) => ScreenUtils.UpdateText(amountText, amountDisplayText.MoveNext(), 5f, currentHeight, amountDisplayText.Current));
+            position = Amounts.Aggregate(position, (currentPosition, amount) => ScreenUtils.UpdateText(amount, amountDisplayText.MoveNext(), currentPosition, amountDisplayText.Current, ScreenUtils.Margin));
 
-            return height + 5f;
+            var amountIcon = Base.GetAmountIcon();
+            for (var i = 0; i < amountIcon.Count; i++)
+            {
+                Amounts[i].Icon.sprite = amountIcon[i];
+            }
+
+            return position.y + ScreenUtils.Margin;
         }
     }
 }

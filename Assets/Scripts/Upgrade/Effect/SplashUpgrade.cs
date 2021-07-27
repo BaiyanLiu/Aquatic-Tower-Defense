@@ -6,6 +6,5 @@ namespace Assets.Scripts.Upgrade.Effect
     [UsedImplicitly]
     public sealed class SplashUpgrade : EffectUpgrade<SplashEffect>
     {
-        protected override string AmountName => "Range";
     }
 }

@@ -39,7 +39,7 @@ namespace Assets.Scripts.Effect.Innate
         public override List<Sprite> GetAmountIcon()
         {
             var amountIcon = base.GetAmountIcon();
-            amountIcon.Add(GameState.Instance.IconsByName["Icon_Radar"]);
+            amountIcon.Add(Icons.Range);
             return amountIcon;
         }
 

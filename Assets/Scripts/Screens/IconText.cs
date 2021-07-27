@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class IconText : MonoBehaviour
+namespace Assets.Scripts.Screens
 {
-    public SpriteRenderer Icon;
-    public Text Text;
+    public sealed class IconText : MonoBehaviour
+    {
+        public SpriteRenderer Icon;
+        public Text Text;
+    }
 }

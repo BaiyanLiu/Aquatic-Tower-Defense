@@ -86,12 +86,17 @@ namespace Assets.Scripts.Upgrade
                     color = FutureColor;
                 }
 
+                var isBold = i == Level;
+                var boldOpeningTag = isBold ? "<b>" : "";
+                var boldClosingTag = isBold ? "</b>" : "";
+
+                var unit = includeUnit ? AmountUnit : "";
+
                 if (amountSb.Length > 0)
                 {
                     amountSb.Append(" / ");
                 }
-                var unit = includeUnit ? AmountUnit : "";
-                amountSb.Append($"<color={color}>{amount[i]}{unit}</color>");
+                amountSb.Append($"<color={color}>{boldOpeningTag}{amount[i]}{unit}{boldClosingTag}</color>");
             }
             return amountSb.ToString();
         }

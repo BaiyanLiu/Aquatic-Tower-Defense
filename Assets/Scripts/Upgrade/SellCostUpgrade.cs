@@ -16,7 +16,7 @@ namespace Assets.Scripts.Upgrade
 
         public override List<Sprite> GetAmountIcon()
         {
-            return new List<Sprite> { GameState.Instance.IconsByName["Icon_Tags"] };
+            return new List<Sprite> {GameState.Instance.IconsByName["Icon_Tags"]};
         }
     }
 }
